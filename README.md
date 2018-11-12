@@ -50,8 +50,10 @@ cat download_list | xargs -I '{}' aws s3 sync --no-sign-request s3://openneuro/d
 Finally open up the jupyter notebook to explore the tutorials:
 ```
 cd scwg2018_python_neuroimaging
-#If using anaconda
+
+#Include below line if using anaconda environment
 source activate $(pwd)/scwg2018_nilearn
+
 jupyter notebook
 ```
 
