@@ -17,7 +17,7 @@ git clone https://github.com/jerdra/scwg2018_python_neuroimaging.git
 We use python version 3.6.0, but any newer version should also work well! Any python version below 3 has not been tested. There are many methods to setting up a python environment but we'd recommend using some sort of virtual environment as to not break your system python install. Two methods (of many) are listed below: 
 
 ##### Method 1: Setting up conda environment (easiest)
-For no nonsense easy set-up we recommend [Anaconda](https://www.anaconda.com/download/) to manage python packages for scientific computing. Once installed, setting up the python environment can be done quite easily: 
+For easy set-up we recommend [Anaconda](https://www.anaconda.com/download/) to manage python packages for scientific computing. Once installed, setting up the python environment can be done quite easily: 
 ```
 cd scwg2018_python_neuroimaging
 conda create -p ./scwg2018_nilearn
@@ -46,13 +46,13 @@ Gorgolewski KJ, Durnez J and Poldrack RA. Preprocessed Consortium for Neuropsych
 
 To acquire the data we use [Amazon AWS CLI](https://aws.amazon.com/cli/). You can set up and configure the **awscli** python tool using instructions from here: https://aws.amazon.com/. 
 
-To download (**be aware of large download size!**) the subset of the data used for the tutorial:
+To download (**warning: large download size!**) the subset of the data used for the tutorial:
 
 ```
 cd scwg2018_python_neuroimaging
 cat download_list | xargs -I '{}' aws s3 sync --no-sign-request s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/derivatives/fmriprep/{} ./data
 ```
-Finally open up the jupyter notebook to explore the tutorial:
+Finally open up the jupyter notebook to explore the tutorials:
 ```
 cd scwg2018_python_neuroimaging
 #If using anaconda
