@@ -37,12 +37,7 @@ pip install --requirement requirements.txt
 ```
 
 #### Acquiring the data
-This tutorial uses data derived from the **UCLA Consortium for Neuropsychiatric Phenomics LA5c Study**. 
-
-**Reference** 
-
-Gorgolewski KJ, Durnez J and Poldrack RA. Preprocessed Consortium for Neuropsychiatric Phenomics dataset [version 2; referees: 2 approved]. F1000Research 2017, 6:1262
-(https://doi.org/10.12688/f1000research.11964.2)
+This tutorial uses data derived from the **UCLA Consortium for Neuropsychiatric Phenomics LA5c Study [1]**. 
 
 To acquire the data we use [Amazon AWS CLI](https://aws.amazon.com/cli/). You can set up and configure the **awscli** python tool using instructions from here: https://aws.amazon.com/. 
 
@@ -59,6 +54,11 @@ cd scwg2018_python_neuroimaging
 source activate $(pwd)/scwg2018_nilearn
 jupyter notebook
 ```
+
+**Reference** 
+
+[1] Gorgolewski KJ, Durnez J and Poldrack RA. Preprocessed Consortium for Neuropsychiatric Phenomics dataset [version 2; referees: 2 approved]. F1000Research 2017, 6:1262
+(https://doi.org/10.12688/f1000research.11964.2)
 
 
 
