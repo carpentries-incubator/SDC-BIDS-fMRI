@@ -22,7 +22,7 @@ For easy set-up we recommend [Anaconda](https://www.anaconda.com/download/) to m
 cd scwg2018_python_neuroimaging
 conda create -p ./scwg2018_nilearn
 source activate $(pwd)/scwg2018_nilearn
-conda install numpy scipy scikit-learn matplotlib jupyter ipykernel nb_conda 
+conda install numpy pandas scipy scikit-learn matplotlib jupyter ipykernel nb_conda 
 conda install -c conda-forge awscli
 pip install nilearn nibabel
 
