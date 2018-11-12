@@ -39,7 +39,7 @@ pip install --requirement requirements.txt
 ## Acquiring the data
 This tutorial uses data derived from the **UCLA Consortium for Neuropsychiatric Phenomics LA5c Study [1]**. 
 
-To acquire the data we use [Amazon AWS CLI](https://aws.amazon.com/cli/). You can set up and configure the **awscli** python tool using instructions from here: https://aws.amazon.com/. 
+To acquire the data we use [Amazon AWS S3](https://aws.amazon.com/). You can set up an account using the link. Then you'll need to set up the **awscli** python tool using your AWS account credentials (more info: [Amazon AWS CLI](https://aws.amazon.com/cli/))
 
 To download (**warning: large download size!**) the subset of the data used for the tutorial:
 
