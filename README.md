@@ -28,7 +28,7 @@ pip install nilearn nibabel
 
 ```
 ##### Method 2: Using pyenv (my favourite)
-An alternative method uses [pyenv](https://github.com/pyenv/pyenv) with [pyenv virtualenv](https://github.com/pyenv/pyenv-virtualenv). This is prefereable because it's a seamless way to integrate multiple python versions and virtual environments into your system while maintaining use of pip (instead of conda): 
+An alternative method uses [pyenv](https://github.com/pyenv/pyenv) with [pyenv virtualenv](https://github.com/pyenv/pyenv-virtualenv). This is a favourite because it seamlessly integrates multiple python versions and environments into your system while maintaining use of pip (instead of conda). 
 ```
 cd scwg2018_python_neuroimaging
 pyenv virtualenv 3.6.0 scwg2018_nilearn 
