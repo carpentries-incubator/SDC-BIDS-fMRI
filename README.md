@@ -8,7 +8,12 @@ Scientific Computing Working Group Workshop on performing analysis of neuroimagi
 ## Setting up the tutorial environment
 
 ### Getting workshop material
-Go to the directory of your choice and:
+To get the workshop material on this page you'll need a (very) useful piece of software called <code>git</code>. The process of installing git depends heavily on whether you're using MacOS, Windows or Linux. Follow the instructions in the link below to set up <code>git</code> on your PC:
+
+[Installing Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+
+Once you've installed <code>git</code>, open up your terminal and do the following:
+
 ```
 git clone https://github.com/jerdra/scwg2018_python_neuroimaging.git
 ```
@@ -18,6 +23,27 @@ We use python version 3.6.0, but any newer version should also work (Python 2 ve
 
 #### Method 1: Setting up conda environment (easiest) [Windows, Linux, MacOS]
 For easy set-up we recommend [Anaconda](https://www.anaconda.com/download/) to manage python packages for scientific computing. Once installed, setting up the python environment can be done quite easily:
+
+##### Windows
+1. Install Anaconda 
+2. Open the Anaconda Navigator
+3. Click on Environments on the right pane
+4. Click create then type in 'scwg2018_python_neuroimaging' 
+5. In the scwg2018_python_neuroimaging entry click the play button then 'Open Terminal' 
+6. In terminal type: 
+```
+conda install numpy pandas scipy scikit-learn matplotlib jupyter ipykernel nb_conda
+conda install -c conda-forge awscli
+pip install nilearn nibabel
+```
+7. Close the terminal, click on the play button again and open Jupyter Notebook
+8. Navigate to scwg2018_python_neuroimaging folder you cloned on git. 
+9. Done!
+
+##### Linux and MacOS
+
+After installing Anaconda, open terminal and type: 
+
 ```
 cd scwg2018_python_neuroimaging
 conda create -p ./scwg2018_nilearn
