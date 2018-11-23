@@ -1,4 +1,6 @@
-data
-images
+data/ds000030/sub-*
+data/ds000030/derivatives
 scwg2018_nilearn
 *checkpoint.ipynb
+.python-version
+.DS_Store
