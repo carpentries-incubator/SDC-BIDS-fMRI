@@ -16,7 +16,7 @@ git clone https://github.com/jerdra/scwg2018_python_neuroimaging.git
 ### Setting up Python environment
 We use python version 3.6.0, but any newer version should also work (Python 2 versions haven't been tested). There are many methods to setting up a python environment but we'd recommend using some sort of virtual environment as to not break your system python install. Two methods (of many) are listed below:
 
-#### Method 1: Setting up conda environment (easiest)
+#### Method 1: Setting up conda environment (easiest) [Windows, Linux, MacOS]
 For easy set-up we recommend [Anaconda](https://www.anaconda.com/download/) to manage python packages for scientific computing. Once installed, setting up the python environment can be done quite easily:
 ```
 cd scwg2018_python_neuroimaging
@@ -27,7 +27,7 @@ conda install -c conda-forge awscli
 pip install nilearn nibabel
 
 ```
-#### Method 2: Using pyenv (my favourite)
+#### Method 2: Using pyenv (my favourite) [Linux, MacOS]
 An alternative method uses [pyenv](https://github.com/pyenv/pyenv) with [pyenv virtualenv](https://github.com/pyenv/pyenv-virtualenv). This is a favourite because it seamlessly integrates multiple python versions and environments into your system while maintaining use of pip (instead of conda).
 ```
 cd scwg2018_python_neuroimaging
