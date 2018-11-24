@@ -34,7 +34,7 @@ We use python version 3.6.0, but any newer version should also work (Python 2 ve
 For easy set-up we recommend [Anaconda](https://www.anaconda.com/download/) to manage python packages for scientific computing. Once installed, setting up the python environment can be done quite easily:
 
 ##### Windows
-1. Install Anaconda 
+1. Install Anaconda Python version 3.7
 2. Open the Anaconda Navigator
 3. Click on Environments on the left pane
 4. Click create then type in 'scwg2018_python_neuroimaging' 
