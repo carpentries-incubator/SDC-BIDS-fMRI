@@ -11,7 +11,7 @@ Scientific Computing Working Group Workshop on performing analysis of neuroimagi
 
 #### Method 1: Downloading directly from the repository 
 
-On the GitHub repo (this page), click the green button that says "Clone or download", then click download zip. 
+On the GitHub repo (this page), click the green button that says "Clone or download", then click **Download ZIP**. Once downloaded, extract the ZIP file.
 
 #### Method 2: Using Git
 
