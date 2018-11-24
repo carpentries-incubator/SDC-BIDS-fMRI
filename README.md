@@ -35,10 +35,10 @@ For easy set-up we recommend [Anaconda](https://www.anaconda.com/download/) to m
 
 ##### Windows
 1. Install Anaconda Python version 3.7
-2. Open the Anaconda Navigator
-3. Click on Environments on the left pane
-4. Click create then type in 'scwg2018_python_neuroimaging' 
-5. In the scwg2018_python_neuroimaging entry click the play button then 'Open Terminal' 
+2. Open **Anaconda Navigator**
+3. Click on **Environments** on the left pane
+4. Click **Create** then type in <code>scwg2018_python_neuroimaging</code>
+5. In the <code>scwg2018_python_neuroimaging</code> entry click the play button then click **Open Terminal** 
 6. In terminal type: 
 ```
 conda install numpy pandas scipy scikit-learn matplotlib jupyter ipykernel nb_conda
