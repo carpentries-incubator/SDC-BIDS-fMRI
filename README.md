@@ -45,8 +45,8 @@ conda install -y numpy pandas scipy scikit-learn matplotlib jupyter ipykernel nb
 conda install -y -c conda-forge awscli
 pip install nilearn nibabel
 ```
-7. Close the terminal, click on the play button again and open Jupyter Notebook
-8. Navigate to scwg2018_python_neuroimaging folder you cloned on git. 
+7. Close the terminal, click on the play button again and open **Jupyter Notebook**
+8. Navigate to <code>scwg2018_python_neuroimaging</code> folder you downloaded earlier.
 9. Done!
 
 ##### Linux and MacOS
