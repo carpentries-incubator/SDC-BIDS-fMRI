@@ -41,8 +41,8 @@ For easy set-up we recommend [Anaconda](https://www.anaconda.com/download/) to m
 5. In the <code>scwg2018_python_neuroimaging</code> entry click the play button then click **Open Terminal** 
 6. In terminal type: 
 ```
-conda install numpy pandas scipy scikit-learn matplotlib jupyter ipykernel nb_conda
-conda install -c conda-forge awscli
+conda install -y numpy pandas scipy scikit-learn matplotlib jupyter ipykernel nb_conda
+conda install -y -c conda-forge awscli
 pip install nilearn nibabel
 ```
 7. Close the terminal, click on the play button again and open Jupyter Notebook
