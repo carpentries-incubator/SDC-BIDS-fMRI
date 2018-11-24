@@ -36,7 +36,7 @@ For easy set-up we recommend [Anaconda](https://www.anaconda.com/download/) to m
 ##### Windows
 1. Install Anaconda 
 2. Open the Anaconda Navigator
-3. Click on Environments on the right pane
+3. Click on Environments on the left pane
 4. Click create then type in 'scwg2018_python_neuroimaging' 
 5. In the scwg2018_python_neuroimaging entry click the play button then 'Open Terminal' 
 6. In terminal type: 
