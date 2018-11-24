@@ -8,7 +8,14 @@ Scientific Computing Working Group Workshop on performing analysis of neuroimagi
 ## Setting up the tutorial environment
 
 ### Getting workshop material
-To get the workshop material on this page you'll need a (very) useful piece of software called <code>git</code>. The process of installing git depends heavily on whether you're using MacOS, Windows or Linux. Follow the instructions in the link below to set up <code>git</code> on your PC:
+
+#### Method 1: Downloading directly from the repository 
+
+On the GitHub repo (this page), click the green button that says "Clone or download", then click download zip. 
+
+#### Method 2: Using Git
+
+Using this method requires a (very) useful piece of software called <code>git</code>. The process of installing git depends heavily on whether you're using MacOS, Windows or Linux. Follow the instructions in the link below to set up <code>git</code> on your PC:
 
 [Installing Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
@@ -17,6 +24,8 @@ Once you've installed <code>git</code>, open up your terminal and do the followi
 ```
 git clone https://github.com/jerdra/scwg2018_python_neuroimaging.git
 ```
+
+This will download the repository directly into your current directory. 
 
 ### Setting up Python environment
 We use python version 3.6.0, but any newer version should also work (Python 2 versions haven't been tested). There are many methods to setting up a python environment but we'd recommend using some sort of virtual environment as to not break your system python install. Two methods (of many) are listed below:
