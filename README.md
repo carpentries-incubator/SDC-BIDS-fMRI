@@ -1,5 +1,4 @@
-# scwg2018_python_neuroimaging
-Scientific Computing Working Group Workshop on performing analysis of neuroimaging data in Python
+# Scientific Computing Working Group Workshop on performing analysis of neuroimaging data in Python
 
 ### Developed by
 - Jerry Jeyachandra (https://github.com/jerdra)
