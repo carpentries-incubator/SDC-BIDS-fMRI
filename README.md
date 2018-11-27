@@ -92,13 +92,13 @@ cd scwg2018_python_neuroimaging
 cat download_list | \
   xargs -I '{}' aws s3 sync --no-sign-request \
   s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/{}/anat \
-  ../data/ds000030/{}/anat
+  ./data/ds000030/{}/anat
 
 # download resting state fMRI scans
 cat download_list | \
   xargs -I '{}' aws s3 sync --no-sign-request \
   s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/{}/func \
-  ../data/ds000030/{}/func \
+  ./data/ds000030/{}/func \
   --exclude '*' \
   --include '*task-rest_bold*'
 
@@ -106,13 +106,13 @@ cat download_list | \
 cat download_list | \
   xargs -I '{}' aws s3 sync --no-sign-request \
   s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/derivatives/fmriprep/{}/anat \
-  ../data/ds000030/derivatives/fmriprep/{}/anat
+  ./data/ds000030/derivatives/fmriprep/{}/anat
 
 # download fmriprep preprocessed func data
 cat download_list | \
   xargs -I '{}' aws s3 sync --no-sign-request \
   s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/derivatives/fmriprep/{}/func \
-  ../data/ds000030/derivatives/fmriprep/{}/func \
+  ./data/ds000030/derivatives/fmriprep/{}/func \
   --exclude '*' \
   --include '*task-rest_bold*'
 ```
