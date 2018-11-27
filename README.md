@@ -1,6 +1,6 @@
 # Scientific Computing Working Group Workshop on performing analysis of neuroimaging data in Python
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jerdra/scwg2018_python_neuroimaging/master)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jerdra/scwg2018_python_neuroimaging.git/master)
 
 ### Developed by
 - Jerry Jeyachandra (https://github.com/jerdra)
