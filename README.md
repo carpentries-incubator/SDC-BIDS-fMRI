@@ -4,8 +4,6 @@
 - Jerry Jeyachandra (https://github.com/jerdra)
 - Michael Joseph (https://github.com/josephmje)
 
-[Slides](https://docs.google.com/presentation/d/1er6dQcERL-Yeb5-7A29tJnmqgHNaLpTLXM3e-SmpjDg/edit?usp=sharing)
-
 ## Setting up the tutorial environment
 
 ### Getting workshop material
