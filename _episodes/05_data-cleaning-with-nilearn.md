@@ -216,8 +216,9 @@ First we'll describe a couple of this function's important arguments. Any argume
 - <code>mask_img</code> Apply a mask when performing confound regression, will speed up regression
 - <code>detrend</code>: Remove drift from the data (useful for removing scanner instability artifacts) [default=True]
 - <code>standardize</code>: Set mean to 0, and variance to 1 --> sets up data for statistical analysis [default=True]
-:wa
+
 --- 
+
 **What we're using**: 
 
 The Repetition Time of our data is 2 seconds, in addition since we're replicating (mostly) Yeo 2011's analysis: 
@@ -233,17 +234,12 @@ In addition we'll use a mask of our MNI transformed functional image (<code> mas
 high_pass= 0.009
 low_pass = 0.08
 t_r = 2
-~~~
 
-
-~~~
 #Clean!
 clean_img = img.clean_img(func_img,confounds=confounds_matrix,detrend=True,standardize=True,
                          low_pass=low_pass,high_pass=high_pass,t_r=t_r, mask_img=mask) 
-~~~
 
-
-~~~
 #Let's visualize our result! Doesn't really tell us much, but that's the data we're using for analysis!
 plot.plot_epi(clean_img.slicer[:,:,:,50])
 ~~~
+{: .python}
