@@ -243,3 +243,5 @@ clean_img = img.clean_img(func_img,confounds=confounds_matrix,detrend=True,stand
 plot.plot_epi(clean_img.slicer[:,:,:,50])
 ~~~
 {: .language-python}
+
+{% include links.md %}

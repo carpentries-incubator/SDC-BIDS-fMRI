@@ -142,7 +142,7 @@ region_labels.to_filename('../resources/rois/yeo_2011/Yeo_JNeurophysiol11_MNI152
 > > ~~~
 > > print('Size of functional file:', func_img.shape)
 > > print('Size of atlas file:', region_labels.shape)
-> > ~~~
+./_episodes/01-neuroimaging-fundamentals.md:86:> > ~~~
 > > {: .language-python}
 > > 
 > > Turns out that they aren't the same! We can match the file sizes simply using `img.resample_to_img`:
@@ -185,3 +185,5 @@ For the next section, we'll be performing an analysis using the Yeo parcellation
 > > ![image-title-here]({{ site.url }}/fig/roi_46.png){:class="img-responsive"}
 > {: .solution}
 {: .challenge}
+
+{% include links.md %}
