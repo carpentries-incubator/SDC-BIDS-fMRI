@@ -166,3 +166,5 @@ df.head()
 
 **OUTPUT:**
 <table border="1" class="dataframe">  <thead>    <tr style="text-align: right;">      <th></th>      <th>path</th>      <th>modality</th>      <th>subject</th>      <th>task</th>      <th>type</th>    </tr>  </thead>  <tbody>    <tr>      <th>0</th>      <td>/home/jerry/projects/scwg2018_python_neuroimag...</td>      <td>NaN</td>      <td>NaN</td>      <td>rest</td>      <td>bold</td>    </tr>    <tr>      <th>1</th>      <td>/home/jerry/projects/scwg2018_python_neuroimag...</td>      <td>NaN</td>      <td>NaN</td>      <td>NaN</td>      <td>participants</td>    </tr>    <tr>      <th>2</th>      <td>/home/jerry/projects/scwg2018_python_neuroimag...</td>      <td>NaN</td>      <td>NaN</td>      <td>NaN</td>      <td>NaN</td>    </tr>    <tr>      <th>3</th>      <td>/home/jerry/projects/scwg2018_python_neuroimag...</td>      <td>anat</td>      <td>10565</td>      <td>NaN</td>      <td>brainmask</td>    </tr>    <tr>      <th>4</th>      <td>/home/jerry/projects/scwg2018_python_neuroimag...</td>      <td>anat</td>      <td>10565</td>      <td>NaN</td>      <td>probtissue</td>    </tr>  </tbody></table>
+
+{% include links.md %}
