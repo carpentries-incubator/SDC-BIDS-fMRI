@@ -27,7 +27,7 @@ from nilearn import image as img
 from nilearn import plotting as plot
 %matplotlib inline #for inline visualization in jupyter notebook
 ~~~
-{: .python}
+{: .language-python}
 
 Notice that we imported two things:
 1. `image as img` - allows us to load NIFTI images using nibabel under the hood
@@ -40,14 +40,14 @@ fmriprep_dir='../data/ds000030/derivatives/fmriprep/{subject}/{mod}/'
 t1_dir = fmriprep_dir.format(subject='sub-10788', mod='anat') 
 func_dir = fmriprep_dir.format(subject='sub-10788', mod='func')
 ~~~
-{: .python}
+{: .language-python}
 
 We can view the files as follows:
 
 ~~~
 os.listdir(t1_dir
 ~~~
-{: .python}
+{: .language-python}
 
 ~~~
 ['sub-10788_T1w_midthickness.L.surf.gii',
@@ -81,14 +81,14 @@ In this section we're going to deal with the following files:
 T1 = os.path.join(t1_dir,'sub-10788_T1w_preproc.nii.gz')
 bm = os.path.join(t1_dir,'sub-10788_T1w_brainmask.nii.gz')
 ~~~
-{: .python}
+{: .language-python}
 
 We can view our data using Nilearn's `plotting` module as follows:
 
 ~~~
 plot.plot_anat(T1)
 ~~~
-{: .python}
+{: .language-python}
 
 ![image-title-here]({{ site.url }}/fig/t1_img.png){:class="img-responsive"}
 
@@ -107,7 +107,7 @@ In order to invert the image, we can simply flip the sign which will set the mos
 invert_img = img.math_img('-a', a=T1)
 plot.plot_anat(invert_img)
 ~~~
-{: .python}
+{: .language-python}
 
 ![image-title-here]({{ site.url }}/fig/invert_img.png){:class="img-responsive"}
 
@@ -128,7 +128,7 @@ We can take advantage of this property when masking our data using multiplicatio
 masked_t1 = img.math_img('a*b', a=T1, b=bm)
 plot.plot_anat(masked_T1)
 ~~~
-{: .python}
+{: .language-python}
 
 ![*image-title-here]({{ site.url }}/fig/masked_t1.png){:class="img-responsive"}
 
@@ -142,7 +142,7 @@ As you can see areas where the mask image had a value of 1 were retained, everyt
 > > inverted_mask_t1 = img.math_img('a*(1-b)', a=T1, b=bm)
 > > plot.plot_anat(inverted_mask_t1)
 > > ~~~
-> > {: .python}
+> > {: .language-python}
 > > ![*image-title-here]({{ site.url }}/fig/inverted_mask_t1.png){:class="img-responsive"}
 > {: .solution}
 {: .challenge}
@@ -176,7 +176,7 @@ For this section, we'll use two new files:
 mni_T1 = os.path.join(t1_dir,'sub-10788_T1w_space-MNI152NLin2009cAsym_preproc.nii.gz')
 mni_epi = os.path.join(func_dir,'sub-10788_task-rest_bold_space-MNI152NLin2009cAsym_preproc.nii.gz')
 ~~~
-{: .python}
+{: .language-python}
 
 Where:
 - `mni_T1` now is the standardized T1 image 
@@ -191,7 +191,7 @@ print("Data is type", type(mni_t1_img))
 print("T1 dimensions", mni_t1_img.shape)
 print("EPI dimensions", mni_epi_img.shape)
 ~~~
-{: .python}
+{: .language-python}
 
 
 ~~~
@@ -224,7 +224,7 @@ resamp_mni_T1 = img.resample_to_img(source_img=mni_t1_img, target_img=mni_epi_im
 print("Resampled T1 dimensions", resamp_mni_T1.shape)
 print("EPI dimensions", mni_epi_img.shape)
 ~~~
-{: .python}
+{: .language-python}
 
 ~~~
 Resampled T1 dimensions		(65, 77, 49) 
@@ -248,7 +248,7 @@ As you might notice, we have a blockier version of our T1 image -- we've reduce 
 > ex_func = os.path.join(func_dir,'sub-10788_task-rest_bold_space-T1w_preproc.nii.gz')
 > ex_func_bm = os.path.join(func_dir,'sub-10788_task-rest_bold_space-T1w_brainmask.nii.gz')
 > ~~~
-> {: .python}
+> {: .language-python}
 > > ## Solution
 > > 
 > > ~~~
@@ -265,7 +265,7 @@ As you might notice, we have a blockier version of our T1 image -- we've reduce 
 > > plot.plot_anat(removed_t1)
 > > 
 > > ~~~
-> > {: .python}
+> > {: .language-python}
 > > 
 > > ![image-title-here]({{ site.url }}/fig/removed_t1.png){:class="img-responsive"}
 > > 
@@ -278,7 +278,7 @@ As you might notice, we have a blockier version of our T1 image -- we've reduce 
 > > masked_func = img.math_img('a*b', a=first_func_img, b=ex_func_bm)
 > > plot.plot_img(masked_func)
 > > ~~~
-> > {: .python}
+> > {: .language-python}
 > > 
 > > ![image-title-here]({{ site.url }}/fig/masked_func.png){:class="img-responsive"}
 > > 
@@ -287,7 +287,7 @@ As you might notice, we have a blockier version of our T1 image -- we've reduce 
 > > combined_img = img.math_img('a+b', a=removed_t1, b=masked_func)
 > > plot.plot_anat(combined_img)
 > > ~~~
-> > {: .python}
+> > {: .language-python}
 > > 
 > > 
 > > ![image-title-here]({{ site.url }}/fig/combined_img.png){:class="img-responsive"}
