@@ -126,5 +126,4 @@ jupyter notebook
 [1] Gorgolewski KJ, Durnez J and Poldrack RA. Preprocessed Consortium for Neuropsychiatric Phenomics dataset [version 2; referees: 2 approved]. F1000Research 2017, 6:1262
 (https://doi.org/10.12688/f1000research.11964.2)
 
-
 {% include links.md %}
