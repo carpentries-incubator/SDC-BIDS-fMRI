@@ -20,11 +20,7 @@ keypoints:
 
 ## Types of MR Scans
 
-<<<<<<< HEAD:_episodes/01-neuroimaging-fundamentals.md
 ![mr-scan-types]({{ site.url }}/fig/mr_scan_types.png){:class="img-responsive"}
-=======
-<img src="../fig/mr_scan_types.png" alt="Drawing" align="middle" width="500px"/>
->>>>>>> dcf13557f57f847725a4a3eeba7f4a70bc62e925:_episodes/01-neuroimaging-fundamentals.md
 
 For this tutorial, we'll be focusing on T1w and resting state fMRI scans.
 
@@ -113,27 +109,6 @@ type(t1_data)
 
 We can check some basic properties of the array.
 
-<<<<<<< HEAD:_episodes/01-neuroimaging-fundamentals.md
-<div class=exercise>
-    <b>EXERCISE:</b> How many dimensions does <code>t1_data</code> have? What are is the size of each dimension? What is the data type?
-</div>
-
-<div class=solution>
-    <b>SOLUTION:</b>
-</div>
-
-
-~~~
-t1_data.ndim
-~~~
-{: .language-python}
-
-
-~~~
-t1_data.shape
-~~~
-{: .language-python}
-=======
 > ## Exercise #2
 > How many dimensions does `t1_data` have?
 > What is the size of each dimension?
@@ -150,7 +125,6 @@ t1_data.shape
 > > 4
 > {: .solution}
 {: .challenge}
->>>>>>> dcf13557f57f847725a4a3eeba7f4a70bc62e925:_episodes/01-neuroimaging-fundamentals.md
 
 The shape of the data always has at least 3 dimensions (X, Y, and Z) and sometimes a 4th, T (time).  
 This T1w image has 3 dimensions. The brain was scanned in 176 slices with a resolution of 256 x 256 voxels per slice.
