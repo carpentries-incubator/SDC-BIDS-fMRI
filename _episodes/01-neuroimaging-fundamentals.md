@@ -20,7 +20,7 @@ keypoints:
 
 ## Types of MR Scans
 
-<img src="../fig/mr_scan_types.png" alt="Drawing" align="middle" width="500px"/>
+![mr-scan-types]({{ site.url }}/fig/mr_scan_types.png){:class="img-responsive"}
 
 For this tutorial, we'll be focusing on T1w and resting state fMRI scans.
 
