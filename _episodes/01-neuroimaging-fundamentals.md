@@ -20,7 +20,7 @@ keypoints:
 
 ## Types of MR Scans
 
-<img src="../static/images/mr_scan_types.png" alt="Drawing" align="middle" width="500px"/>
+![mr-scan-types]({{ site.url }}/fig/mr_scan_types.png){:class="img-responsive"}
 
 For this tutorial, we'll be focusing on T1w and resting state fMRI scans.
 
@@ -114,7 +114,7 @@ type(t1_data)
 We can check some basic properties of the array.
 
 <div class=exercise>
-    <b>EXERCISE:</b> How many dimesnions does <code>t1_data</code> have? What are is the size of each dimension? What is the data type?
+    <b>EXERCISE:</b> How many dimensions does <code>t1_data</code> have? What are is the size of each dimension? What is the data type?
 </div>
 
 <div class=solution>

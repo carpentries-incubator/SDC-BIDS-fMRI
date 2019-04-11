@@ -1,5 +1,5 @@
 ---
-title: "Exploration of Open Neuroimaging Datasets in BIDS format" 
+title: "Exploration of Open Neuroimaging Datasets in BIDS format"
 teaching: 30
 exercises: 15
 questions:
@@ -14,11 +14,11 @@ keypoints:
 
 
 ## Tutorial Dataset
-For this tutorial, we will be using a subset of a pubicly available dataset, ds000030, from openneuro.org. The dataset is structured according to the Brain Imaging Data Structure (BIDS). BIDS is a simple and intuitive way to organize and describe your neuroimaging and behavioural data. Neuroimaging experiments result in complicated data that can be arranged in several different ways. BIDS tackles this problem by suggesting a new standard (based on consensus from multiple researchers across the world) for the arrangement of neuroimaging datasets.
+For this tutorial, we will be using a subset of a publicly available dataset, **ds000030**, from [openneuro.org](https://openneuro.org/datasets/ds000030). The dataset is structured according to the Brain Imaging Data Structure (BIDS). BIDS is a simple and intuitive way to organize and describe your neuroimaging and behavioural data. Neuroimaging experiments result in complicated data that can be arranged in several different ways. BIDS tackles this problem by suggesting a new standard (based on consensus from multiple researchers across the world) for the arrangement of neuroimaging datasets.
 
 Using the same structure for all of your studies will allow you to easily reuse all of your scripts between studies. Additionally, sharing code with other researchers will be much easier.
 
-Let's take a look at the participants.tsv file to see what the demographics for this dataset look like.
+Let's take a look at the `participants.tsv` file to see what the demographics for this dataset look like.
 
 ~~~
 import pandas as pd
@@ -47,9 +47,9 @@ For this tutorial, we're just going to work with participants that are either CO
 
 We'll filter this data out like so:
 ~~~
-participant_metadata = participant_metadata[(participant_metadata.diagnosis.isin(['CONTROL', 'SCHZ'])) & 
-                                            (participant_metadata.T1w == 1) & 
-                                            (participant_metadata.rest == 1) & 
+participant_metadata = participant_metadata[(participant_metadata.diagnosis.isin(['CONTROL', 'SCHZ'])) &
+                                            (participant_metadata.T1w == 1) &
+                                            (participant_metadata.rest == 1) &
                                             (participant_metadata.ghost_NoGhost == 'No_ghost')]
 participant_metadata['diagnosis'].unique()
 ~~~
@@ -145,7 +145,7 @@ layout.get_types(modality='func')
 ['brainmask', 'confounds', 'fsaverage5', 'preproc']
 ~~~
 {: .output}
-We can use this functionality to pull all our fMRI NIFTI files:
+We can use this functionality to pull all our fMRI NIfTI files:
 
 ~~~
 layout.get(task='rest', type='bold', extensions='nii.gz', return_type='file')
