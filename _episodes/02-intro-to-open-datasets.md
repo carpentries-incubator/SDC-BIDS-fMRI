@@ -161,6 +161,7 @@ Finally, we can convert the data stored in `bids.layout` into a `pandas.DataFram
 ~~~
 df = layout.as_data_frame()
 df.head()
+~~~
 {: .language-python}
 
 **OUTPUT:**
