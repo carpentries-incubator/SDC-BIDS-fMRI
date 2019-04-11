@@ -240,7 +240,7 @@ As you might notice, we have a blockier version of our T1 image -- we've reduce 
 > Using the **Native T1** and **Resting State in T1 space** do the following:
 > 1. Resample the Native T1 to match the Resting State image
 > 2. Replace the brain in the T1 image with the first frame of the resting state brain
-
+> 
 > Some files you'll need
 > ~~~
 > ex_T1 = os.path.join(t1_dir,'sub-10788_T1w_preproc.nii.gz')
