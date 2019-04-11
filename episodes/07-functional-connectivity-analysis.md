@@ -285,8 +285,7 @@ ax.set_ylabel(r'Intra-network connectivity')
 plt.show()
 ~~~
 {: .language-python}
+
 ![image-title-here]({{ site.url }}/fig/group_compare.png){:class="img-responsive"}
 
 Although the results here aren't significant they seem to indicate that there might be three subclasses in our schizophrenia group - of course we'd need *a lot* more data to confirm this! The interpretation of these results should ideally be based on some *a priori* hypothesis!
-
-{% include links.md}
