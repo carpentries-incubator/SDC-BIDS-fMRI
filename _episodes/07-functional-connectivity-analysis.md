@@ -268,6 +268,7 @@ df = pd.concat([ctrl_df, scz_df], ignore_index=True)
 #Pick 5 random people to display
 df.sample(n=5)
 ~~~
+{: .language-python}
 
 **OUTPUT:**
 <table border="1" class="dataframe">  <thead>    <tr style="text-align: right;">      <th></th>      <th>dmn_corr</th>      <th>group</th>    </tr>  </thead>  <tbody>    <tr>      <th>13</th>      <td>0.520369</td>      <td>schizophrenia</td>    </tr>    <tr>      <th>9</th>      <td>0.517139</td>      <td>control</td>    </tr>    <tr>      <th>16</th>      <td>0.755913</td>      <td>schizophrenia</td>    </tr>    <tr>      <th>0</th>      <td>0.387923</td>      <td>control</td>    </tr>    <tr>      <th>17</th>      <td>0.530103</td>      <td>schizophrenia</td>    </tr>  </tbody></table>
