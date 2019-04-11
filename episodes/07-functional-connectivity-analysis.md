@@ -45,4 +45,62 @@ The second part shows how we can use Nilearn's convenient wrapper functionality 
 3. Performing analysis on all subjects
 4. Visualization of final results
 
+## Using Nilearn's High-level functionality to compute correlation matrices
 
+Nilearn has built in functionality for applying a parcellation to a functional image, cleaning the data, and computng the mean all in one step. First let's get our functional data and our parcellation file:
+
+~~~
+import os
+from nilearn import signal as sgl
+from nilearn import image as img
+from nilearn import plotting as plot
+from nilearn import datasets
+import nibabel as nib
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import bids
+%matplotlib inline
+~~~
+{: .language-python}
+
+
+First let's grab the data that we want to perform our connectivity analysis on using PyBIDS:
+
+~~~
+layout = bids.layout.BIDSLayout('../data/ds000030/')
+subjets = layout.get_subjects()
+~~~
+{: .language-python}
+
+Now that we have a list of subjects to peform our analysis on, let's load up our parcellation template file:
+
+~~~
+#Load separated parcellation
+parcel_file = '../resources/rois/yeo_2011/Yeo_JNeurophysiol11_MNI152/relabeled_yeo_atlas.nii.gz' 
+yeo_7 = img.load_img(parcel_file)
+~~~
+{: .language-python}
+
+With all our files loaded, we first create a `input_data.NiftiLabelsMasker` object.
+
+~~~
+from nilearn import input_data
+
+
+masker = input_data.NiftiLabelsMasker(labels_img=yeo_7,
+                                      standardize=True,
+                                      memory='nilearn_cache',
+                                      verbose=1,
+                                      detrend=True,
+                                     low_pass = 0.08,
+                                     high_pass = 0.009,
+                                     t_r=2)
+~~~
+{: .language-python}
+
+The `input_data.NiftiLabelsMasker` object is a wrapper that applies parcellation, cleaning and averaging to an functional image. For example let's apply this to our first subject: 
+
+
+~~~
+~~~
