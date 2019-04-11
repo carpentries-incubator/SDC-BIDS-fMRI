@@ -1,4 +1,3 @@
-
 ---
 title: "Applying Parcellations to Resting State Data"
 teaching: 30
@@ -45,7 +44,7 @@ from nilearn import image
 from nilearn import plotting
 import matplotlib.pyplot as plt
 ~~~
-{: .python}
+{: .language-python}
 
 To retrieve the Yeo atlas we'll use the `fetch_atlas_*` family of functions provided for by nilearn.datasets and download it into a local directory:
 
@@ -53,19 +52,19 @@ To retrieve the Yeo atlas we'll use the `fetch_atlas_*` family of functions prov
 parcel_dir = '../resources/rois/'
 atlas_yeo_2011 = datasets.fetch_atlas_yeo_2011(parcel_dir)
 ~~~
-{: .python}
+{: .language-python}
 
 The method `datasets.fetch_atlas_yeo_2011()` returns a `dict` object. Examining the keys of the dictionary yields the following:
 
 ~~~
 atlas_yeo_2011.keys()
 ~~~
-{: .python}
+{: .language-python}
 
 ~~~
 output
 ~~~
-{: .python}
+{: .language-python}
 
 Each of the values associated with a key in `atlas_yeo_2011` is a `.nii.gz` image which contains a 3D NIFTI volume with a label for a given (x,y,z) voxel. Since these images are 3D volumes (sort of like structural images), we can view them using nilearn's plotting utilities:
 
@@ -77,14 +76,19 @@ colorbar=True
 #Color scheme to show when viewing image
 cmap='Paired'
 
+#Plot all parcellation schemas referred to by atlas_yeo_2011
 plotting.plot_roi(atlas_yeo_2011['thin_7'], cut_coords=cut_coords, colorbar=colorbar, cmap=cmap, title='thin_7')
-
+plotting.plot_roi(atlas_yeo_2011['thin_17'], cut_coords=cut_coords, colorbar=colorbar, cmap=cmap, title='thin_17')
+plotting.plot_roi(atlas_yeo_2011['thick_7'], cut_coords=cut_coords, colorbar=colorbar, cmap=cmap, title='thick_7')
+plotting.plot_roi(atlas_yeo_2011['thick_17'], cut_coords=cut_coords, colorbar=colorbar, cmap=cmap, title='thick_17')
 ~~~
-{: .python}
+{: .language-python}
 
-#SHOW IMAGE
+![image-title-here]({{ site.url }}/fig/thin_7.png){:class="img-responsive"}
+![image-title-here]({{ site.url }}/fig/thin_17.png){:class="img-responsive"}
+![image-title-here]({{ site.url }}/fig/thick_7.png){:class="img-responsive"}
+![image-title-here]({{ site.url }}/fig/thick_17.png){:class="img-responsive"}
 
-Trying viewing the other images stored within the yeo2011 atlases fetched by `nilearn.fetch_atlas_yeo2011()`! 
 The 7 and 17 network parcellations correspond to the two most stable clustering solutions from the algorithm used by the authors. The thin/thick designation refer to how strict the voxel inclusion is (thick might include white matter/CSF, thin might exclude some regions of grey matter due to partial voluming effects). 
 
 For simplicity we'll use the thick_7 variation which includes the following networks:
@@ -105,6 +109,79 @@ A key feature of the Yeo2011 networks is that they are *spatially distributed*, 
 ~~~
 from nilearn.regions import connected_label_regions
 region_labels = connected_label_regions(atlas_yeo)
+plotting.plot_roi(region_labels, 
+			cut_coords=(-20,-10,0,10,20,30,40,50,60,70),
+			display_mode='z',
+			colorbar=True,
+			cmap='Paired',
+			title='Relabeled Yeo Atlas')
 ~~~
+{: .language-python}
 
+![image-title-here]({{ site.url }}/fig/yeo_sep.png){:class="img-responsive"}
 
+### Resampling the Atlas
+
+Let's store the separated version of the atlas into a NIFTI file so that we can work with it later:
+
+~~~
+region_labels.to_filename('../resources/rois/yeo_2011/Yeo_JNeurophysiol11_MNI152/relabeled_yeo_atlas.nii.gz')
+~~~
+{: .language-python}
+
+> ## Resampling Exercise
+> Our goal is to match the parcellation atlas dimensions to our functional file so that we can use it to extract the mean time series of each parcel region. Using `Nilearn`'s resampling capabilities match the dimensions of the atlas file to the functional file
+> First let's pick our functional file. Atlases are typically defined in standard space so we will use the MNI152NLin2009cAsym version of the functional file:
+> ~~~
+> func_file = '../data/ds000030/derivatives/fmriprep/sub-10788/func/sub-10788_task-rest_bold_space-MNI152NLin2009cAsym_preproc.nii.gz'
+> func_img = nib.load(func_file)
+> ~~~
+> {: .language-python}
+> > ## Solution
+> > First examine the size of both files, if they match we are done:
+> > ~~~
+> > print('Size of functional file:', func_img.shape)
+> > print('Size of atlas file:', region_labels.shape)
+> > ~~~
+> > {: .language-python}
+> > 
+> > Turns out that they aren't the same! We can match the file sizes simply using `img.resample_to_img`:
+> > ~~~
+> > resampled_atlas = image.resample_to_img(region_labels, func_img, interpolation = 'nearest')
+> > plotting.plot_roi(resampled_yeo, func_img.slicer[:,:,:,54])
+> > ~~~
+> > {: .language-python}
+> > ![image-title-here]({{ site.url }}/fig/resampled_yeo.png){:class="img-responsive"}
+> > Recall, that we use `interpolation = 'nearest' ` because parcel regions are integers. Nearest interpolation preserves the values in the original image. Something like `continuous` or `linear` will pick in between values; a parcel value of 2.2215 is not meaningful in this context.
+> {: .solution}
+{: .challenge}
+
+## Visualizing ROIs
+
+For the next section, we'll be performing an analysis using the Yeo parcellation on our functional data. Specifically, we'll be using two ROIs: 44 and 46. 
+
+> ## Exercise
+> Visualize ROI 44 and 46
+> **HINT**: Try using `math.img` to select ROIs using a conditional statement
+> > ## Solution
+> > ~~~
+> > from nilearn import image
+> > 
+> > roi = 44
+> > roi_mask = image.math_img('a == {}'.format(roi), a=resampled_yeo) 
+> > masked_resamp_yeo = image.math_img('a*b',a=resampled_yeo,b=roi_mask) 
+> > plotting.plot_roi(masked_resamp_yeo)
+> > ~~~
+> > {: .language-python}
+> > 
+> > ![image-title-here* ]({{ site.url }}/fig/roi_44.png){:class="img-responsive"}
+> > ~~~
+> > roi  =  46
+> > roi_mask  = image.math_img('a == {}'.format(roi), a=resampled_yeo) 
+> > masked_resamp_yeo = image.math_img('a*b',a=resampled_yeo,b=roi_mask) 
+> > plotting.plot_roi(masked_resamp_yeo)
+> > ~~~
+> > {: .language-python}
+> > ![image-title-here]({{ site.url }}/fig/roi_46.png){:class="img-responsive"}
+> {: .solution}
+{: .challenge}

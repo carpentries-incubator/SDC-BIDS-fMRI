@@ -38,7 +38,7 @@ import numpy as np
 import nibabel as nib
 %matplotlib inline
 ~~~
-{: .python}
+{: .language-python}
 
 ## Setting up our Motion Estimates
 
@@ -46,12 +46,12 @@ The beauty of FMRIPREP is that it estimates a number of motion-related signals f
 
 **sub-xxxx_task-xxxx_space-xxxxx..._confounds.tsv**
 
-This is basically a spreadsheet that has columns related to each motion estimate type and rows for timepoints. We can view these using a python package called `pandas`. 
+This is basically a spreadsheet that has columns related to each motion estimate type and rows for timepoints. We can view these using a language-python package called `pandas`. 
 
 ~~~
 import pandas as pd
 ~~~
-{: .python}
+{: .language-python}
 
 Let's pick out functional file to clean and pull out the confound.tsv that FMRIPREP computed for us:
 
@@ -61,7 +61,7 @@ func = os.path.join(func_dir, 'sub-10788_task-rest_bold_space-MNI152NLin2009cAsy
 confound = os.path.join(func_dir, 'sub-10788_task-rest_bold_confounds.tsv')
 mask = os.path.join(func_dir,'sub-10788_task-rest_bold_space-MNI152NLin2009cAsym_brainmask.nii.gz') 
 ~~~
-{: .python}
+{: .language-python}
 
 Using `pandas` we can read in the confounds.tsv file as a spreadsheet and display some rows:
 
@@ -70,7 +70,7 @@ Using `pandas` we can read in the confounds.tsv file as a spreadsheet and displa
 confound_df = pd.read_csv(confound, delimiter='\t')
 confound_df.head()
 ~~~
-{: .python}
+{: .language-python}
 
 Each of these confounds is computed automatically by fmriprep. 
 
@@ -124,7 +124,7 @@ confound_df = confound_df[confound_vars]
 confound_df.head()
 
 ~~~
-{: .python}
+{: .language-python}
 
 For each of these confounds, we want to compute the temporal derivatives. The temporal derivatives are defined as the difference between consecutive timepoints:
 ~~~
@@ -142,7 +142,7 @@ for col in confound_df.columns:
 confound_df.head()
     
 ~~~
-{: .python}
+{: .language-python}
 
 > ## What the NaN???
 > As you might have noticed, we have NaN's in our confound dataframe. This happens because there is no prior value to the first index to take a difference with, but this isn't a problem since we're going to be dropping 4 timepoints from our data and confounders anyway!
@@ -156,7 +156,7 @@ Now we'll implement our **Dummy TR Drop**. Remember this means that we are remov
 raw_func_img = img.load_img(func)
 raw_func_img.shape
 ~~~
-{: .python}
+{: .language-python}
 
 Recall that the fourth dimension represents frames/TRs(timepoints). We want to drop the first four timepoints entirely, to do so we use nibabel's slicer feature. We'll also drop the first 4 confound variable timepoints to match the functional scan
 
@@ -171,7 +171,7 @@ drop_confound_df = confound_df.loc[5:]
 print(drop_confound_df.shape) #number of rows should match that of the functional image
 drop_confound_df.head()
 ~~~
-{: .python}
+{: .language-python}
 
 ### Applying confound regression
 
@@ -195,7 +195,7 @@ confounds_matrix = drop_confound_df.as_matrix()
 #Confirm matrix size is correct
 confounds_matrix.shape
 ~~~
-{: .python}
+{: .language-python}
 
 Let's clean our image!
 
@@ -242,4 +242,4 @@ clean_img = img.clean_img(func_img,confounds=confounds_matrix,detrend=True,stand
 #Let's visualize our result! Doesn't really tell us much, but that's the data we're using for analysis!
 plot.plot_epi(clean_img.slicer[:,:,:,50])
 ~~~
-{: .python}
+{: .language-python}
