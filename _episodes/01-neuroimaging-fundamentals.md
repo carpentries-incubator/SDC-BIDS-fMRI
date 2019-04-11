@@ -20,7 +20,7 @@ keypoints:
 
 ## Types of MR Scans
 
-<img src="../static/images/mr_scan_types.png" alt="Drawing" align="middle" width="500px"/>
+![mr-scan-types]({{ site.url }}/fig/mr_scan_types.png){:class="img-responsive"}
 
 For this tutorial, we'll be focusing on T1w and resting state fMRI scans.
 
@@ -79,23 +79,20 @@ t1_hdr.keys()
 ~~~
 {: .language-python}
 
-<div class=exercise>
-    <b>EXERCISE:</b> Extract the value of <code>pixdim</code> from <code>nii_hdr</code>  
-</div>
-
-<div class=solution>
-    <b>SOLUTION:</b>
-</div>
-
-
-~~~
-t1_hdr['pixdim']
-~~~
-{: .language-python}
+> ## Exercise #1
+> Extract the value of `pixdim` from `t1_hdr`
+>
+> > ## Solution
+> > ~~~
+> > t1_hdr['pixdim']
+> > ~~~
+> > {: .python}
+> > 4
+> {: .solution}
+{: .challenge}
 
 ### 2. Data
 The data is a multidimensional array representing the image data.
-
 
 ~~~
 t1_data = t1_img.get_data()
@@ -105,7 +102,6 @@ t1_data
 
 The data is stored in a numpy array.
 
-
 ~~~
 type(t1_data)
 ~~~
@@ -113,34 +109,25 @@ type(t1_data)
 
 We can check some basic properties of the array.
 
-<div class=exercise>
-    <b>EXERCISE:</b> How many dimesnions does <code>t1_data</code> have? What are is the size of each dimension? What is the data type?
-</div>
-
-<div class=solution>
-    <b>SOLUTION:</b>
-</div>
-
-
-~~~
-t1_data.ndim
-~~~
-{: .language-python}
-
-
-~~~
-t1_data.shape
-~~~
-{: .language-python}
+> ## Exercise #2
+> How many dimensions does `t1_data` have?
+> What is the size of each dimension?
+> What is the data type?
+>
+> > ## Solution
+> > ~~~
+> > t1_data.ndim
+> > t1_data.shape
+> > t1_data.dtype
+> >
+> > ~~~
+> > {: .python}
+> > 4
+> {: .solution}
+{: .challenge}
 
 The shape of the data always has at least 3 dimensions (X, Y, and Z) and sometimes a 4th, T (time).  
 This T1w image has 3 dimensions. The brain was scanned in 176 slices with a resolution of 256 x 256 voxels per slice.
-
-
-~~~
-t1_data.dtype
-~~~
-{: .language-python}
 
 The data type of an image controls the range of possible intensities. As the number of possible values increases, the amount of space the image takes up in memory also increases.
 
@@ -176,33 +163,26 @@ n-dimensional images are just stacks of numpy arrays.  Each value in the array i
 
 You'll recall our example T1w image is a 3D image with dimensions $176 \times 256 \times 256$.
 
-<div class=exercise>
-    <b>EXERCISE:</b> Select the central slice by indexing <code>t1_data</code> eg.(<code>t1_data[x, y, z]</code>)
-</div>
-
-<div class=solution>
-    <b>SOLUTION:</b>
-</div>
-
-
-~~~
-central_slice = t1_data[t1_data.shape[0]//2 - 1, :, :]
-central_slice
-~~~
-{: .language-python}
-
-Instead of indexing the data array, we can also call the `slicer()` method on the NiBabel image object.
-
-
-~~~
-central_slice = t1_img.slicer[87:88, :, :].get_data()[0]
-central_slice
-~~~
-{: .language-python}
+> ## Exercise #3
+> Select the central slice by indexing `t1_data` eg.(`t1_data[x, y, z]`)
+>
+> > ## Solution
+> > ~~~
+> > central_slice = t1_data[t1_data.shape[0]//2 - 1, :, :]
+> > central_slice
+> >
+> > ~~~
+> > {: .python}
+> > 4
+> {: .solution}
+> > Instead of indexing, we can also call `slicer()`
+> > central_slice = t1_img.slicer[87:88, :, :].get_data()[0]
+> > central_slice
+> > {: .python}
+{: .challenge}
 
 ### Visualizing
 Let's visualize the central slice.
-
 
 ~~~
 import matplotlib.pyplot as plt
@@ -214,7 +194,6 @@ plt.imshow(central_slice, cmap='gray')
 
 You'll notice that the image is rotated. :( Don't worry, we can fix this!
 
-
 ~~~
 import numpy as np
 
@@ -224,7 +203,6 @@ plt.imshow(rot_central_slice, cmap='gray')
 {: .language-python}
 
 You'll notice that so far, we've only seen a sagittal slice. Lets visualize the sagittal, axial and coronal slices.
-
 
 ~~~
 # function to display a row of slices
@@ -238,7 +216,6 @@ def show_slices(slices):
 ~~~
 {: .language-python}
 
-
 ~~~
 slice_0 = t1_data[87, :, :]
 slice_1 = t1_data[:, 127, :]
@@ -250,7 +227,6 @@ plt.suptitle("Center slice")
 
 All this is fine but NiBabel makes it even easier to visualize all three planes. Call the `orthoview()` method on the NiBabel image object.
 
-
 ~~~
 t1_img.orthoview()
 ~~~
@@ -259,7 +235,6 @@ t1_img.orthoview()
 ### Reshaping
 
 NumPy has a `reshape()` function for reshaping the data array. Let's say we want to convert this 3D array into a a 2D array.
-
 
 ~~~
 t1_data_2d = t1_data.reshape(np.prod(t1_data.shape[:-1]), t1_data.shape[-1])
@@ -270,24 +245,20 @@ t1_data_2d.shape
 ### Masks
 Next, we will see how to segment the brain from the black background.
 
-
 ~~~
 plt.hist(t1_data.flatten(), bins = 50)
 ~~~
 {: .language-python}
-
 
 ~~~
 t1_mask = t1_data > 100
 ~~~
 {: .language-python}
 
-
 ~~~
 plt.imshow(t1_mask[87, :, :], cmap = 'gray')
 ~~~
 {: .language-python}
-
 
 ~~~
 test = np.where(t1_mask, t1_data, 0)
@@ -299,12 +270,10 @@ plt.imshow(test[87, :, :], cmap = 'gray')
 
 Let's save the mask we just created to a file.
 
-
 ~~~
 img_mask = nib.Nifti1Image(test, t1_affine, t1_hdr)
 ~~~
 {: .language-python}
-
 
 ~~~
 img_mask.to_filename('../data/test_mask.nii.gz')
