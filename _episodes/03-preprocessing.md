@@ -8,28 +8,30 @@ questions:
 objectives:
 - "Understand the common preprocessing steps"
 keypoints:
-- "BIDS is an organizational principle for neuroimaging data for transparent data sharing"
+- "fmriprep takes care of several of the preprocessing steps"
 ---
 
-## T1w Preprocessing
+## Preprocessing Steps
 
-## Despiking
+### T1w Preprocessing
 
-## Motion Correction
+### Despiking
 
-## Slice Timing Correction
+### Motion Correction
 
-## Susceptibility Distortion Correction
+### Slice Timing Correction
 
-## Artifact and Structured Noise Removal
+### Susceptibility Distortion Correction
 
-## Volume Censoring (Scrubbing)
+### Artifact and Structured Noise Removal
 
-## Bandpass Filtering
+### Volume Censoring (Scrubbing)
 
-## Spatial Smoothing
+### Bandpass Filtering
 
-## Normalization
+### Spatial Smoothing
+
+### Normalization
 
 ### Using fmriprep
 [fmriprep](https://fmriprep.readthedocs.io/en/stable/) is a package developed by the Poldrack lab to do the minimal preprocessing of fMRI data required. It covers brain extraction, motion correction, field unwarping, and registration. It uses a combination of well-known software packages (e.g., FSL, SPM, ANTS, AFNI) and selects the 'best' implementation of each preprocessing step.
