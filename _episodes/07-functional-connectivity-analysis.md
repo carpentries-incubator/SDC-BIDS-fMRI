@@ -288,4 +288,4 @@ plt.show()
 
 Although the results here aren't significant they seem to indicate that there might be three subclasses in our schizophrenia group - of course we'd need *a lot* more data to confirm this! The interpretation of these results should ideally be based on some *a priori* hypothesis!
 
-{% include links.md}
+{% include links.md %}
