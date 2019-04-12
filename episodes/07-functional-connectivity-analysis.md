@@ -19,20 +19,20 @@ Now we have an idea of three important components to analyzing neuroimaging data
 2. Cleaning and confound regression
 3. Parcellation and signal extraction
 
-In this notebook the goal is to integrate these 3 basic components and perform a full analysis of group data using **Intranetwork Functional Connectivity (FC)**. 
+In this notebook the goal is to integrate these 3 basic components and perform a full analysis of group data using **Intranetwork Functional Connectivity (FC)**.
 
-Intranetwork functional connectivity is essentially a result of performing correlational analysis on mean signals extracted from two ROIs. Using this method we can examine how well certain resting state networks, such as the **Default Mode Network (DMN)**, are synchronized across spatially distinct regions. 
+Intranetwork functional connectivity is essentially a result of performing correlational analysis on mean signals extracted from two ROIs. Using this method we can examine how well certain resting state networks, such as the **Default Mode Network (DMN)**, are synchronized across spatially distinct regions.
 
 ROI-based correlational analysis forms the basis of many more sophisticated kinds of functional imaging analysis.
 
 ## PART A NECESSARY?
 ## Lesson Outline
 
-The outline of this lesson is divided into two parts. The first part directly uses what you've learned and builds upon it to perform the final functional connectivity analysis on group data. 
+The outline of this lesson is divided into two parts. The first part directly uses what you've learned and builds upon it to perform the final functional connectivity analysis on group data.
 
-The second part shows how we can use Nilearn's convenient wrapper functionality to perform the same task with *significantly less effort*. 
+The second part shows how we can use Nilearn's convenient wrapper functionality to perform the same task with *significantly less effort*.
 
-#### Part A: Manual computation 
+#### Part A: Manual computation
 1. Functional data cleaning and confound regression
 2. Applying a parcellation onto the data
 3. Computing the correlation between two ROI time-series
@@ -76,7 +76,7 @@ Now that we have a list of subjects to peform our analysis on, let's load up our
 
 ~~~
 #Load separated parcellation
-parcel_file = '../resources/rois/yeo_2011/Yeo_JNeurophysiol11_MNI152/relabeled_yeo_atlas.nii.gz' 
+parcel_file = '../resources/rois/yeo_2011/Yeo_JNeurophysiol11_MNI152/relabeled_yeo_atlas.nii.gz'
 yeo_7 = img.load_img(parcel_file)
 ~~~
 {: .language-python}
@@ -98,7 +98,7 @@ masker = input_data.NiftiLabelsMasker(labels_img=yeo_7,
 ~~~
 {: .language-python}
 
-The `input_data.NiftiLabelsMasker` object is a wrapper that applies parcellation, cleaning and averaging to an functional image. For example let's apply this to our first subject: 
+The `input_data.NiftiLabelsMasker` object is a wrapper that applies parcellation, cleaning and averaging to an functional image. For example let's apply this to our first subject:
 
 
 ~~~
@@ -111,7 +111,7 @@ func_file = layout.get(subject=example_sub, modality='func',
 			type='preproc', return_type='file')[0]
 confound_file=layout.get(subject=example_sub, modality='func',
                              type='confounds', return_type='file')[0]
-    
+
 #Load functional file and perform TR drop
 func_img = img.load_img(func_file)
 func_img = func_img.slicer[:,:,:,tr_drop+1:]
@@ -122,7 +122,7 @@ confounds = extract_confounds(confound_file,
                                  'RotX','RotY','RotZ',
                                  'GlobalSignal','aCompCor01',
                                  'aCompCor02'])
-    
+
 #Drop TR on confound matrix
 confounds = confounds[tr_drop+1:,:]
 
@@ -137,28 +137,28 @@ time_series.shape
 ~~~
 {: .output}
 
-After performing our data extraction we're left with data containing 147 timepoints and 46 regions. This matches the number of regions in our parcellation atlas. 
+After performing our data extraction we're left with data containing 147 timepoints and 46 regions. This matches the number of regions in our parcellation atlas.
 
 > ## Exercise
-> Apply the data extract process shown above to all subjects in our subject list and collect the results. Here is some skeleton code to help you think about how to organize your data: 
+> Apply the data extract process shown above to all subjects in our subject list and collect the results. Here is some skeleton code to help you think about how to organize your data:
 > ~~~
 > pooled_subjects = []
 > ctrl_subjects = []
 > schz_subjects = []
-> 
+>
 > for sub in subjects:
 > 	#FILL LOOP
 > 	
 > ~~~
 > {: .language-python}
-> 
+>
 > > ## Solution
-> > 
+> >
 > > ~~~
 > > pooled_subjects = []
 > > ctrl_subjects = []
 > > schz_subjects = []
-> > 
+> >
 > > for sub in subjects:
 > >     func_file = layout.get(subject=sub, modality='func',
 > >                            type='preproc', return_type='file')[0]
@@ -189,7 +189,7 @@ After performing our data extraction we're left with data containing 147 timepoi
 > {: .solution}
 {: .challenge}
 
-Once we have all extracted time series for each subject we can compute correlation matrices. Once again, Nilearn provides functionality to do this as well. We'll use the module `nilearn.connectome.ConnectivityMeasure` to automatically apply a pearson r correlation to our schizophrenia and control data: 
+Once we have all extracted time series for each subject we can compute correlation matrices. Once again, Nilearn provides functionality to do this as well. We'll use the module `nilearn.connectome.ConnectivityMeasure` to automatically apply a pearson r correlation to our schizophrenia and control data:
 
 ~~~
 from nilearn.connectome import ConnectivityMeasure
@@ -224,12 +224,12 @@ plot_matrices(ctrl_correlation_matrices, 'correlation')
 ~~~
 {: .language-python}
 
-![image-title-here]({{ site.url }}/fig/ctrl_r.png){:class="img-responsive"}
+![image-title-here](../fig/ctrl_r.png){:class="img-responsive"}
 ~~~
 plot_matrices(schz_correlation_matrices, 'correlation')
 ~~~
 {: .language-python}
-![image-title-here]({{ site.url }}/fig/schz_r.png){:class="img-responsive"}
+![image-title-here](../fig/schz_r.png){:class="img-responsive"}
 
 Let's look at the data that is returned from  `correlation_measure.fit`:
 
@@ -243,7 +243,7 @@ ctrl_correlation.matrices.shape
 ~~~
 {: .output}
 
-We can see that we have a 3D array where the first index corresponds to a particular subject, and the last two indices refer to the correlation matrix (46 regions x 46 regions). 
+We can see that we have a 3D array where the first index corresponds to a particular subject, and the last two indices refer to the correlation matrix (46 regions x 46 regions).
 
 Finally we can extract our two regions of interest by picking the entries in the correlation matrix corresponding to the connection between regions 44 and 46:
 
@@ -286,7 +286,7 @@ plt.show()
 ~~~
 {: .language-python}
 
-![image-title-here]({{ site.url }}/fig/group_compare.png){:class="img-responsive"}
+![image-title-here](../fig/group_compare.png){:class="img-responsive"}
 
 Although the results here aren't significant they seem to indicate that there might be three subclasses in our schizophrenia group - of course we'd need *a lot* more data to confirm this! The interpretation of these results should ideally be based on some *a priori* hypothesis!
 {% include links.md %}
