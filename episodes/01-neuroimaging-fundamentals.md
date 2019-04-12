@@ -20,7 +20,7 @@ keypoints:
 
 ## Types of MR Scans
 
-![mr-scan-types]({{ site.url }}/fig/mr_scan_types.png){:class="img-responsive"}
+![mr-scan-types](../fig/mr_scan_types.png){:class="img-responsive"}
 
 For this tutorial, we'll be focusing on T1w and resting state fMRI scans.
 
@@ -34,7 +34,7 @@ For this tutorial, we'll be focusing on T1w and resting state fMRI scans.
 | MINC | .mnc | Montreal Neurological Institute |
 | NRRD | .nrrd | |
 
-<img src="../static/images/dicom_to_nifti.png" alt="Drawing" align="middle" width="300px"/>
+![dicom-to-nifti](../fig/dicom_to_nifti.png){:class="img-responsive"}
 
 From the MRI scanner, images are initially collected in the DICOM format and can be converted to NIfTI using [dcm2niix](https://github.com/rordenlab/dcm2niix).
 
