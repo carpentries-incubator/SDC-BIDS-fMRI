@@ -1,19 +1,21 @@
 #!/bin/bash
 
-
 # First step is to determine whether the system is on SciNet or not
 # Check current path
 
-SCINET_REPO=/scinet/courses/ss2019/3/6_mripython/
+SCINET_REPO=/scinet/course/ss2019/3/6_mripython/
 
 #If Scinet then enter first name to create Repo
-if [ -d "$SCINET_REPO" ]; do
+if [ -d "$SCINET_REPO" ]; then
 
         echo "Please enter your first name (no spaces or special characters!)"
         read first_name
         mkdir -p $HOME/$first_name/
-        cp -r "$SCINET_REPO"/notebooks/ $HOME/$first_name/notebooks
+        git clone https://github.com/jerdra/scwg2018_python_neuroimaging.git $HOME/$first_name
+        rm -rf "$HOME/$first_name/data"
         ln -s "$SCINET_REPO"/data $HOME/$first_name/data
+
+        echo "Workshop at $HOME/$first_name"
 
 #Otherwise we use a Binder instance
 else
@@ -49,4 +51,4 @@ else
           --include '*task-rest_bold*'
 
 
-done
+fi
