@@ -1,0 +1,52 @@
+#!/bin/bash
+
+
+# First step is to determine whether the system is on SciNet or not
+# Check current path
+
+SCINET_REPO=/scinet/courses/ss2019/3/6_mripython/
+
+#If Scinet then enter first name to create Repo
+if [ -d "$SCINET_REPO" ]; do
+
+        echo "Please enter your first name (no spaces or special characters!)"
+        read first_name
+        mkdir -p $HOME/$first_name/
+        cp -r "$SCINET_REPO"/notebooks/ $HOME/$first_name/notebooks
+        ln -s "$SCINET_REPO"/data $HOME/$first_name/data
+
+#Otherwise we use a Binder instance
+else
+
+        echo "Assuming that you're using a Binder instance, downloading data!"
+
+        # download T1w scans
+        cat download_list | \
+          xargs -I '{}' aws s3 sync --no-sign-request \
+          s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/{}/anat \
+          ./data/ds000030/{}/anat
+
+        # download resting state fMRI scans
+        cat download_list | \
+          xargs -I '{}' aws s3 sync --no-sign-request \
+          s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/{}/func \
+          ./data/ds000030/{}/func \
+          --exclude '*' \
+          --include '*task-rest_bold*'
+
+        # download fmriprep preprocessed anat data
+        cat download_list | \
+          xargs -I '{}' aws s3 sync --no-sign-request \
+          s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/derivatives/fmriprep/{}/anat \
+          ./data/ds000030/derivatives/fmriprep/{}/anat
+
+        # download fmriprep preprocessed func data
+        cat download_list | \
+          xargs -I '{}' aws s3 sync --no-sign-request \
+          s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/derivatives/fmriprep/{}/func \
+          ./data/ds000030/derivatives/fmriprep/{}/func \
+          --exclude '*' \
+          --include '*task-rest_bold*'
+
+
+done
