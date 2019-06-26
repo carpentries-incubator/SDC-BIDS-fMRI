@@ -14,12 +14,13 @@
 
 ### If you're using SciNet's Jupyter System
 
+[Instructions with pictures](https://docs.google.com/document/d/1MyxIMtknK8In_D43--GOdBfqb25KEWX9NMzXYHoMq30/edit?usp=sharing)
 
 Open up a terminal and enter the following:
 ```bash
   ssh <user>@teach.scinet.utoronto.ca
   module load anaconda3
-  /scinet/course/3/6_mripython/setup_workshop
+  /scinet/course/ss2019/3/6_mripython/setup_workshop
   python -m ipykernel install --user --name mripython_conda
 ```
 
