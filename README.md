@@ -20,7 +20,7 @@ Open up a terminal and enter the following:
 ```bash
   ssh <user>@teach.scinet.utoronto.ca
   module load anaconda3
-  /scinet/course/ss2019/3/6_mripython/setup_workshop
+  source /scinet/course/ss2019/3/6_mripython/setup_workshop
   python -m ipykernel install --user --name mripython_conda
 ```
 
