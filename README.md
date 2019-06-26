@@ -29,6 +29,8 @@ Open a new terminal and enter the following:
   ssh -L 8888:jupyterhub<X>:8000 <user>@teach.scinet.utoronto.ca -N
 ```
 
+Where `<X>` is a number between 1-6. 
+
 If nothing happens that's great! Now open up your favourite browser and enter the following in your address bar:
 
 ```
