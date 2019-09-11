@@ -1,14 +1,70 @@
 # Scientific Computing Working Group Workshop on performing analysis of neuroimaging data in Python
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jerdra/scwg2018_python_neuroimaging.git/master)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jerdra/scwg2018_python_neuroimaging/master)
 
 ### Developed by
 - Jerry Jeyachandra (https://github.com/jerdra)
 - Michael Joseph (https://github.com/josephmje)
+- Olivia Stanley (https://github.com/ostanley)
+- Jason Kai (https://github.com/kaitj)
 
-## Setting up the tutorial environment
+## Getting workshop material for SciNet workshops
 
-### Getting workshop material
+*** 
+
+### If you're using SciNet's Jupyter System
+
+[Instructions with pictures](https://docs.google.com/document/d/1MyxIMtknK8In_D43--GOdBfqb25KEWX9NMzXYHoMq30/edit?usp=sharing)
+
+Open up a terminal and enter the following:
+```bash
+  ssh <user>@teach.scinet.utoronto.ca
+  module load anaconda3
+  source /scinet/course/ss2019/3/6_mripython/setup_workshop
+  python -m ipykernel install --user --name mripython_conda
+```
+
+Open a new terminal and enter the following:
+```bash
+  ssh -L 8888:jupyterhub<X>:8000 <user>@teach.scinet.utoronto.ca -N
+```
+
+Where `<X>` is a number between 1-6. 
+
+If nothing happens that's great! Now open up your favourite browser and enter the following in your address bar:
+
+```
+  https://localhost:8888
+```
+
+You're ready to go!
+
+***
+
+### If you're using Binder
+
+Click the following button:
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jerdra/scwg2018_python_neuroimaging/master)
+
+This will open up a jupyter terminal for you. Then just hit:
+
+- **New** --> **Terminal** 
+
+This will open up a terminal. Once you're in here type the following:
+
+```
+./setup_workshop
+```
+
+Then leave it running in the background and switch tabs over back to the previous tab (says "Home" on Chrome)
+
+
+
+***
+***
+***
+
+### Getting workshop material for CAMH Workshops
 
 #### Method 1: Downloading directly from the repository 
 

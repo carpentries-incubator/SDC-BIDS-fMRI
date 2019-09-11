@@ -4,3 +4,4 @@ scwg2018_nilearn
 *checkpoint.ipynb
 .python-version
 .DS_Store
+data/ds000030/fmriprep
