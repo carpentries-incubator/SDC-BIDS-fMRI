@@ -5,3 +5,4 @@ scwg2018_nilearn
 .python-version
 .DS_Store
 data/ds000030/fmriprep
+bin/nilearn_cache
