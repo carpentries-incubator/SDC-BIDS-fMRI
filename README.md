@@ -1,6 +1,6 @@
 # Scientific Computing Working Group Workshop on performing analysis of neuroimaging data in Python
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jerdra/scwg2018_python_neuroimaging/master)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jerdra/SDC-BIDS-fMRI/master)
 
 ### Developed by
 - Jerry Jeyachandra (https://github.com/jerdra)
@@ -44,7 +44,7 @@ You're ready to go!
 ### If you're using Binder
 
 Click the following button:
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jerdra/scwg2018_python_neuroimaging/master)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jerdra/SDC-BIDS-fMRI/master)
 
 This will open up a jupyter terminal for you. Then just hit:
 
@@ -79,7 +79,7 @@ Using this method requires a (very) useful piece of software called <code>git</c
 Once you've installed <code>git</code>, open up your terminal and do the following:
 
 ```
-git clone https://github.com/jerdra/scwg2018_python_neuroimaging.git
+git clone https://github.com/jerdra/SDC-BIDS-fMRI.git
 ```
 
 This will download the repository directly into your current directory. 
@@ -94,16 +94,17 @@ For easy set-up we recommend [Anaconda](https://www.anaconda.com/download/) to m
 1. Install Anaconda Python version 3.7
 2. Open **Anaconda Navigator**
 3. Click on **Environments** on the left pane
-4. Click **Create** then type in <code>scwg2018_python_neuroimaging</code>
-5. In the <code>scwg2018_python_neuroimaging</code> entry click the play button then click **Open Terminal** 
+4. Click **Create** then type in <code>SDC-BIDS-fMRI</code>
+5. In the <code>SDC-BIDS-fMRI</code> entry click the play button then click **Open Terminal** 
 6. In terminal type: 
 ```
 conda install -y numpy pandas scipy scikit-learn matplotlib jupyter ipykernel nb_conda
 conda install -y -c conda-forge awscli
 pip install nilearn nibabel
+./setup_workshop
 ```
 7. Close the terminal, click on the play button again and open **Jupyter Notebook**
-8. Navigate to <code>scwg2018_python_neuroimaging</code> folder you downloaded earlier.
+8. Navigate to <code>SDC-BIDS-fMRI</code> folder you downloaded earlier.
 9. Done!
 
 ##### Linux and MacOS
@@ -111,73 +112,30 @@ pip install nilearn nibabel
 After installing Anaconda, open terminal and type: 
 
 ```
-cd scwg2018_python_neuroimaging
-conda create -p ./scwg2018_nilearn
-source activate $(pwd)/scwg2018_nilearn
+cd SDC-BIDS-fMRI
+conda create -p ./sdc_bids_fmri
+source activate $(pwd)/sdc_bids_fmri
 conda install numpy pandas scipy scikit-learn matplotlib jupyter ipykernel nb_conda
 conda install -c conda-forge awscli
 pip install nilearn nibabel
-
+./setup_workshop
 ```
 #### Method 2: Using pyenv (my favourite) [Linux, MacOS]
 An alternative method uses [pyenv](https://github.com/pyenv/pyenv) with [pyenv virtualenv](https://github.com/pyenv/pyenv-virtualenv). This is a favourite because it seamlessly integrates multiple python versions and environments into your system while maintaining use of pip (instead of conda).
 ```
-cd scwg2018_python_neuroimaging
-pyenv virtualenv 3.6.0 scwg2018_nilearn
-echo scwg2018_nilearn > .python-version
+cd SDC-BIDS-fMRI
+pyenv virtualenv 3.6.0 sdc_bids_fmri
+echo sdc_bids_fmri > .python-version
 pip install --requirement requirements.txt
+./setup_workshop
 ```
 
-## Acquiring the data
-This tutorial uses data derived from the **UCLA Consortium for Neuropsychiatric Phenomics LA5c Study [1]**.
-
-To acquire the data we use [Amazon AWS S3](https://aws.amazon.com/). You can set up an account using the link. Then you'll need to set up the **awscli** python tool using your AWS account credentials (more info: [Amazon AWS CLI](https://aws.amazon.com/cli/))
-```
-aws configure
-AWS Access Key ID [None]: AKIAIOSFODNN7EXAMPLE
-AWS Secret Access Key [None]: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-Default region name [None]: ca-central-1
-Default output format [None]: ENTER
-```
-To download (**warning: large download size!**) the subset of the data used for the tutorial:
-
-```
-cd scwg2018_python_neuroimaging
-
-# download T1w scans
-cat download_list | \
-  xargs -I '{}' aws s3 sync --no-sign-request \
-  s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/{}/anat \
-  ./data/ds000030/{}/anat
-
-# download resting state fMRI scans
-cat download_list | \
-  xargs -I '{}' aws s3 sync --no-sign-request \
-  s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/{}/func \
-  ./data/ds000030/{}/func \
-  --exclude '*' \
-  --include '*task-rest_bold*'
-
-# download fmriprep preprocessed anat data
-cat download_list | \
-  xargs -I '{}' aws s3 sync --no-sign-request \
-  s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/derivatives/fmriprep/{}/anat \
-  ./data/ds000030/derivatives/fmriprep/{}/anat
-
-# download fmriprep preprocessed func data
-cat download_list | \
-  xargs -I '{}' aws s3 sync --no-sign-request \
-  s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/derivatives/fmriprep/{}/func \
-  ./data/ds000030/derivatives/fmriprep/{}/func \
-  --exclude '*' \
-  --include '*task-rest_bold*'
-```
 Finally open up the jupyter notebook to explore the tutorials:
 ```
-cd scwg2018_python_neuroimaging
+cd SD-BIDS-fMRI
 
 #Include below line if using anaconda environment
-source activate $(pwd)/scwg2018_nilearn
+source activate $(pwd)/sdc_bids_fmri
 
 jupyter notebook
 ```
