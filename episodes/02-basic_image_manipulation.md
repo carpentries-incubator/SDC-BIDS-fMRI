@@ -1,4 +1,3 @@
-
 ---
 title: "Introduction to Image Manipulation using Nilearn"
 teaching: 30
@@ -160,7 +159,7 @@ Recall that our data matrix is organized in the following manner:
 Slicing does exactly what it seems to imply. Given our 3D volume, we can pull out 2D subsets (called "slices"). Here's an example of slicing moving from left to right via an animated GIF:
 
 ### <INSERT IMAGE HERE>
-![image-title-here](../fig/animated_slicing.png){:class="img-responsive"}
+![image-title-here](../fig/animated_slicing.gif){:class="img-responsive"}
 
 What you see here is a series of 2D images that start from the left, and move toward the right. Each frame of this GIF is a slice - a 2D subset of a 3D volume. Slicing can be useful for cases in which you'd want to loop through each MR slice and perform a computation; importantly in functional imaging data slicing is useful for pulling out timepoints as we'll see later!
 
@@ -204,3 +203,5 @@ This covers the basics of image manipulation using T1 images. To review in this 
 - Slicing
 
 In the next section we will cover how to integrate additional modalities (functional data) to what we've done so far using <code>Nilearn</code>. Then we can start using what we've learned in order to perform analysis and visualization!
+
+{% include links.md %}
