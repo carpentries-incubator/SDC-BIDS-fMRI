@@ -1,5 +1,3 @@
-
-
 ---
 title: "Integrating Functional Data"
 teaching: 30
@@ -24,7 +22,6 @@ In this notebook we'll finally start working with functional MR data - the modal
 
 Functional data consists of full 3D brain volumes that are *sampled* at multiple time points. Therefore you have a sequence of 3D brain volumes, stepping through sequences is stepping through time and therefore time is our 4th dimension! Here's a visualization to make this concept more clear:
 
-<INSERT IN HERE>
 ![image-title-here](../fig/4D_array.png){:class="img-responsive"}
 
 Each index along the 4th dimensions (called TR for "Repetition Time", or Sample) is a full 3D scan of the brain. Pulling out volumes from 4-dimensional images is similar to that of 3-dimensional images except you're now dealing with:
@@ -160,10 +157,7 @@ plt.ylabel('Signal Value')
 ~~~
 {: .language-python}
 
-~~~
 ![image-title-here](../fig/timeseries.png){:class="img-responsive"}
-~~~
-{: .output}
 
 As you can see from the image above, fMRI data really is just a signal per voxel over time!
 
@@ -243,7 +237,7 @@ Now that we've explored the idea of resampling let's do a cumulative exercise br
 > ### Files we'll need
 > 
 > 
-> ####STRUCTURAL FILES
+> #### Structural Files
 > 
 > ~~~
 > #T1 image
@@ -254,7 +248,7 @@ Now that we've explored the idea of resampling let's do a cumulative exercise br
 > ~~~
 > {: .language-python}
 > 
-> ####FUNCTIONAL FILES
+> #### Functional Files
 > 
 > ~~~
 > #This is the pre-processed resting state data that hasn't been standardized
@@ -275,10 +269,7 @@ Now that we've explored the idea of resampling let's do a cumulative exercise br
 > ~~~
 > {: .language-python}
 > 
-> ~~~
 > ![image-title-here](../fig/exercise_t1.png){:class="img-responsive"}
-> ~~~
-> {: .output}
 > 
 > Next we want to make sure that the brain mask for the T1 is also the same dimensions as the functional image. This is exactly the same as above, except we use the brain mask as the source.
 > 
@@ -375,3 +366,5 @@ Now that we've explored the idea of resampling let's do a cumulative exercise br
 > > {: .language-python}
 > {: .solution}
 {: .challenge}
+
+{% include links.md %}

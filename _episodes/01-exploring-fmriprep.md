@@ -1,4 +1,3 @@
-
 ---
 title: "Exploring Preprocessed fMRI Data from fMRIPREP"
 teaching: 20
