@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Get directory of script
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+
+# Set up for Binder Instance
+echo "Setting up SDC-BIDS-fMRI Workshop...."
+(
+	# Move into parent directory of script directory
+	cd $DIR
+	cd ..
+
+	# download fmriprep preprocessed anat data
+	cat ./data/download_list | head -3 | \
+	  xargs -I '{}' aws s3 sync --no-sign-request \
+	  s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/derivatives/fmriprep/{}/anat \
+	  ./data/ds000030/derivatives/fmriprep/{}/anat --exclude "*" --include "*preproc.nii.gz" --include "*mask.nii.gz"
+
+	# download fmriprep preprocessed func data
+	cat ./data/download_list | head -3 | \
+	  xargs -I '{}' aws s3 sync --no-sign-request \
+	  s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/derivatives/fmriprep/{}/func \
+	  ./data/ds000030/derivatives/fmriprep/{}/func \
+	  --exclude '*' \
+	  --include '*task-rest_bold*'
+
+cat ./data/download_list | \
+  xargs -I '{}' aws s3 sync --no-sign-request \
+  s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/derivatives/fmriprep/{}/anat \
+  ./data/ds000030/derivatives/fmriprep/{}/anat --exclude "*" --include "*preproc.nii.gz" --include "*mask.nii.gz"
+
+# download fmriprep preprocessed func data
+cat ./data/download_list | \
+  xargs -I '{}' aws s3 sync --no-sign-request \
+  s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/derivatives/fmriprep/{}/func \
+  ./data/ds000030/derivatives/fmriprep/{}/func \
+  --exclude '*' \
+  --include '*task-rest_bold*'
+
+
+)
