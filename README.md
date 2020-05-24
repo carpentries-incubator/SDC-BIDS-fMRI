@@ -14,7 +14,11 @@ how to write new episodes.
 
 ## Maintainer(s)
 
-* FIXME
+* Jerrold Jeyachandra
+* Michael Joseph
+* Olivia Stanley
+* Jason Kai
+* Erin Dickie
 
 ## Authors
 
