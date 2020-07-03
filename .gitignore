@@ -1,8 +1,10 @@
-data/ds000030/sub-*
-data/ds000030/derivatives
-scwg2018_nilearn
-*checkpoint.ipynb
-.python-version
+*.pyc
+*~
 .DS_Store
-data/ds000030/fmriprep
-bin/nilearn_cache
+.ipynb_checkpoints
+.sass-cache
+__pycache__
+_site
+.Rproj.user
+.Rhistory
+.RData
