@@ -18,6 +18,7 @@ here are a few things we recommend you do:
 * [ ] Decide on a title for your new lesson!
   Once you've chosen a new title, you can set the value for `lesson_title`
   in [`_config.yml`](_config.yml)
+* [ ] Add the URL to your built lesson pages to the repository description\*
 * [ ] Fill in the fields marked `FIXME` in:
   * this README
   * [`_config.yml`](_config.yml)
@@ -28,6 +29,13 @@ here are a few things we recommend you do:
   working with the lesson template
 * [ ] Update this README with relevant information about your lesson
   and delete this section
+
+\* To set the URL on GitHub, click the gear wheel button next to **About**
+on the right of the repository landing page.
+The lesson URL structure is **https://carpentries-incubator.github.io/<repository-slug\>**:
+a repository at https://github.com/carpentries-incubator/new-lesson/ will have pages at
+the lesson URL https://carpentries-incubator.github.io/new-lesson/.
+
 
 ## Contributing
 
