@@ -8,7 +8,7 @@
 
 This is one sub-module within the [Neuroimaging cirriculum][neuro_cirriculum]. Visit the link to view all the modules associated with the Neuroimaging Carpentries program.
 
-**fMRI Analysis in Python** is a programme developed to faciliate reproducible analysis in the area of functional neuroimaging analysis. Python is emerging as a standard language of data analysis, visualization, and workflow building. More recently, it has rapidly been adopted by the neuroimaging community as a means of developing powerful open-source tools in favour of historially used opaque packages such as AFNI, FSL and SPM. In addition, the barrier to entry to python is low - meaning that you as the user can easily develop your own packages and contribute to the open-source codebase of neuroimaging!
+**fMRI Analysis in Python** is a programme developed to facilitate reproducible analysis in the area of functional neuroimaging analysis. Python is emerging as a standard language of data analysis, visualization, and workflow building. More recently, it has rapidly been adopted by the neuroimaging community as a means of developing powerful open-source tools in favour of historially used opaque packages such as AFNI, FSL and SPM. In addition, the barrier to entry to python is low - meaning that you as the user can easily develop your own packages and contribute to the open-source codebase of neuroimaging!
 
 
 ***
@@ -26,16 +26,16 @@ This lesson covers fMRI imaging analysis from the basic steps of preprocessing a
 | Time | Episode | Question(s) Answered |
 | ---  | ---     | ---                  |
 ||Setup|Download files required for the lesson|
-| 00:00 | 1. Exploring Preprocessed fMRI Data from fMRIPREP   | How does fMRIPrep store preprocessed neuroimaging data. How do I access preprocessed neuroimaging data                                     |
-| 00:25 | 2. Introduction to Image Manipulation using Nilearn | How can be perform arithmetic operations on MR images                                                                                                  |
-| 01:10 | 3. Integrating Functional Data                      | How is fMRI data represented. How can we access fMRI data along spatial and temporal dimensions. How can we integrate fMRI and structural MRI together                                                   |
-| 01:55 | 4. Preprocessing fMRI Data                          | What are the standard preprocessing steps? What existing pipelines help with preprocessing?                                                                                                              |
-| 02:25 | 5. Cleaning Confounders in your Data with Nilearn   | How can we clean the data so that it more closely reflects BOLD instead of artifacts                                                                                                                                         |
-| 03:05 | 6. Applying Parcellations to Resting State Data     | How can we reduce amount of noise-related variance in our data? How can we frame our data as a set of meaningful features?                                                                                                 |
-|03:50|7. Functional Connectivity Analysis|How can we estimate brain functional connectivity patterns from resting state data?|
-|04:35|8. Neuroimaging Fundamentals & Nibabel|How are images loaded in Python?|
-|05:05|9. Introduction to Image Manipulation using Nilearn|How can be perform arithmetic operations on MR images|
-|05:50|10. Exploration of Open Neuroimaging Datasets in BIDS format|How does standardization of neuroimaging data ease the data exploration process|
+| 00:00 | 1. Exploring Preprocessed fMRI Data from fMRIPREP            | How does fMRIPrep store preprocessed neuroimaging data. How do I access preprocessed neuroimaging data                                                 |
+| 00:25 | 2. Introduction to Image Manipulation using Nilearn          | How can we perform arithmetic operations on MR images                                                                                                  |
+| 01:10 | 3. Integrating Functional Data                               | How is fMRI data represented. How can we access fMRI data along spatial and temporal dimensions. How can we integrate fMRI and structural MRI together |
+| 01:55 | 4. Preprocessing fMRI Data                                   | What are the standard preprocessing steps? What existing pipelines help with preprocessing?                                                            |
+| 02:25 | 5. Cleaning Confounders in your Data with Nilearn            | How can we clean the data so that it more closely reflects BOLD instead of artifacts                                                                   |
+| 03:05 | 6. Applying Parcellations to Resting State Data              | How can we reduce amount of noise-related variance in our data? How can we frame our data as a set of meaningful features?                             |
+| 03:50 | 7. Functional Connectivity Analysis                          | How can we estimate brain functional connectivity patterns from resting state data?                                                                    |
+| 04:35 | 8. Neuroimaging Fundamentals & Nibabel                       | How are images loaded in Python?                                                                                                                       |
+| 05:05 | 9. Introduction to Image Manipulation using Nilearn          | How can be perform arithmetic operations on MR images                                                                                                  |
+| 05:50 | 10. Exploration of Open Neuroimaging Datasets in BIDS format | How does standardization of neuroimaging data ease the data exploration process                                                                        |
 |06:35|Finish||
  
 
