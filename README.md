@@ -19,7 +19,7 @@ The **fMRI Analysis in Python** is a workshop series started up via a collaborat
 
 ## About the lesson
 
-This lesson covers fMRI imaging analysis from the basic steps of preprocessing and data cleaning, to running an analysis to explore connectivity patterns in the brain.
+This lesson covers fMRI imaging analysis from the basic steps of preprocessing and data cleaning, to running an analysis, to exploring connectivity patterns in the brain.
 
 ### Episodes
 
