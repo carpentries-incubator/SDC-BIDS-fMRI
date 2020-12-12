@@ -1,6 +1,6 @@
 ---
 title: "Cleaning Confounders in your Data with Nilearn"
-teaching: 30
+teaching: 45
 exercises: 10
 questions:
 - "How can we clean the data so that it more closely reflects BOLD instead of artifacts"
