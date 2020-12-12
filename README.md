@@ -33,10 +33,7 @@ This lesson covers fMRI imaging analysis from the basic steps of preprocessing a
 | 02:25 | 5. Cleaning Confounders in your Data with Nilearn            | How can we clean the data so that it more closely reflects BOLD instead of artifacts                                                                   |
 | 03:05 | 6. Applying Parcellations to Resting State Data              | How can we reduce amount of noise-related variance in our data? How can we frame our data as a set of meaningful features?                             |
 | 03:50 | 7. Functional Connectivity Analysis                          | How can we estimate brain functional connectivity patterns from resting state data?                                                                    |
-| 04:35 | 8. Neuroimaging Fundamentals & Nibabel                       | How are images loaded in Python?                                                                                                                       |
-| 05:05 | 9. Introduction to Image Manipulation using Nilearn          | How can be perform arithmetic operations on MR images                                                                                                  |
-| 05:50 | 10. Exploration of Open Neuroimaging Datasets in BIDS format | How does standardization of neuroimaging data ease the data exploration process                                                                        |
-|06:35|Finish||
+| 04:30 | Finish | |
  
 
 ## Contributing
