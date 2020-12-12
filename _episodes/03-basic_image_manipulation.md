@@ -1,6 +1,6 @@
 ---
 title: "Introduction to Image Manipulation using Nilearn"
-teaching: 35
+teaching: 30
 exercises: 15
 questions:
 - "How can be perform arithmetic operations on MR images"

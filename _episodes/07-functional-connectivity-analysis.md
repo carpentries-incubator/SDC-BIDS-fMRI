@@ -1,6 +1,6 @@
 ---
 title: "Functional Connectivity Analysis"
-teaching: 45
+teaching: 30
 exercises: 15
 questions:
 - "How can we estimate brain functional connectivity patterns from resting state data?"

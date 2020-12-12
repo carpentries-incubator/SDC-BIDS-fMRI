@@ -1,6 +1,6 @@
 ---
 title: "Integrating Functional Data"
-teaching: 35
+teaching: 30
 exercises: 15
 questions:
 - "How is fMRI data represented"
