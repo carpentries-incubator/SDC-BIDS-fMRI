@@ -1,6 +1,6 @@
 ---
 title: "Applying Parcellations to Resting State Data"
-teaching: 30
+teaching: 25
 exercises: 15
 questions:
 - "How can we reduce amount of noise-related variance in our data?"

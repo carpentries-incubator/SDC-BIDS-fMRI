@@ -1,6 +1,6 @@
 ---
 title: "Course Overview and Introduction"
-teaching: 15
+teaching: 25
 exercises: 0
 questions:
 - "What steps do I need to take before beginning to work with fMRI data?"
