@@ -1,6 +1,6 @@
 ---
 title: "Exploring Preprocessed fMRI Data from fMRIPREP"
-teaching: 20
+teaching: 45
 exercises: 5
 questions:
 - "How does fMRIPrep store preprocessed neuroimaging data"
