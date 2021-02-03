@@ -35,7 +35,7 @@ The material covered will be:
 3. Introduction to Nilearn and Image manipulation
 4. Integrating functional time-series data
 5. Parcellating your data
-6. Confound cleaning fMRI time-series signas
+6. Confound cleaning fMRI time-series signals
 7. Functional Connectivity Analysis
 
 ## Pre-processing
