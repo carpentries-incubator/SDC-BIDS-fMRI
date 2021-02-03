@@ -29,7 +29,7 @@ This lesson covers fMRI imaging analysis from the basic steps of preprocessing a
 | 00:00 | 1. Course Overview and Introduction | What steps do I need to take before beginning to work with fMRI data? |
 | 00:25 | 2. Exploring Preprocessed fMRI Data from fMRIPREP | How does fMRIPrep store preprocessed neuroimaging data? How do I access preprocessed neuroimaging data?  |
 | 00:50 | 3. Introduction to Image Manipulation using Nilearn | How can I perform arithmetic operations on MR images? |
-| 01:35 | 4. Integrating Functional Data  | How is fMRI data represented. How can we access fMRI data along spatial and temporal dimensions. How can we integrate fMRI and structural MRI together |
+| 01:35 | 4. Integrating Functional Data  | How is fMRI data represented? How can I access fMRI data along spatial and temporal dimensions? How can I integrate fMRI and structural MRI together? |
 | 02:20 | 6. Cleaning Confounders in your Data with Nilearn | How can we clean the data so that it more closely reflects BOLD instead of artifacts  |
 | 02:50 | 7. Applying Parcellations to Resting State Data | How can we reduce amount of noise-related variance in our data? How can we frame our data as a set of meaningful features?  |
 | 03:30 | 8. Functional Connectivity Analysis | How can we estimate brain functional connectivity patterns from resting state data? |
