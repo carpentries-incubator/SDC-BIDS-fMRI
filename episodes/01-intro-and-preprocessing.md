@@ -40,7 +40,7 @@ The material covered will be:
 
 ## Pre-processing
 
-You're a researcher whose collected some nice MR images, and put in some work organizing your data into a BIDS dataset. Now you're rarin to go and want to play with some data and get some science done. However, *fMRI data is messy*, there are a ton of issues that you need to overcome before you can even begin to analyze your data, **this is called pre-processing**. Here are some of the issues:
+You're a researcher who's collected some nice MR images, and put in some work organizing your data into a BIDS dataset. Now you're rarin' to go and want to play with some data and get some science done. However, *fMRI data is messy*, there are a ton of issues that you need to overcome before you can even begin to analyze your data, **this is called pre-processing**. Here are some of the issues:
 
 1. We have whole head images, *we just want the brain*
 2. Your fMRI image and T1 (anatomical) image are not aligned with eachother
