@@ -34,7 +34,7 @@ The material covered will be:
 2. Exploring fMRIPrep preprocessing pipeline outputs using pyBIDS
 3. Introduction to Nilearn and Image manipulation
 4. Integrating functional time-series data
-5. Parcellation you data
+5. Parcellating your data
 6. Confound cleaning fMRI time-series signas
 7. Functional Connectivity Analysis
 
