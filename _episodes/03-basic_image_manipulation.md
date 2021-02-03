@@ -87,7 +87,7 @@ plot.plot_anat(t1_img)
 ~~~
 {: .language-python}
 
-![image-title-here](../fig/t1_img.png){:class="img-responsive"}
+![Nilearn antomical plotting](../fig/t1_img.png){:class="img-responsive"}
 
 Try viewing the mask as well!
 
@@ -111,7 +111,7 @@ plot.plot_anat(invert_img)
 ~~~
 {: .language-python}
 
-![image-title-here](../fig/invert_img.png){:class="img-responsive"}
+![Nilearn image math example output](../fig/invert_img.png){:class="img-responsive"}
 
 ### Applying a Mask
 Let's extend this idea of applying operations to each element of an image to multiple images. Instead of specifying just one image like the following:
@@ -132,7 +132,7 @@ plot.plot_anat(masked_T1)
 ~~~
 {: .language-python}
 
-![*image-title-here](../fig/masked_t1.png){:class="img-responsive"}
+![Nilearn image masking output](../fig/masked_t1.png){:class="img-responsive"}
 
 As you can see areas where the mask image had a value of 1 were retained, everything else was set to 0
 
@@ -145,7 +145,7 @@ As you can see areas where the mask image had a value of 1 were retained, everyt
 > > plot.plot_anat(inverted_mask_t1)
 > > ~~~
 > > {: .language-python}
-> > ![*image-title-here](../fig/inverted_mask_t1.png){:class="img-responsive"}
+> > ![Episode 03 Exercise 1 inverted mask](../fig/inverted_mask_t1.png){:class="img-responsive"}
 > {: .solution}
 {: .challenge}
 
@@ -154,12 +154,12 @@ As you can see areas where the mask image had a value of 1 were retained, everyt
 Recall that our data matrix is organized in the following manner:
 
 ### <INSERT IMAGE HERE>
-![image-title-here](../fig/slicing.png){:class="img-responsive"}
+![3D Array Representation](../fig/slicing.png){:class="img-responsive"}
 
 Slicing does exactly what it seems to imply. Given our 3D volume, we can pull out 2D subsets (called "slices"). Here's an example of slicing moving from left to right via an animated GIF:
 
 ### <INSERT IMAGE HERE>
-![image-title-here](../fig/animated_slicing.gif){:class="img-responsive"}
+![Animated Slicing of T1](../fig/animated_slicing.gif){:class="img-responsive"}
 
 What you see here is a series of 2D images that start from the left, and move toward the right. Each frame of this GIF is a slice - a 2D subset of a 3D volume. Slicing can be useful for cases in which you'd want to loop through each MR slice and perform a computation; importantly in functional imaging data slicing is useful for pulling out timepoints as we'll see later!
 

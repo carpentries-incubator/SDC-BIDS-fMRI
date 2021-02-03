@@ -22,7 +22,7 @@ In this notebook we'll finally start working with functional MR data - the modal
 
 Functional data consists of full 3D brain volumes that are *sampled* at multiple time points. Therefore you have a sequence of 3D brain volumes, stepping through sequences is stepping through time and therefore time is our 4th dimension! Here's a visualization to make this concept more clear:
 
-![image-title-here](../fig/4D_array.png){:class="img-responsive"}
+![4D Array Representation](../fig/4D_array.png){:class="img-responsive"}
 
 Each index along the 4th dimensions (called TR for "Repetition Time", or Sample) is a full 3D scan of the brain. Pulling out volumes from 4-dimensional images is similar to that of 3-dimensional images except you're now dealing with:
 
@@ -102,7 +102,7 @@ vs.
 {: .challenge}
 
 
-![image-title-here](../fig/fmri_data.png){:class="img-responsive"}
+![Visual of fMRI EPI Data](../fig/fmri_data.png){:class="img-responsive"}
 
 ## What fMRI actually represents
 
@@ -157,7 +157,7 @@ plt.ylabel('Signal Value')
 ~~~
 {: .language-python}
 
-![image-title-here](../fig/timeseries.png){:class="img-responsive"}
+![Example fMRI Timeseries](../fig/timeseries.png){:class="img-responsive"}
 
 As you can see from the image above, fMRI data really is just a signal per voxel over time!
 
@@ -224,7 +224,7 @@ plot.plot_anat(resamp_t1)
 ~~~
 {: .language-python}
 
-![image-title-here](../fig/downsample_t1.png){:class="img-responsive"}
+![Downsampled T1](../fig/downsample_t1.png){:class="img-responsive"}
 
 Now that we've explored the idea of resampling let's do a cumulative exercise bringing together ideas from resampling and basic image operations.
 
@@ -269,7 +269,7 @@ Now that we've explored the idea of resampling let's do a cumulative exercise br
 > ~~~
 > {: .language-python}
 > 
-> ![image-title-here](../fig/exercise_t1.png){:class="img-responsive"}
+> ![Episode 04 Exercise Downsampled Image](../fig/exercise_t1.png){:class="img-responsive"}
 > 
 > Next we want to make sure that the brain mask for the T1 is also the same dimensions as the functional image. This is exactly the same as above, except we use the brain mask as the source.
 > 
