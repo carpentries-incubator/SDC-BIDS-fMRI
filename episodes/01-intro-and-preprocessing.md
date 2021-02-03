@@ -43,7 +43,7 @@ The material covered will be:
 You're a researcher who's collected some nice MR images, and put in some work organizing your data into a BIDS dataset. Now you're rarin' to go and want to play with some data and get some science done. However, *fMRI data is messy*, there are a ton of issues that you need to overcome before you can even begin to analyze your data, **this is called pre-processing**. Here are some of the issues:
 
 1. We have whole head images, *we just want the brain*
-2. Your fMRI image and T1 (anatomical) image are not aligned with eachother
+2. Your fMRI image and T1 (anatomical) image are not aligned with each other
 3. Your fMRI image is distorted due to changing magnetic fields in some areas of the brain
 4. People move, the fMRI image is misaligned *through time*
 5. Movement influences the fMRI signal itself! We want *brain signals not motion signals*
