@@ -58,7 +58,7 @@ First we'll want to deal with our structural data; this is called the **T1 image
 1. Brain extraction - we want to analyze brains, not skulls
 2. Normalization - since brains are different across people, we need a method to make them look more alike so we can perform group analysis. This is achieved using a non-linear warp which *squishes and pulls* the brain to look like a *template image*
 
-![image-title-here](../fig/animated_t1_mni.gif){:class="img-responsive"}
+![T1 Normalization](../fig/animated_t1_mni.gif){:class="img-responsive"}
 
 ### Visual Guide to Pre-processing fMRI data
 
@@ -76,21 +76,21 @@ The following steps are required (at minimum!):
 5. Confound regression - not only does motion *misalign brains* it also corrupts the signal with *motion signal artifacts*, this also needs to be cleaned!
 
 
-![image-title-here](../fig/animated_fmri_preproc.gif){:class="img-responsive"}
+![fMRI Preprocessing Steps](../fig/animated_fmri_preproc.gif){:class="img-responsive"}
 
 So **how does one begin to even accomplish this**? Traditionally, neuroimagers used a plethora of tools like, but not limited to: **FSL**, **AFNI**, **FREESURFER**, **ANTS**, **SPM**. Each with their own quirks and file format requirements.
 
 Unfortunately this is difficult to navigate, and each tool develops new techniques to better peform each of these pre-processing steps. Luckily, if your data is in a **BIDS Format**, there exists a tool, [**fMRIPrep**](https://fmriprep.org), which does this all for you while using the best methods across *most of these tools*!. An image below from their website depicts the processing steps they use:
 
 
-![image-title-here](https://github.com/oesteban/fmriprep/raw/38a63e9504ab67812b63813c5fe9af882109408e/docs/_static/fmriprep-workflow-all.png){:class="img-responsive"}
+![fMRIPrep's Workflow](https://github.com/oesteban/fmriprep/raw/38a63e9504ab67812b63813c5fe9af882109408e/docs/_static/fmriprep-workflow-all.png){:class="img-responsive"}
 
 
 Ultimately, fMRIPrep is an end-to-end pipeline - meaning that you feed it your raw organized data and it'll produce a bunch of outputs that you can use for analysis! What follows below are explanations of what those outputs are:
 
 #### fMRIPrep anatomical outputs
 
-![image-title-here](../fig/fmriprep_anat_out.png){:class="img-static"}
+![fMRIPrep Anatomical Outputs](../fig/fmriprep_anat_out.png){:class="img-static"}
 
 ##### Native Space
 1. **sub-xxxxx_T1w_brainmask.nii** - a binary mask which can be used to pull out just the brain
@@ -104,7 +104,7 @@ Ultimately, fMRIPrep is an end-to-end pipeline - meaning that you feed it your r
 #### fMRIPrep functional outputs
 
 
-![image-title-here](../fig/fmriprep_func_out.png){:class="img-static"}
+![fMRIPrep Functional Outputs](../fig/fmriprep_func_out.png){:class="img-static"}
 
 As above we have both **Native** and **Normalized** versions of the fMRI brain, we have a mask of each one as well as the preprocessed fMRI brain. 
 

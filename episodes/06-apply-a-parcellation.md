@@ -84,10 +84,10 @@ plotting.plot_roi(atlas_yeo_2011['thick_17'], cut_coords=cut_coords, colorbar=co
 ~~~
 {: .language-python}
 
-![image-title-here](../fig/thin_7.png){:class="img-responsive"}
-![image-title-here](../fig/thin_17.png){:class="img-responsive"}
-![image-title-here](../fig/thick_7.png){:class="img-responsive"}
-![image-title-here](../fig/thick_17.png){:class="img-responsive"}
+![Yeo Thin 7](../fig/thin_7.png){:class="img-responsive"}
+![Yeo Thin 17](../fig/thin_17.png){:class="img-responsive"}
+![Yeo Thick 7](../fig/thick_7.png){:class="img-responsive"}
+![Yeo Thick 17](../fig/thick_17.png){:class="img-responsive"}
 
 The 7 and 17 network parcellations correspond to the two most stable clustering solutions from the algorithm used by the authors. The thin/thick designation refer to how strict the voxel inclusion is (thick might include white matter/CSF, thin might exclude some regions of grey matter due to partial voluming effects).
 
@@ -118,7 +118,7 @@ plotting.plot_roi(region_labels,
 ~~~
 {: .language-python}
 
-![image-title-here](../fig/yeo_sep.png){:class="img-responsive"}
+![Separated Yeo Labels](../fig/yeo_sep.png){:class="img-responsive"}
 
 ### Resampling the Atlas
 
@@ -151,7 +151,7 @@ region_labels.to_filename('../resources/rois/yeo_2011/Yeo_JNeurophysiol11_MNI152
 > > plotting.plot_roi(resampled_yeo, func_img.slicer[:,:,:,54])
 > > ~~~
 > > {: .language-python}
-> > ![image-title-here](../fig/resampled_yeo.png){:class="img-responsive"}
+> > ![Episode 06 Exercise Resampled Yeo Labels](../fig/resampled_yeo.png){:class="img-responsive"}
 > > Recall, that we use `interpolation = 'nearest' ` because parcel regions are integers. Nearest interpolation preserves the values in the original image. Something like `continuous` or `linear` will pick in between values; a parcel value of 2.2215 is not meaningful in this context.
 > {: .solution}
 {: .challenge}
@@ -174,7 +174,7 @@ For the next section, we'll be performing an analysis using the Yeo parcellation
 > > ~~~
 > > {: .language-python}
 > >
-> > ![image-title-here* ](../fig/roi_44.png){:class="img-responsive"}
+> > ![Episode 06 Exercise Yeo ROI 44](../fig/roi_44.png){:class="img-responsive"}
 > > ~~~
 > > roi  =  46
 > > roi_mask  = image.math_img('a == {}'.format(roi), a=resampled_yeo)
@@ -182,7 +182,7 @@ For the next section, we'll be performing an analysis using the Yeo parcellation
 > > plotting.plot_roi(masked_resamp_yeo)
 > > ~~~
 > > {: .language-python}
-> > ![image-title-here](../fig/roi_46.png){:class="img-responsive"}
+> > ![Episode 06 Exercise Yeo ROI 46](../fig/roi_46.png){:class="img-responsive"}
 > {: .solution}
 {: .challenge}
 
