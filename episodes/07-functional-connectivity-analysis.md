@@ -224,12 +224,12 @@ plot_matrices(ctrl_correlation_matrices, 'correlation')
 ~~~
 {: .language-python}
 
-![image-title-here](../fig/ctrl_r.png){:class="img-responsive"}
+![Control correlation matrix](../fig/ctrl_r.png){:class="img-responsive"}
 ~~~
 plot_matrices(schz_correlation_matrices, 'correlation')
 ~~~
 {: .language-python}
-![image-title-here](../fig/schz_r.png){:class="img-responsive"}
+![Schizophrenia correlation matrix](../fig/schz_r.png){:class="img-responsive"}
 
 Let's look at the data that is returned from  `correlation_measure.fit`:
 
@@ -286,7 +286,7 @@ plt.show()
 ~~~
 {: .language-python}
 
-![image-title-here](../fig/group_compare.png){:class="img-responsive"}
+![Intra-network connectivity by group](../fig/group_compare.png){:class="img-responsive"}
 
 Although the results here aren't significant they seem to indicate that there might be three subclasses in our schizophrenia group - of course we'd need *a lot* more data to confirm this! The interpretation of these results should ideally be based on some *a priori* hypothesis!  
 
