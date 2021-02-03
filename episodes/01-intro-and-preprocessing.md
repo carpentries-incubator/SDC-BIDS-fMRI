@@ -22,7 +22,7 @@ Welcome to the **Functional Neuroimaging Analysis in Python** workshop! In this 
 
 ## The Central Objective
 
-This workshop is designed to teach you the basics and work up to performing a **intra-network functional connectivity analysis** of the **Default Mode Network** in individuals with Schizophrenia and compare them to a Control population.
+This workshop is designed to teach you the basics and work up to performing an **intra-network functional connectivity analysis** of the **Default Mode Network** in individuals with Schizophrenia and compare them to a Control population.
 
 All of this sounds fancy, but we'll explain in depth what this looks like in practice as the course goes along.
 
