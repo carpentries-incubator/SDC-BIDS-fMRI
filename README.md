@@ -27,8 +27,11 @@ here are a few things we recommend you do:
   consider reading the [Carpentries Curriculum Development Handbook][cdh]
 * [ ] Consult the [Lesson Example][lesson-example] website to find out more about
   working with the lesson template
+* [ ] If you are planning to write your lesson in RMarkdown,
+  [create a `main` branch and set this as the default branch in your repository settings][change-default-branch]
 * [ ] Update this README with relevant information about your lesson
   and delete this section
+
 
 \* To set the URL on GitHub, click the gear wheel button next to **About**
 on the right of the repository landing page.
@@ -71,5 +74,6 @@ A list of contributors to the lesson can be found in [AUTHORS](AUTHORS)
 To cite this lesson, please consult with [CITATION](CITATION)
 
 [cdh]: https://cdh.carpentries.org
+[change-default-branch]: https://docs.github.com/en/github/administering-a-repository/changing-the-default-branch
 [community-lessons]: https://carpentries.org/community-lessons
 [lesson-example]: https://carpentries.github.io/lesson-example
