@@ -34,7 +34,7 @@ This lesson covers fMRI imaging analysis from the basic steps of preprocessing a
 | 02:50 | 7. Applying Parcellations to Resting State Data | How can I reduce amount of noise-related variance in my data? How can I frame my data as a set of meaningful features?  |
 | 03:30 | 8. Functional Connectivity Analysis | How can we estimate brain functional connectivity patterns from resting state data? |
 | 04:15 | Finish | |
- 
+
 
 ## Contributing
 
