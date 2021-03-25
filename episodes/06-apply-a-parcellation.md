@@ -40,8 +40,7 @@ First we'll load in our packages as usual:
 import numpy as np
 import nibabel as nib
 from nilearn import datasets #provides nilearn example datasets as well as brain parcellation atlases
-from nilearn import image
-from nilearn import plotting
+from nilearn import plotting as nplot
 import matplotlib.pyplot as plt
 ~~~
 {: .language-python}
@@ -77,10 +76,10 @@ colorbar=True
 cmap='Paired'
 
 #Plot all parcellation schemas referred to by atlas_yeo_2011
-plotting.plot_roi(atlas_yeo_2011['thin_7'], cut_coords=cut_coords, colorbar=colorbar, cmap=cmap, title='thin_7')
-plotting.plot_roi(atlas_yeo_2011['thin_17'], cut_coords=cut_coords, colorbar=colorbar, cmap=cmap, title='thin_17')
-plotting.plot_roi(atlas_yeo_2011['thick_7'], cut_coords=cut_coords, colorbar=colorbar, cmap=cmap, title='thick_7')
-plotting.plot_roi(atlas_yeo_2011['thick_17'], cut_coords=cut_coords, colorbar=colorbar, cmap=cmap, title='thick_17')
+nplot.plot_roi(atlas_yeo_2011['thin_7'], cut_coords=cut_coords, colorbar=colorbar, cmap=cmap, title='thin_7')
+nplot.plot_roi(atlas_yeo_2011['thin_17'], cut_coords=cut_coords, colorbar=colorbar, cmap=cmap, title='thin_17')
+nplot.plot_roi(atlas_yeo_2011['thick_7'], cut_coords=cut_coords, colorbar=colorbar, cmap=cmap, title='thick_7')
+nplot.plot_roi(atlas_yeo_2011['thick_17'], cut_coords=cut_coords, colorbar=colorbar, cmap=cmap, title='thick_17')
 ~~~
 {: .language-python}
 
@@ -109,7 +108,7 @@ A key feature of the Yeo2011 networks is that they are *spatially distributed*, 
 ~~~
 from nilearn.regions import connected_label_regions
 region_labels = connected_label_regions(atlas_yeo)
-plotting.plot_roi(region_labels,
+nplot.plot_roi(region_labels,
 			cut_coords=(-20,-10,0,10,20,30,40,50,60,70),
 			display_mode='z',
 			colorbar=True,
@@ -148,7 +147,7 @@ region_labels.to_filename('../resources/rois/yeo_2011/Yeo_JNeurophysiol11_MNI152
 > > Turns out that they aren't the same! We can match the file sizes simply using `img.resample_to_img`:
 > > ~~~
 > > resampled_atlas = image.resample_to_img(region_labels, func_img, interpolation = 'nearest')
-> > plotting.plot_roi(resampled_yeo, func_img.slicer[:,:,:,54])
+> > nplot.plot_roi(resampled_yeo, func_img.slicer[:,:,:,54])
 > > ~~~
 > > {: .language-python}
 > > ![Episode 06 Exercise Resampled Yeo Labels](../fig/resampled_yeo.png){:class="img-responsive"}
@@ -170,7 +169,7 @@ For the next section, we'll be performing an analysis using the Yeo parcellation
 > > roi = 44
 > > roi_mask = image.math_img('a == {}'.format(roi), a=resampled_yeo)
 > > masked_resamp_yeo = image.math_img('a*b',a=resampled_yeo,b=roi_mask)
-> > plotting.plot_roi(masked_resamp_yeo)
+> > nplot.plot_roi(masked_resamp_yeo)
 > > ~~~
 > > {: .language-python}
 > >
@@ -179,7 +178,7 @@ For the next section, we'll be performing an analysis using the Yeo parcellation
 > > roi  =  46
 > > roi_mask  = image.math_img('a == {}'.format(roi), a=resampled_yeo)
 > > masked_resamp_yeo = image.math_img('a*b',a=resampled_yeo,b=roi_mask)
-> > plotting.plot_roi(masked_resamp_yeo)
+> > nplot.plot_roi(masked_resamp_yeo)
 > > ~~~
 > > {: .language-python}
 > > ![Episode 06 Exercise Yeo ROI 46](../fig/roi_46.png){:class="img-responsive"}
