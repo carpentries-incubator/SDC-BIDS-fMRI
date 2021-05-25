@@ -92,6 +92,7 @@ vs.
 > 
 > Try pulling out the 5th TR and visualizing it using <code>plot.plot_epi</code>. <code>plot_epi</code> is exactly the same as <code>plot_anat</code> except it displays using colors that make more sense for functional images...
 > 
+> > ## Solution
 > > ~~~
 > > #Pull the 5th TR
 > > func_vol5 = func_mni_img.slicer[:,:,:,4]
