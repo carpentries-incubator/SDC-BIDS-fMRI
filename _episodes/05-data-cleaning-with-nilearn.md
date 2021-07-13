@@ -31,8 +31,8 @@ Let's load in some modules as we've done before
 
 ~~~
 import os
-from nilearn import image as img
-from nilearn import plotting as plt
+from nilearn import image as nimg
+from nilearn import plotting as nplot
 import matplotilb.pyplot as plt
 import numpy as np
 import nibabel as nib
@@ -153,7 +153,7 @@ Now we'll implement our **Dummy TR Drop**. Remember this means that we are remov
 
 ~~~
 #First we'll load in our data and check the shape
-raw_func_img = img.load_img(func)
+raw_func_img = nimg.load_img(func)
 raw_func_img.shape
 ~~~
 {: .language-python}
@@ -236,11 +236,11 @@ low_pass = 0.08
 t_r = 2
 
 #Clean!
-clean_img = img.clean_img(func_img,confounds=confounds_matrix,detrend=True,standardize=True,
+clean_img = nimg.clean_img(func_img,confounds=confounds_matrix,detrend=True,standardize=True,
                          low_pass=low_pass,high_pass=high_pass,t_r=t_r, mask_img=mask)
 
 #Let's visualize our result! Doesn't really tell us much, but that's the data we're using for analysis!
-plot.plot_epi(clean_img.slicer[:,:,:,50])
+nplot.plot_epi(clean_img.slicer[:,:,:,50])
 ~~~
 {: .language-python}
 

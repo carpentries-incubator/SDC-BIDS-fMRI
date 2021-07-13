@@ -27,15 +27,15 @@ Functional data consists of full 3D brain volumes that are *sampled* at multiple
 Each index along the 4th dimensions (called TR for "Repetition Time", or Sample) is a full 3D scan of the brain. Pulling out volumes from 4-dimensional images is similar to that of 3-dimensional images except you're now dealing with:
 
 
-<code> img.slicer[x,y,z,time] </code>!
+<code> nimg.slicer[x,y,z,time] </code>!
 
 Let's try a couple of examples to familiarize ourselves with dealing with 4D images. But first, let's pull some functional data using PyBIDS!
 
 ~~~
 import os
 import matplotlib.pyplot as plt #to enable plotting within notebook
-from nilearn import image as img
-from nilearn import plotting as plot
+from nilearn import image as nimg
+from nilearn import plotting as nplot
 from bids.layout import BIDSLayout
 import numpy as np
 %matplotlib inline
@@ -58,7 +58,7 @@ We'll be using functional files in MNI space rather than T1w space. Recall, that
 
 ~~~
 func_mni = func_files[1].path
-func_mni_img = img.load_img(func_mni)
+func_mni_img = nimg.load_img(func_mni)
 ~~~
 {: .language-python}
 
@@ -90,12 +90,12 @@ vs.
 
 > ## Exercise
 > 
-> Try pulling out the 5th TR and visualizing it using <code>plot.plot_epi</code>. <code>plot_epi</code> is exactly the same as <code>plot_anat</code> except it displays using colors that make more sense for functional images...
+> Try pulling out the 5th TR and visualizing it using <code>nplot.plot_epi</code>. <code>plot_epi</code> is exactly the same as <code>plot_anat</code> except it displays using colors that make more sense for functional images...
 > 
 > > ~~~
 > > #Pull the 5th TR
 > > func_vol5 = func_mni_img.slicer[:,:,:,4]
-> > plot.plot_epi(func_vol5)
+> > nplot.plot_epi(func_vol5)
 > > ~~~
 > > {: .language-python}
 > {: .solution}
@@ -179,7 +179,7 @@ Let's resampling some MRI data using nilearn:
 ~~~
 #Files we'll be using (Notice that we're using _space-MNI..._ which means they are normalized brains)
 T1_mni = T1w_files[1].path
-T1_mni_img = img.load_img(T1_mni)
+T1_mni_img = nimg.load_img(T1_mni)
 ~~~
 {: .language-python}
 
@@ -202,7 +202,7 @@ Taking a look at the spatial dimensions (first three dimensions), we can see tha
 Resampling in nilearn is as easy as telling it which image you want to sample and what the target image is.
 Structure of function:
 
-img.resample_to_img(source_img,target_img,interpolation) 
+nimg.resample_to_img(source_img,target_img,interpolation) 
 - source_img = the image you want to sample
 - target_img = the image you wish to *resample to* 
 - interpolation = the method of interpolation
@@ -217,10 +217,10 @@ img.resample_to_img(source_img,target_img,interpolation)
 ~~~
 #Try playing around with methods of interpolation
 #options: 'linear','continuous','nearest'
-resamp_t1 = img.resample_to_img(source_img=T1_mni_img,target_img=func_mni_img,interpolation='continuous')
+resamp_t1 = nimg.resample_to_img(source_img=T1_mni_img,target_img=func_mni_img,interpolation='continuous')
 print(resamp_t1.shape)
 print(func_mni_img.shape)
-plot.plot_anat(resamp_t1)
+nplot.plot_anat(resamp_t1)
 ~~~
 {: .language-python}
 
@@ -241,10 +241,10 @@ Now that we've explored the idea of resampling let's do a cumulative exercise br
 > 
 > ~~~
 > #T1 image
-> ex_t1 = img.load_img(T1w_files[0].path)
+> ex_t1 = nimg.load_img(T1w_files[0].path)
 > 
 > #mask file
-> ex_t1_bm = img.load_img(brainmask_files[0].path)
+> ex_t1_bm = nimg.load_img(brainmask_files[0].path)
 > ~~~
 > {: .language-python}
 > 
@@ -252,10 +252,10 @@ Now that we've explored the idea of resampling let's do a cumulative exercise br
 > 
 > ~~~
 > #This is the pre-processed resting state data that hasn't been standardized
-> ex_func = img.load_img(func_files[1].path)
+> ex_func = nimg.load_img(func_files[1].path)
 > 
 > #This is the associated mask for the resting state image.
-> ex_func_bm = img.load_img(func_mask_files[1].path)
+> ex_func_bm = nimg.load_img(func_mask_files[1].path)
 > ~~~
 > {: .language-python}
 > 
@@ -263,8 +263,8 @@ Now that we've explored the idea of resampling let's do a cumulative exercise br
 > 
 > ~~~
 > #Resample the T1 to the size of the functional image!
-> resamp_t1 = img.resample_to_img(source_img=??, target_img=??, interpolation='continuous')
-> plot.plot_anat(??)
+> resamp_t1 = nimg.resample_to_img(source_img=??, target_img=??, interpolation='continuous')
+> nplot.plot_anat(??)
 > print(resamp_t1.shape)
 > ~~~
 > {: .language-python}
@@ -276,7 +276,7 @@ Now that we've explored the idea of resampling let's do a cumulative exercise br
 > What kind of interpolation should we use for masks?
 > 
 > ~~~
-> resamp_bm = img.??(??)
+> resamp_bm = nimg.??(??)
 > 
 > #Plot the image
 > ??
@@ -291,16 +291,16 @@ Now that we've explored the idea of resampling let's do a cumulative exercise br
 > 2. Apply the inverted mask to the brain
 > 
 > ~~~
-> inverted_bm_t1 = img.math_img(??,a=resamp_bm)
-> plot.plot_anat(inverted_bm_t1)
+> inverted_bm_t1 = nimg.math_img(??,a=resamp_bm)
+> nplot.plot_anat(inverted_bm_t1)
 > ~~~
 > {: .language-python}
 > 
 > Now apply the mask using basic image arithmetic:
 > 
 > ~~~
-> resamp_t1_nobrain = img.??(??)
-> plot.plot_anat(resamp_t1_nobrain)
+> resamp_t1_nobrain = nimg.??(??)
+> nplot.plot_anat(resamp_t1_nobrain)
 > ~~~
 > {: .language-python}
 > 
@@ -311,7 +311,7 @@ Now that we've explored the idea of resampling let's do a cumulative exercise br
 > ~~~
 > #Let's visualize the first volume of the functional image:
 > first_vol = ex_func.slicer[??,??,??,??]
-> plot.plot_epi(first_vol)
+> nplot.plot_epi(first_vol)
 > ~~~
 > {: .language-python}
 > 
@@ -319,8 +319,8 @@ Now that we've explored the idea of resampling let's do a cumulative exercise br
 > 
 > ~~~
 > #Mask first_vol using ex_func_bm
-> masked_func = img.math_img('??', a=??, b=??)
-> plot.plot_epi(masked_func)
+> masked_func = nimg.math_img('??', a=??, b=??)
+> nplot.plot_epi(masked_func)
 > ~~~
 > {: .language-python}
 > 
@@ -328,8 +328,8 @@ Now that we've explored the idea of resampling let's do a cumulative exercise br
 > 
 > ~~~
 > #Now overlay the functional image on top of the anatomical
-> combined_img = img.math_img(??)
-> plot.plot_anat(combined_img)
+> combined_img = nimg.math_img(??)
+> nplot.plot_anat(combined_img)
 > ~~~
 > {: .language-python}
 > 
@@ -337,30 +337,30 @@ Now that we've explored the idea of resampling let's do a cumulative exercise br
 > > 
 > > ~~~
 > > #Resample the T1 to the size of the functional image!
-> > resamp_t1 = img.resample_to_img(source_img=ex_t1, target_img=ex_func, interpolation='continuous')
-> > plot.plot_anat(resamp_t1)
+> > resamp_t1 = nimg.resample_to_img(source_img=ex_t1, target_img=ex_func, interpolation='continuous')
+> > nplot.plot_anat(resamp_t1)
 > > print(resamp_t1.shape)
 > > 
-> > resamp_bm = img.resample_to_img(source_img=ex_t1_bm, target_img=ex_func,interpolation='nearest')
-> > plot.plot_anat(resamp_bm)
+> > resamp_bm = nimg.resample_to_img(source_img=ex_t1_bm, target_img=ex_func,interpolation='nearest')
+> > nplot.plot_anat(resamp_bm)
 > > print(resamp_bm.shape)
 > > 
-> > inverted_bm_t1 = img.math_img('1-a',a=resamp_bm)
-> > plot.plot_anat(inverted_bm_t1)
+> > inverted_bm_t1 = nimg.math_img('1-a',a=resamp_bm)
+> > nplot.plot_anat(inverted_bm_t1)
 > > 
-> > resamp_t1_nobrain = img.math_img('a*b',a=resamp_t1,b=inverted_bm_t1)
-> > plot.plot_anat(resamp_t1_nobrain)
+> > resamp_t1_nobrain = nimg.math_img('a*b',a=resamp_t1,b=inverted_bm_t1)
+> > nplot.plot_anat(resamp_t1_nobrain)
 > > 
 > > #Let's visualize the first volume of the functional image:
 > > first_vol = ex_func.slicer[:,:,:,0]
-> > plot.plot_epi(first_vol)
+> > nplot.plot_epi(first_vol)
 > > 
-> > masked_func = img.math_img('a*b', a=first_vol, b=ex_func_bm)
-> > plot.plot_epi(masked_func)
+> > masked_func = nimg.math_img('a*b', a=first_vol, b=ex_func_bm)
+> > nplot.plot_epi(masked_func)
 > > 
 > > #Now overlay the functional image on top of the anatomical
-> > combined_img = img.math_img('a+b',a=resamp_t1_nobrain,b=masked_func)
-> > plot.plot_anat(combined_img)
+> > combined_img = nimg.math_img('a+b',a=resamp_t1_nobrain,b=masked_func)
+> > nplot.plot_anat(combined_img)
 > > 
 > > ~~~
 > > {: .language-python}

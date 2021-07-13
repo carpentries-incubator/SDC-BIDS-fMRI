@@ -23,8 +23,8 @@ The first thing we'll do is to important some Python modules that will allow us 
 ~~~
 import os
 import matplotlib.pyplot as plt
-from nilearn import image as img
-from nilearn import plotting as plot
+from nilearn import image as nimg
+from nilearn import plotting as nplot
 from bids import BIDSLayout
 
 #for inline visualization in jupyter notebook
@@ -75,15 +75,15 @@ In this section we're going to deal with the following files:
 t1 = T1w_files[0].path
 bm = brainmask_files[0].path
 
-t1_img = img.load_img(t1)
-bm_img = img.load_img(bm)
+t1_img = nimg.load_img(t1)
+bm_img = nimg.load_img(bm)
 ~~~
 {: .language-python}
 
 Using the <code>plotting</code> module (which we've aliased as <code>plot</code>), we can view our MR image:
 
 ~~~
-plot.plot_anat(t1_img)
+nplot.plot_anat(t1_img)
 ~~~
 {: .language-python}
 
@@ -92,13 +92,13 @@ plot.plot_anat(t1_img)
 Try viewing the mask as well!
 
 ~~~
-plot.plot_anat(bm_img)
+nplot.plot_anat(bm_img)
 ~~~
 {: .language-python}
 
 Let's start performing some image operations. The simplest operations we can perform is **element-wise**, what this means is that we want to perform some sort of mathematical operation on each **voxel** of the MR image. Since *voxels are represented in a 3D array, this is equivalent to performing an operation on each element (i,j,k) of a 3D array*. Let's try inverting the image, that is, flip the colour scale such that all blacks appear white and vice-versa. To do this, we'll use the method
 
-`img.math_img(formula, **imgs)`
+`nimg.math_img(formula, **imgs)`
 Where:
 - `formula` is a mathematical expression such as `'a+1'`
 - `**imgs` is a set of key-value pairs linking variable names to images. For example `a=T1`
@@ -106,8 +106,8 @@ Where:
 In order to invert the image, we can simply flip the sign which will set the most positive elements (white) to the most negatve elements (black), and the least positives elements (black) to the least negative elements (white). This effectively flips the colour-scale:
 
 ~~~
-invert_img = img.math_img('-a', a=T1)
-plot.plot_anat(invert_img)
+invert_img = nimg.math_img('-a', a=T1)
+nplot.plot_anat(invert_img)
 ~~~
 {: .language-python}
 
@@ -116,19 +116,19 @@ plot.plot_anat(invert_img)
 ### Applying a Mask
 Let's extend this idea of applying operations to each element of an image to multiple images. Instead of specifying just one image like the following:
 
-`img.math_img('a+1',a=img_a)`
+`nimg.math_img('a+1',a=img_a)`
 
 We can specify multiple images by tacking on additional variables:
 
-`img.math_img('a+b', a=img_a, b=img_b)`
+`nimg.math_img('a+b', a=img_a, b=img_b)`
 
 The key requirement here is that when dealing with multiple images, that the *size* of the images must be the same. The reason being is that we're deaing with **element-wise** operations. That means that some voxel (i,j,k) in `img_a` is being paired with some voxel (i,j,k) in `img_b` when performing operations. So every voxel in `img_a` must have some pair with a voxel in `img_b`; sizes must be the same.
 
 We can take advantage of this property when masking our data using multiplication. Masking works by multipling a raw image (our `T1`), with some mask image (our `bm`). Whichever voxel (i,j,k) has a value of 0 in the mask multiplies with voxel (i,j,k) in the raw image resulting in a product of 0. Conversely, any voxel (i,j,k) in the mask with a value of 1 multiplies with voxel (i,j,k) in the raw image resulting in the same value. Let's try this out in practice and see what the result is:
 
 ~~~
-masked_t1 = img.math_img('a*b', a=T1, b=bm)
-plot.plot_anat(masked_T1)
+masked_t1 = nimg.math_img('a*b', a=T1, b=bm)
+nplot.plot_anat(masked_T1)
 ~~~
 {: .language-python}
 
@@ -141,8 +141,8 @@ As you can see areas where the mask image had a value of 1 were retained, everyt
 >
 > > ## Solution
 > > ~~~
-> > inverted_mask_t1 = img.math_img('a*(1-b)', a=T1, b=bm)
-> > plot.plot_anat(inverted_mask_t1)
+> > inverted_mask_t1 = nimg.math_img('a*(1-b)', a=T1, b=bm)
+> > nplot.plot_anat(inverted_mask_t1)
 > > ~~~
 > > {: .language-python}
 > > ![Episode 03 Exercise 1 inverted mask](../fig/inverted_mask_t1.png){:class="img-responsive"}
@@ -184,7 +184,7 @@ x_slice = t1_data[10,:,:]
 This will yield the same result as above. Notice that when using the <code>t1_data</code> array we can just specify which slice to grab instead of using <code>:</code>. We can use slicing in order to modify visualizations. For example, when viewing the T1 image, we may want to specify at which slice we'd like to view the image. This can be done by specifying which coordinates to *cut* the image at:
 
 ~~~
-plot.plot_anat(t1_img,cut_coords=(50,30,70))
+nplot.plot_anat(t1_img,cut_coords=(50,30,70))
 ~~~
 {: .language-python}
 
@@ -193,7 +193,7 @@ The <code>cut_coords</code> option specifies 3 numbers:
 - The second number says cut the Y coordinate at slice 30 and display (coronal view)
 - The third number says cut the Z coordinate at slice 70 and display (axial view)
 
-Remember <code>plot.plot_anat</code> yields 3 images, therefore <code>cut_coords</code> allows you to display where to take cross-sections of the brain from different perspectives (axial, sagittal, coronal)
+Remember <code>nplot.plot_anat</code> yields 3 images, therefore <code>cut_coords</code> allows you to display where to take cross-sections of the brain from different perspectives (axial, sagittal, coronal)
 
 
 This covers the basics of image manipulation using T1 images. To review in this section we covered:
