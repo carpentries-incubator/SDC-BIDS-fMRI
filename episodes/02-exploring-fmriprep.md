@@ -224,7 +224,8 @@ Similarily fMRI data can be pulled by specifying <code>datatype='func'</code> an
 > 1. Get the list of **all** preprocessed functional data
 > 2. Get the list of functional data in MNI152NLin2009cAsym space
 > 3. Get the list of functional data in T1w space (native)
-> >  ## Solution
+>
+> > ## Solution
 > > *All the functional data*
 > > ~~~
 > > func_data = layout.get(datatype='func', suffix='preproc')
