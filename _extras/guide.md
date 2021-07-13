@@ -22,7 +22,7 @@ In summary the core pre-requisites that we expect learners to have some familiar
 
 ### Teaching Style
 
-This workshop as originally designed to be a live-coding session walking learners through the process of cleaning and analyzing resting state fMRI data. As such, all lessons in the carpentries have a mirror Jupyter Notebook codebook. Jupyter Notebooks can be found in [the code directory of the git repo](https://github.com/carpentries-incubator/SDC-BIDS-fMRI/tree/gh-pages/code). Each episode in `code/` mirrors the corresponding episode in the workshop's carpentries site. 
+This workshop as originally designed to be a live-coding session where learners are walked through the process of cleaning and analyzing resting state fMRI data. To this end, all lessons in the carpentries have a mirror Jupyter Notebook codebook. Jupyter Notebooks can be found in [the code directory of the git repo](https://github.com/carpentries-incubator/SDC-BIDS-fMRI/tree/gh-pages/code). Each episode in `code/` mirrors the corresponding episode in the workshop's carpentries site. 
 
 In addition, we provide two versions of each notebook i.e:
 
