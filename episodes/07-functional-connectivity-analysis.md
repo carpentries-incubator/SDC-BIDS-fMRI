@@ -50,9 +50,7 @@ Nilearn has built in functionality for applying a parcellation to a functional i
 
 ~~~
 import os
-from nilearn import signal as sgl
-from nilearn import image as img
-from nilearn import plotting as plot
+from nilearn import image as nimg
 from nilearn import datasets
 import nibabel as nib
 import numpy as np
@@ -77,7 +75,7 @@ Now that we have a list of subjects to peform our analysis on, let's load up our
 ~~~
 #Load separated parcellation
 parcel_file = '../resources/rois/yeo_2011/Yeo_JNeurophysiol11_MNI152/relabeled_yeo_atlas.nii.gz'
-yeo_7 = img.load_img(parcel_file)
+yeo_7 = nimg.load_img(parcel_file)
 ~~~
 {: .language-python}
 
@@ -113,7 +111,7 @@ confound_file=layout.get(subject=example_sub, modality='func',
                              type='confounds', return_type='file')[0]
 
 #Load functional file and perform TR drop
-func_img = img.load_img(func_file)
+func_img = nimg.load_img(func_file)
 func_img = func_img.slicer[:,:,:,tr_drop+1:]
 
 #Convert cnfounds file into required format
@@ -166,7 +164,7 @@ After performing our data extraction we're left with data containing 147 timepoi
 > >     confound_file=layout.get(subject=sub, modality='func',
 > >                              type='confounds', return_type='file')[0]
 > >     
-> >     func_img = img.load_img(func_file)
+> >     func_img = nimg.load_img(func_file)
 > >     func_img = func_img.slicer[:,:,:,tr_drop+1:]
 > >     
 > >     confounds = extract_confounds(confound_file,
