@@ -1,0 +1,23 @@
+name: dc-fmri
+
+channels:
+  - default
+  - conda-forge
+
+dependencies:
+  - python=3.8.*
+  - pip
+  - awscli=1.18.101
+  - git
+  - git-annex
+  - datalad=0.14.4
+  - matplotlib
+  - nibabel
+  - nilearn=0.7.1
+  - numpy
+  - pandas
+  - seaborn
+
+  - pip:
+      - datalad-installer
+      - pybids
