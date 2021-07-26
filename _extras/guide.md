@@ -33,11 +33,23 @@ The notebook with a `_solutions` suffix contains pre-filled cells that can be us
 
 The notebook without the `_solutions` suffix ("workshop notebook") is mostly blank (aside from boilerplate code, and markdown text) and serves as the platform on which live-coding occurs. In addition, any exercise in the workshop notebook may contain template code that learners are expected to complete in a fill-in-the-blanks style problem.
 
-### A note on Episode 01 and Companion slides
+### Companion Slides
 
-[Episode-01]({{relative-root_path}}/{% link _episodes/01-intro-and-preprocessing.md %}) provides an overview of the course material as well a coarse overview of fMRI preprocessing. These originally derive from a set of [Slides](https://docs.google.com/presentation/d/1er6dQcERL-Yeb5-7A29tJnmqgHNaLpTLXM3e-SmpjDg/edit#slide=id.g484812a0c7_6_1) which may be used in lieu of Episode 01 when teaching. 
+Companion [slides](https://docs.google.com/presentation/d/1er6dQcERL-Yeb5-7A29tJnmqgHNaLpTLXM3e-SmpjDg/edit#slide=id.g484812a0c7_6_1) are provided for instructors to provide visual aid during certain components of the workshop. We recommend that slides are used for the following episodes:
 
-Talking points for the slides can be found in [Episode-01]({{relative-root_path}}/{% link _episodes/01-intro-and-preprocessing.md %}).
+##### Slides 1-5 - Introduction
+**May be used in lieu of Episode 1**
+Introductory slides that present the goals of the workshop as well as give an overview of the material to be presented to the learners. 
+
+#### Slides 10-18 - Preprocessing
+**To be presented prior to Episode 2**
+These slides present an overview of fMRI pre-processing steps as well as motivation for its use prior to statistical analysis of fMRI. It also introduces the fMRIPrep pipeline as the recommended pre-processing pipeline - this is typically of interest to many learners from our experience. In addition, the data used in the workshop are outputs from the fMRIPrep pipeline.
+
+
+#### Slides 19-20 - Confounds
+**To be presented prior to Episode 5**
+This slide presents a brief motivation behind the need for confound/nuisance regression in fMRI analysis.
+
 
 ### Tips for hosting a successful workshop
 
