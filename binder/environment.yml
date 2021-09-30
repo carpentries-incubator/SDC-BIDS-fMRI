@@ -8,6 +8,7 @@ dependencies:
   - python=3.8.*
   - pip
   - awscli=1.18.101
+  - osfclient
   - git
   - git-annex
   - datalad=0.14.4
