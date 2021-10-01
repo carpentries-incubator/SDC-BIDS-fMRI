@@ -1,7 +1,29 @@
 ---
 title: Setup
 ---
-## Setting up the tutorial environment
+# Setting up the tutorial environment
+
+## Binder
+
+Using Binder is the easiest and fastest way to get started with the workshop. Binder is a virtual environment containing the full computing environment required in order to go through the workshop. Note that Binder hosts the environment on a cloud server and therefore internet access is required to launch it.
+
+### Setting up Binder
+
+**Step 1**:
+
+Click the link here to spin up the workshop environment: [Binder Workshop](https://mybinder.org/v2/gh/carpentries-incubator/SDC-BIDS-fMRI/gh-pages?urlpath=lab/tree/code)
+
+**Step 2**:
+
+Once the environment is launched click the "Terminal" button under "Other". This will open up a white console where you can navigate the repository. To download the data required for the workshop simply copy and paste the following:
+
+```{bash}
+cd code
+./setup_workshop
+```
+
+This will begin downloading the data required for the workshop onto your Binder instance. Let this run in the background while you proceed through the workshop!
+
 
 ### Getting workshop material
 
