@@ -9,7 +9,7 @@ Using Binder is the easiest and fastest way to get started with the workshop. Bi
 
 ### Setting up Binder
 
-**Step 1**:
+#### **Step 1**:
 
 Click the link here to spin up the workshop environment: [Binder Workshop](https://mybinder.org/v2/gh/carpentries-incubator/SDC-BIDS-fMRI/gh-pages?urlpath=lab/tree/code)
 You will see an interface that looks like the following:
@@ -18,7 +18,7 @@ You will see an interface that looks like the following:
 
 The left-hand pane shows a list of workshop notebooks that contain the content of the workshop itself. Before jumping into the workshop notebooks we need to perform a setup step to pull the neuroimaging data that will be used in the workshop...
 
-**Step 2**:
+#### **Step 2**:
 
 Once the environment is launched click the "Terminal" button under "Other". 
 
