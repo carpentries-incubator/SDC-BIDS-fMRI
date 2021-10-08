@@ -17,8 +17,7 @@ def parse_download_list(download_list):
     with open(download_list, 'r') as f:
         to_download = [l.strip("\n") for l in f.readlines()]
         to_download = [
-            f"/{p}" for p in to_download
-            if not p.startswith("/")
+            p if p.startswith("/") else f"/{p}" for p in to_download
         ]
 
     return to_download
@@ -65,8 +64,8 @@ def download(folder, destination):
 
         # If identical file already exists, skip
         if os.path.exists(write_path):
-            if f.hashes.get("md5") == checksum(write_path):
-                print("Identical file already exists, skipping...")
+            if file.hashes.get("md5") == checksum(write_path):
+                print(f"Identical file {write_path} already exists, skipping...")
                 continue
         # Write file
         print("Downloading file:", file.path)
