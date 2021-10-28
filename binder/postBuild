@@ -2,4 +2,5 @@
 #
 
 mkdir -p data/ds000030
+osf fetch /derivatives/fmriprep/dataset_description.json ./data/ds000030/derivatives/fmriprep/dataset_description.json
 python ./binder/getData.py ./data/setup_download ./data/ds000030
