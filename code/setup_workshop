@@ -10,7 +10,7 @@ echo "Setting up SDC-BIDS-fMRI Workshop...."
 	# Move into parent directory of script directory
 	cd $DIR
 	cd ..
-	osf fetch /derivatives/fmriprep/dataset_description.json ./data/ds000030/derivatives/fmriprep/dataset_description.json
+	osf fetch /derivatives/fmriprep/dataset_description.json ./data/ds000030/derivatives/fmriprep/dataset_description.json > /dev/null 2>&1
 	python ./binder/getData.py ./data/download_list ./data/ds000030
 
 
