@@ -187,8 +187,8 @@ All in one step!
 
 ~~~
 #Apply cleaning, parcellation and extraction to functional data
-time_series = masker.fit_transform(func_img,confounds)
-time_series.shape
+cleaned_and_averaged_time_series = masker.fit_transform(func_img,confounds)
+cleaned_and_averaged_time_series.shape
 ~~~
 {: .language-python}
 
@@ -199,21 +199,64 @@ time_series.shape
 
 Just to be clear, this data is *automatically parcellated for you, and, in addition, is cleaned using the confounds you've specified already!*
 
-Then using this data we can calculate a *full correlation matrix* - this is the correlation between *all pairs of ROIs* in our parcellation scheme! We'll use another nilearn tool called <code>ConnectivityMeasure</code> from <code>nilearn.connectome</code>
+The result of running <code>masker.fit_transform</code> is a matrix that has:
+- Rows matching the number of timepoints (148)
+- Columns, each for one of the ROIs that are extracted (43)
+
+**But wait!**
+
+We originally had **46 ROIs**, what happened to 3 of them? It turns out that <code>masker</code> drops ROIs that are empty (i.e contain no brain voxels inside of them), this means that 3 of our atlas' parcels did not correspond to any region with signal! To see which ROIs are kept after computing a parcellation you can look at the <code>labels_</code> property of <code>masker</code>:
+
+~~~
+print(masker.labels_)
+print("Number of labels", len(masker.labels_))
+~~~
+{: .language-python}
+
+~~~
+[1, 2, 4, 5, 6, 7, 8, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 33, 34, 35, 36, 37, 38, 40, 41, 42, 43, 44, 45, 46, 47, 49]
+Number of labels 43
+~~~
+{: .output}
+
+This means that our ROIs of interest (44 and 46) cannot be accessed using the 44th and 46th columns directly! Instead we'll have to figure out which of the 43 columns correspond to ROI 44 and ROI 46. This can be done as follows:
+
+~~~
+ROI_44 = masker.labels_.index(44)
+ROI_46 = masker.labels_.index(46)
+
+print(ROI_44)
+print(ROI_46)
+~~~
+{: .language-python}
+
+This means that the:
+- 38th column is ROI 44
+- 40th column is ROI 46
+
+We stored them in the <code>ROI_44</code> and <code>ROI_46</code> variables so we can use these later!
+
+
+### Calculating Connectivity
+
+In fMRI imaging, connectivity typically refers to the *correlation of the timeseries of 2 ROIs*. Therefore we can calculate a *full connectivity matrix* by computing the correlation between *all pairs of ROIs* in our parcellation scheme! 
+
+We'll use another nilearn tool called <code>ConnectivityMeasure</code> from <code>nilearn.connectome</code>. This tool will perform the full set of pairwise correlations for us
 
 ~~~
 from nilearn.connectome import ConnectivityMeasure
 ~~~
 {: .language-python}
 
-Like the masker, we need to make an object that will calculate connectivity for us. Note that in *most cases*, when we say *connectivity* between two regions, we really mean the correlation of the time-series between two regions.
+Like the masker, we need to make an object that will calculate connectivity for us.
 
 ~~~
 correlation_measure = ConnectivityMeasure(kind='correlation')
 ~~~
 {: .language-python}
 
-**Try using `SHIFT-TAB` to see what options you can put into the `kind` argument of `ConnectivityMeasure`**
+> Try using <code>SHIFT-TAB</code> to see what options you can put into the <code>kind</code> argument of <code>ConnectivityMeasure</code>
+{: .callout}
 
 Then we use <code>correlation_measure.fit_transform()</code> in order to calculate the full correlation matrix for our parcellated data!
 
@@ -229,18 +272,17 @@ full_correlation_matrix.shape
 
 The result is a matrix which has:
 
-- A number of rows matching the number of ROIs in our parcellation atlas
-- A number of columns, that also matches the number of ROIs in our parcellation atlas
+- A number of rows matching the number of ROIs in our parcellated data
+- A number of columns, that also matches the number of ROIs in our parcellated data
 
-You can read this correlation matrix as follows:
+Suppose we wanted to know the correlation between ROI 44 and ROI 46. To get this value we need look at the row and column indices that correspond to these ROIs!
 
-- Suppose we wanted to know the correlation between ROI 30 and ROI 40
-- Then Row 30, Column 40 gives us this correlation. 
-- Row 40, Column 40 can also give us this correlation
+Recall that since we lost 3 columns, we had to use the <code>masker.labels_</code> property to figure out which column corresponds to which of the atlas' original ROIs:
 
-This is because the correlation of $A \to B = B \to A$
-
-!!!!!!ADD BIT DEALING WITH NILEARN DROP BEHAVIOUR
+~~~
+full_correlation_matrix[0, ROI_44, ROI_46]
+~~~
+{: .language-python}
 
 > ## Exercise
 > Apply the data extract process shown above to all subjects in our subject list and collect the results. Your job is to fill in the blanks!
@@ -255,7 +297,7 @@ This is because the correlation of $A \to B = B \to A$
 > for sub in subjects:
 >     
 >     #Get the functional file for the subject (MNI space)
->     func_file = layout.get(subject=?,
+>     func_file = layout.get(subject=??,
 >                            datatype=??, task=??,
 >                            desc='preproc',
 >                            extension='nii.gz',
@@ -411,8 +453,8 @@ Now we're going to pull out just the correlation values between ROI 43 and 45 *a
 
 
 ~~~
-ctrl_roi_vec = ctrl_correlation_matrices[:,43,45]
-schz_roi_vec = schz_correlation_matrices[:,43,45]
+ctrl_roi_vec = ctrl_correlation_matrices[:,ROI_44,ROI_46]
+schz_roi_vec = schz_correlation_matrices[:,ROI_44,ROI_46]
 ~~~
 {: .language-python}
 
