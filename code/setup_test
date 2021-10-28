@@ -10,5 +10,6 @@ echo "Setting up Test Workshop Data...."
 	# Move into parent directory of script directory
 	cd $DIR
 	cd ..
+	osf fetch /derivatives/fmriprep/dataset_description.json ./data/ds000030/derivatives/fmriprep/dataset_description.json
 	python ./binder/getData.py ./data/test_download ./data/ds000030
 )
