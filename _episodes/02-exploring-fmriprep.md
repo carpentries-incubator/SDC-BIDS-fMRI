@@ -66,20 +66,46 @@ tree '../data/ds000030/derivatives/fmriprep/sub-10788'
 ~~~
 ../data/ds000030/derivatives/fmriprep/sub-10788/
 ├── anat
-│   ├── sub-10788_T1w_brainmask.nii.gz
-│   ├── sub-10788_T1w_preproc.nii.gz
-│   ├── sub-10788_T1w_space-MNI152NLin2009cAsym_brainmask.nii.gz
-│   └── sub-10788_T1w_space-MNI152NLin2009cAsym_preproc.nii.gz
-└── func
-    ├── sub-10788_task-rest_bold_confounds.tsv
-    ├── sub-10788_task-rest_bold_space-fsaverage5.L.func.gii
-    ├── sub-10788_task-rest_bold_space-fsaverage5.R.func.gii
-    ├── sub-10788_task-rest_bold_space-MNI152NLin2009cAsym_brainmask.nii.gz
-    ├── sub-10788_task-rest_bold_space-MNI152NLin2009cAsym_preproc.nii.gz
-    ├── sub-10788_task-rest_bold_space-T1w_brainmask.nii.gz
-    └── sub-10788_task-rest_bold_space-T1w_preproc.nii.gz
-
-2 directories, 11 files
+│   ├── sub-10788_desc-aparcaseg_dseg.nii.gz
+│   ├── sub-10788_desc-aseg_dseg.nii.gz
+│   ├── sub-10788_desc-brain_mask.json
+│   ├── sub-10788_desc-brain_mask.nii.gz
+│   ├── sub-10788_desc-preproc_T1w.json
+│   ├── sub-10788_desc-preproc_T1w.nii.gz
+│   ├── sub-10788_dseg.nii.gz
+│   ├── sub-10788_from-fsnative_to-T1w_mode-image_xfm.txt
+│   ├── sub-10788_from-T1w_to-fsnative_mode-image_xfm.txt
+│   ├── sub-10788_label-CSF_probseg.nii.gz
+│   ├── sub-10788_label-GM_probseg.nii.gz
+│   ├── sub-10788_label-WM_probseg.nii.gz
+│   ├── sub-10788_space-MNI152NLin2009cAsym_desc-brain_mask.json
+│   ├── sub-10788_space-MNI152NLin2009cAsym_desc-brain_mask.nii.gz
+│   ├── sub-10788_space-MNI152NLin2009cAsym_desc-preproc_T1w.json
+│   ├── sub-10788_space-MNI152NLin2009cAsym_desc-preproc_T1w.nii.gz
+│   ├── sub-10788_space-MNI152NLin2009cAsym_dseg.nii.gz
+│   ├── sub-10788_space-MNI152NLin2009cAsym_label-CSF_probseg.nii.gz
+│   ├── sub-10788_space-MNI152NLin2009cAsym_label-GM_probseg.nii.gz
+│   └── sub-10788_space-MNI152NLin2009cAsym_label-WM_probseg.nii.gz
+├── func
+│   ├── sub-10788_task-rest_desc-confounds_timeseries.json
+│   ├── sub-10788_task-rest_desc-confounds_timeseries.tsv
+│   ├── sub-10788_task-rest_from-scanner_to-T1w_mode-image_xfm.txt
+│   ├── sub-10788_task-rest_from-T1w_to-scanner_mode-image_xfm.txt
+│   ├── sub-10788_task-rest_space-MNI152NLin2009cAsym_boldref.nii.gz
+│   ├── sub-10788_task-rest_space-MNI152NLin2009cAsym_desc-aparcaseg_dseg.nii.gz
+│   ├── sub-10788_task-rest_space-MNI152NLin2009cAsym_desc-aseg_dseg.nii.gz
+│   ├── sub-10788_task-rest_space-MNI152NLin2009cAsym_desc-brain_mask.json
+│   ├── sub-10788_task-rest_space-MNI152NLin2009cAsym_desc-brain_mask.nii.gz
+│   ├── sub-10788_task-rest_space-MNI152NLin2009cAsym_desc-preproc_bold.json
+│   ├── sub-10788_task-rest_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz
+│   ├── sub-10788_task-rest_space-T1w_boldref.nii.gz
+│   ├── sub-10788_task-rest_space-T1w_desc-aparcaseg_dseg.nii.gz
+│   ├── sub-10788_task-rest_space-T1w_desc-aseg_dseg.nii.gz
+│   ├── sub-10788_task-rest_space-T1w_desc-brain_mask.json
+│   ├── sub-10788_task-rest_space-T1w_desc-brain_mask.nii.gz
+│   ├── sub-10788_task-rest_space-T1w_desc-preproc_bold.json
+│   └── sub-10788_task-rest_space-T1w_desc-preproc_bold.nii.gz
+...
 ~~~
 {: .output}
 
@@ -93,7 +119,7 @@ Specifically:
 > This data is single-session, so a session folder is missing here - but with multiple sessions you will see <code>anat</code> and <code>ses-[insert_session_here]</code> folders where each session folder contain a <code>func</code> folder.
 {: .callout}
 
-Hopefully you're now convinced that the outputs of fMRIPREP roughly follows BIDS organization principles and is, in fact, quite simple. The filenames themselves give you a full description of what each file is (check the [slides](https://docs.google.com/presentation/d/1er6dQcERL-Yeb5-7A29tJnmqgHNaLpTLXM3e-SmpjDg/edit?usp=sharing) to get an idea of what each file means!
+Hopefully you're now convinced that the outputs of fMRIPREP roughly follows BIDS organization principles. The filenames themselves give you a full description of what each file is (check the [slides](https://docs.google.com/presentation/d/1er6dQcERL-Yeb5-7A29tJnmqgHNaLpTLXM3e-SmpjDg/edit?usp=sharing) to get an idea of what each file means!
 
 Now let's see how we can pull data in using pyBIDS!
 
@@ -104,10 +130,17 @@ import bids
 ~~~
 {: .language-python}
 
-We can make a <code>bids.BIDSLayout</code> object as usual by just feeding in the fmriprep directory! However, one caveat is that since the fmriprep outputs are *not really BIDS but BIDS-like*, we have to turn off bids validation:
+We can make a <code>bids.BIDSLayout</code> object as usual by just feeding in the fmriprep directory! However, there is one caveat... note that fMRIPrep doesn't exactly adhere to the *standard BIDS convention*. It uses fields such as <code>desc-</code> which are not part of the original BIDS specification. I.e:
 
 ~~~
-layout = bids.BIDSLayout('../data/ds000030/derivatives/fmriprep/',validate=False)
+sub-10788_desc-preproc_T1w.nii.gz
+~~~
+{: .language-bash}
+
+In fact, BIDS allows for *extensions* which enable you to add additional fields to the standard BIDS convention (such as <code>desc-</code>!). fMRIprep uses the <code>derivatives</code> extension of the BIDS standard. pyBIDS can handle standard extensions to the BIDS specification quite easily:
+
+~~~
+layout = bids.BIDSLayout('../data/ds000030/derivatives/fmriprep/', config=['bids','derivatives'])
 ~~~
 {: .language-python}
 
@@ -158,7 +191,7 @@ layout.get_subjects()
 
  Now let's try fetching specific files. Similar to how you would fetch BIDS data using pyBIDS, the exact same syntax will work for fMRIPREP derivatives. Let's try pulling just the preprocessed anatomical data. 
 
-Recall that the anatomical folder is named as follows:
+Recall that the anatomical folder is organized as follows:
 
 ~~~
 tree '../data/ds000030/derivatives/fmriprep/sub-10788/anat'^
@@ -167,49 +200,66 @@ tree '../data/ds000030/derivatives/fmriprep/sub-10788/anat'^
 
 ~~~
 ../data/ds000030/derivatives/fmriprep/sub-10788/anat
-├── sub-10788_T1w_brainmask.nii.gz
-├── sub-10788_T1w_preproc.nii.gz
-├── sub-10788_T1w_space-MNI152NLin2009cAsym_brainmask.nii.gz
-└── sub-10788_T1w_space-MNI152NLin2009cAsym_preproc.nii.gz
+├── sub-10788_desc-aparcaseg_dseg.nii.gz
+├── sub-10788_desc-aseg_dseg.nii.gz
+├── sub-10788_desc-brain_mask.json
+├── sub-10788_desc-brain_mask.nii.gz
+├── sub-10788_desc-preproc_T1w.json
+├── sub-10788_desc-preproc_T1w.nii.gz
+├── sub-10788_dseg.nii.gz
+├── sub-10788_from-fsnative_to-T1w_mode-image_xfm.txt
+├── sub-10788_from-T1w_to-fsnative_mode-image_xfm.txt
+├── sub-10788_label-CSF_probseg.nii.gz
+├── sub-10788_label-GM_probseg.nii.gz
+├── sub-10788_label-WM_probseg.nii.gz
+├── sub-10788_space-MNI152NLin2009cAsym_desc-brain_mask.json
+├── sub-10788_space-MNI152NLin2009cAsym_desc-brain_mask.nii.gz
+├── sub-10788_space-MNI152NLin2009cAsym_desc-preproc_T1w.json
+├── sub-10788_space-MNI152NLin2009cAsym_desc-preproc_T1w.nii.gz
+├── sub-10788_space-MNI152NLin2009cAsym_dseg.nii.gz
+├── sub-10788_space-MNI152NLin2009cAsym_label-CSF_probseg.nii.gz
+├── sub-10788_space-MNI152NLin2009cAsym_label-GM_probseg.nii.gz
+└── sub-10788_space-MNI152NLin2009cAsym_label-WM_probseg.nii.gz
 
-0 directories, 4 files
+0 directories, 20 files
 ~~~
 {: .output}
 
-The file that we're interested in is of form <code>sub-[subject]_T1w_preproc.nii.gz</code>. Now we can construct a pyBIDS call to pull these types of files specifically:
+The file that we're interested in is of form <code>sub-[subject]_desc-preproc_T1w.nii.gz</code>. Now we can construct a pyBIDS call to pull these types of files specifically:
 
 ~~~
-preproc_T1 = layout.get(datatype='anat',suffix='preproc',extension='.nii.gz')
+preproc_T1 = layout.get(datatype='anat', desc='preproc', extension=".nii.gz")
 preproc_T1
 ~~~
+{: .language-python}
 
 ~~~
-[<BIDSImageFile filename='/mnt/tigrlab/projects/jjeyachandra/scwg2018_python_neuroimaging/data/ds000030/derivatives/fmriprep/sub-10171/anat/sub-10171_T1w_preproc.nii.gz'>,
- <BIDSImageFile filename='/mnt/tigrlab/projects/jjeyachandra/scwg2018_python_neuroimaging/data/ds000030/derivatives/fmriprep/sub-10171/anat/sub-10171_T1w_space-MNI152NLin2009cAsym_preproc.nii.gz'>,
- <BIDSImageFile filename='/mnt/tigrlab/projects/jjeyachandra/scwg2018_python_neuroimaging/data/ds000030/derivatives/fmriprep/sub-10292/anat/sub-10292_T1w_preproc.nii.gz'>,
- ...
+[<BIDSImageFile filename='/home/jerry/projects/workshops/SDC-BIDS-fMRI/data/ds000030/derivatives/fmriprep/sub-10438/anat/sub-10438_desc-preproc_T1w.nii.gz'>,
+ <BIDSImageFile filename='/home/jerry/projects/workshops/SDC-BIDS-fMRI/data/ds000030/derivatives/fmriprep/sub-10438/anat/sub-10438_space-MNI152NLin2009cAsym_desc-preproc_T1w.nii.gz'>,
+ <BIDSImageFile filename='/home/jerry/projects/workshops/SDC-BIDS-fMRI/data/ds000030/derivatives/fmriprep/sub-10788/anat/sub-10788_desc-preproc_T1w.nii.gz'>,
+ <BIDSImageFile filename='/home/jerry/projects/workshops/SDC-BIDS-fMRI/data/ds000030/derivatives/fmriprep/sub-10788/anat/sub-10788_space-MNI152NLin2009cAsym_desc-preproc_T1w.nii.gz'>,
 ~~~
 {: .output}
+
+>> If we didn't configure pyBIDS with <code>config=['bids','derivatives']</code> then the <code>desc</code> keyword would not work!
+{: .callout}
 
 Note that we also pulled in MNI152NLin2009cAsym_preproc.nii.gz data as well. This is data that has been transformed into MNI152NLin2009cAsym template space. We can pull this data out by further specifying our <code>layout.get</code> using the <code>space</code> argument:
 
 ~~~
-mni_preproc_T1 = layout.get(datatype='anat',suffix='preproc',extension='.nii.gz',space='MNI152NLin2009cAsym')
+mni_preproc_T1 = layout.get(datatype='anat',desc='preproc',extension='.nii.gz',space='MNI152NLin2009cAsym')
 mni_preproc_T1
 ~~~
 {: .language-python}
 
 ~~~
-[<BIDSImageFile filename='/mnt/tigrlab/projects/jjeyachandra/scwg2018_python_neuroimaging/data/ds000030/derivatives/fmriprep/sub-10171/anat/sub-10171_T1w_space-MNI152NLin2009cAsym_preproc.nii.gz'>,
- <BIDSImageFile filename='/mnt/tigrlab/projects/jjeyachandra/scwg2018_python_neuroimaging/data/ds000030/derivatives/fmriprep/sub-10292/anat/sub-10292_T1w_space-MNI152NLin2009cAsym_preproc.nii.gz'>,
+[<BIDSImageFile filename='/home/jerry/projects/workshops/SDC-BIDS-fMRI/data/ds000030/derivatives/fmriprep/sub-10438/anat/sub-10438_space-MNI152NLin2009cAsym_desc-preproc_T1w.nii.gz'>,
+ <BIDSImageFile filename='/home/jerry/projects/workshops/SDC-BIDS-fMRI/data/ds000030/derivatives/fmriprep/sub-10788/anat/sub-10788_space-MNI152NLin2009cAsym_desc-preproc_T1w.nii.gz'>,
  ...
 ~~~
 {: .output}
 
-What if we wanted to pull out the data in T1 "native space" (it really is a template space, since it is merged T1s)? Unfortunately for *this specific version of fMRIPREP* this isn't directly possible using <code>layout.get</code>. Instead we'll use a bit of python magic to pull the data that we want:
-
->> In newer versions of fMRIPREP <code>space</code> is included in the native T1w file filename as <code>space-T1w</code> - in this case you can pull the data by using <code>layout.get(..., space='T1w')</code>
-{: .callout}
+What if we wanted to pull out the data in T1 "native space" (it really is a template space, since it is merged T1s)? Unfortunately for this isn't directly possible using <code>layout.get</code>. Instead we'll use a bit of python magic to pull the data that we want:
 
 ~~~
 native_preproc_T1 = [f for f in preproc_T1 if f not in mni_preproc_T1]
@@ -218,36 +268,38 @@ native_preproc_T1
 {: .language-python}
 
 
-Similarily fMRI data can be pulled by specifying <code>datatype='func'</code> and using the <code>suffix</code> argument as appropriate:
+Similarily fMRI data can be pulled by specifying <code>datatype='func'</code> and using the <code>desc</code> argument as appropriate:
 
 > ## Exercise 1
 > 1. Get the list of **all** preprocessed functional data
 > 2. Get the list of functional data in MNI152NLin2009cAsym space
 > 3. Get the list of functional data in T1w space (native)
+> Note that T1 space fMRI data can be pulled using <code>space="T1w"</code> (this is unlike the T1w data which required you to do some filtering)
 >
 > > ## Solution
 > > *All the functional data*
 > > ~~~
-> > func_data = layout.get(datatype='func', suffix='preproc')
+> > func_data = layout.get(datatype='func', desc='preproc')
 > > ~~~
 > > {: .language-python}
 > > 
 > > *MNI152NLin2009cAsym Functional Data*
 > > ~~~
-> > mni_func_data = layout.get(datatype='func', suffix='preproc', space='MNI152NLin2009cAsym')
+> > mni_func_data = layout.get(datatype='func', desc='preproc', space='MNI152NLin2009cAsym')
 > > mni_func_data
 > > ~~~
 > > {: .language-python}
 > > 
 > > *Native/T1w space functional data*
 > > ~~~
-> > native_func_data = [b for b in func_data if b not in mni_func_data]
-> > native_func_data
+> > t1w_func_data = layout.get(datatype='func', desc='preproc', space='T1w')
+> > t1w_func_data 
 > > ~~~
 > > {: .language-python}
 > > 
-> > Now that we have a handle on how fMRIPREP preprocessed data is organized and how we can pull this data. Let's start working with the actual data itself!
 > {: .solution}
 {: .challenge}
+
+Now that we have a handle on how fMRIPREP preprocessed data is organized and how we can pull this data. Let's start working with the actual data itself!
 
 {% include links.md %}
