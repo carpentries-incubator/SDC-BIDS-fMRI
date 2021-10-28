@@ -42,27 +42,51 @@ import numpy as np
 ~~~
 {: .language-python}
 
-These are the usual imports. Let's now pull some structural *and* functional data using pyBIDS:
-
-~~~
-fmriprep_dir = '../data/ds000030/derivatives/fmriprep/'
-layout=BIDSLayout(fmriprep_dir, validate=False)
-T1w_files = layout.get(subject='10788', datatype='anat', suffix='preproc')
-brainmask_files = layout.get(subject='10788', datatype='anat', suffix='brainmask')
-func_files = layout.get(subject='10788', datatype='func', suffix='preproc')
-func_mask_files = layout.get(subject='10788', datatype='func', suffix='brainmask')
-~~~
-{: .language-python}
+These are the usual imports. Let's now pull some structural *and* functional data using pyBIDS.
 
 We'll be using functional files in MNI space rather than T1w space. Recall, that MNI space data is data that was been warped into standard space. These are the files you would typically use for a group-level functional imaging analysis!
 
 ~~~
-func_mni = func_files[1].path
+fmriprep_dir = '../data/ds000030/derivatives/fmriprep/'
+layout=BIDSLayout(fmriprep_dir, validate=False,
+                  config=['bids','derivatives'])
+
+T1w_files = layout.get(subject='10788',
+                       datatype='anat', desc='preproc',
+                       space='MNI152NLin2009cAsym',
+                       extension="nii.gz",
+                      return_type='file')
+
+brainmask_files = layout.get(subject='10788',
+                             datatype='anat', suffix='mask',
+                             desc='brain',
+                             space='MNI152NLin2009cAsym',
+                             extension="nii.gz",
+                            return_type='file')
+
+func_files = layout.get(subject='10788',
+                        datatype='func', desc='preproc',
+                       space='MNI152NLin2009cAsym',
+                       extension="nii.gz",
+                       return_type='file')
+
+func_mask_files = layout.get(subject='10788',
+                             datatype='func', suffix='mask',
+                             desc='brain',
+                             space='MNI152NLin2009cAsym',
+                             extension="nii.gz",
+                            return_type='file')
+~~~
+{: .language-python}
+
+
+~~~
+func_mni = func_files[0]
 func_mni_img = nimg.load_img(func_mni)
 ~~~
 {: .language-python}
 
-## fMRI as a time-series signal
+## fMRI Dimensions
 
 First note that fMRI data contains both spatial dimensions (x,y,z) and a temporal dimension (t). This would mean that we require 4 dimensions in order to represent our data. Let's take a look at the shape of our data matrix to confirm this intuition:
 
@@ -72,7 +96,7 @@ func_mni_img.shape
 {: .language-python}
 
 ~~~
-(60, 86, 65, 152)
+(65, 77, 49, 152)
 ~~~
 {: .output}
 
@@ -90,18 +114,27 @@ vs.
 
 > ## Exercise
 > 
-> Try pulling out the 5th TR and visualizing it using <code>nplot.plot_epi</code>. <code>plot_epi</code> is exactly the same as <code>plot_anat</code> except it displays using colors that make more sense for functional images...
+> Try pulling out the 5th TR and visualizing it using <code>nplot.view_img</code>.
+> 
+> Remember that <code>nplot.view_img</code> provides an interactive view of the brain, try scrolling around!
 > 
 > > ## Solution
 > > ~~~
 > > #Pull the 5th TR
 > > func_vol5 = func_mni_img.slicer[:,:,:,4]
-> > nplot.plot_epi(func_vol5)
+> > nplot.view_img(func_vol5)
 > > ~~~
 > > {: .language-python}
 > {: .solution}
 {: .challenge}
 
+You may also use <code>nplot.plot_epi</code>. <code>plot_epi</code> is exactly the same as <code>plot_anat</code> except it displays using colors that make more sense for functional images...
+
+~~~
+#Pull the 5th TR
+nplot.plot_epi(func_vol5)
+~~~
+{: .language-python}
 
 ![Visual of fMRI EPI Data](../fig/fmri_data.png){:class="img-responsive"}
 
@@ -134,7 +167,7 @@ single_vox.shape
 ~~~
 {: .output}
 
-Now we have a single 1-D array with 152 elements. This 1D array represents the single voxel we pulled out earlier and its 152 timepoints. Now we can visualize the signal coming from this signal voxel using a time-series plot!
+Here we've pulled out a voxel at a specific coordinate at every single time-point. This voxel has a single value for each timepoint and therefore is a time-series. We can visualize this time-series signal by using a standard python plotting library. We won't go into too much detail about python plotting, the intuition about what the data looks like is what is most important:
 
 First let's import the standard python plotting library <code>matplotlib</code>:
 
@@ -142,8 +175,6 @@ First let's import the standard python plotting library <code>matplotlib</code>:
 import matplotlib.pyplot as plt
 ~~~
 {: .language-python}
-
-Let's now plot this:
 
 ~~~
 # Make an array counting from 0 --> 152, this will be our x-axis
@@ -175,11 +206,14 @@ Think of this like trying to overlay a 10x10 JPEG and a 20x20 JPEG on top of eac
 >Resampling is a method of interpolating in between data-points. When we stretch an image we need to figure out what goes in the spaces that are created via stretching - resampling does just that. In fact, resizing any type of image is actually just resampling to new dimensions.
 {: .callout}
 
-Let's resampling some MRI data using nilearn:
+Let's resampling some MRI data using nilearn. 
+
+**Goal**: Match the dimensions of the structural image to that of the functional image
 
 ~~~
-#Files we'll be using (Notice that we're using _space-MNI..._ which means they are normalized brains)
-T1_mni = T1w_files[1].path
+# Files we'll be using (Notice that we're using _space-MNI...
+# which means they are normalized brains)
+T1_mni = T1w_files[0]
 T1_mni_img = nimg.load_img(T1_mni)
 ~~~
 {: .language-python}
@@ -194,19 +228,20 @@ print(func_mni_img.shape)
 
 ~~~
 (193, 229, 193)
-(60, 86, 65, 152)
+(60, 77, 49, 152)
 ~~~
 {: .output}
 
 Taking a look at the spatial dimensions (first three dimensions), we can see that the number of voxels in the T1 image does not match that of the fMRI image. This is because the fMRI data (which has less voxels) is a *lower resolution image*. We either need to *upsample* our fMRI image to match that of the T1 image, or we need to *downsample* our T1 image to match that of the fMRI image. Typically, since the fMRI data is the one we'd like to ultimately use for analysis, we would leave it alone and downsample our T1 image. The reason being is that *resampling* requires interpolating values which may contaminate our data with artifacts. We don't mind having artifacts in our T1 data (for visualization purposes) since the fMRI data is the one actually being analyzed.
 
 Resampling in nilearn is as easy as telling it which image you want to sample and what the target image is.
+
 Structure of function:
 
-nimg.resample_to_img(source_img,target_img,interpolation) 
-- source_img = the image you want to sample
-- target_img = the image you wish to *resample to* 
-- interpolation = the method of interpolation
+<code>nimg.resample_to_img(source_img,target_img,interpolation)</code>
+- <code>source_img</code> = the image you want to sample
+- <code>target_img</code> = the image you wish to *resample to* 
+- <code>interpolation</code> = the method of interpolation
 
 > A note on **interpolation**
 > nilearn supports 3 types of interpolation, the one you'll use depends on the type of data you're resampling!
@@ -232,7 +267,7 @@ Now that we've explored the idea of resampling let's do a cumulative exercise br
 > ## Exercise
 > 
 > Using **Native** T1 and **T1w** resting state functional do the following:
-> 1. Resample the native T1 image to resting state size
+> 1. Resample the T1 image to resting state size
 > 2. Replace the brain in the T1 image with the first frame of the resting state brain
 > 
 > ### Files we'll need
@@ -242,10 +277,10 @@ Now that we've explored the idea of resampling let's do a cumulative exercise br
 > 
 > ~~~
 > #T1 image
-> ex_t1 = nimg.load_img(T1w_files[0].path)
+> ex_t1 = nimg.load_img(T1w_files[0])
 > 
 > #mask file
-> ex_t1_bm = nimg.load_img(brainmask_files[0].path)
+> ex_t1_bm = nimg.load_img(brainmask_files[0])
 > ~~~
 > {: .language-python}
 > 
@@ -253,77 +288,86 @@ Now that we've explored the idea of resampling let's do a cumulative exercise br
 > 
 > ~~~
 > #This is the pre-processed resting state data that hasn't been standardized
-> ex_func = nimg.load_img(func_files[1].path)
+> ex_func = nimg.load_img(func_files[0])
 > 
 > #This is the associated mask for the resting state image.
-> ex_func_bm = nimg.load_img(func_mask_files[1].path)
+> ex_func_bm = nimg.load_img(func_mask_files[0])
 > ~~~
 > {: .language-python}
 > 
-> The first step we need to do is to make sure the dimensions for our T1 image and resting state image match each other:
+> The first step is to remove the brain from the T1 image so that we're left with a hollow skull. This can be broken down into 2 steps:
+> 
+> 1. Invert the mask so that all 1's become 0's and all 0's become 1's
+> ~~~
+> # Invert the T1 mask
+> invert_mask = nimg.math_img('??', a=??)
+> nplot.plot_anat(??)
+> ~~~
+> {: .language-python}
+> 
+> ![Episode 04 Exercise Inverted Mask](../fig/exercise_inverted_mask.png){:class="img-responsive"}
+> 
+> 2. Apply the mask onto the T1 image, this will effectively remove the brain
+> 
+> ~~~
+> # Apply the mask onto the T1 image
+> hollow_skull = nimg.math_img("??", a=??, b=??)
+> nplot.plot_anat(??)
+> ~~~
+> {: .language-python}
+> 
+> ![Episode 04 Exercise Hollow Skull](../fig/exercise_hollow_skull.png){:class="img-responsive"}
+> 
+> Our brain is now missing!
+> 
+> Next we need to *resize* the hollow skull image to the dimensions of our resting state image. This can be done using resampling as we've done earlier in this episode.
+> 
+> What kind of interpolation would we need to perform here? Recall that:
+> - **Continuous**: Tries to maintain the edges of the image
+> - **Linear**: Resizes the image but also blurs it a bit
+> - **Nearest**: Sets values to the closest neighbouring values
 > 
 > ~~~
 > #Resample the T1 to the size of the functional image!
-> resamp_t1 = nimg.resample_to_img(source_img=??, target_img=??, interpolation='continuous')
-> nplot.plot_anat(??)
-> print(resamp_t1.shape)
+> resamp_skull = nimg.resample_to_img(source_img=??,
+>                                  target_img=??,
+>                                  interpolation='??')
+> nplot.plot_anat(resamp_skull)
+> print(resamp_skull.shape)
+> print(ex_func.shape)
 > ~~~
 > {: .language-python}
 > 
-> ![Episode 04 Exercise Downsampled Image](../fig/exercise_t1.png){:class="img-responsive"}
+> ![Episode 04 Exercise Resampled Hollow Skull](../fig/exercise_resampled_hollow_skull.png){:class="img-responsive"}
 > 
-> Next we want to make sure that the brain mask for the T1 is also the same dimensions as the functional image. This is exactly the same as above, except we use the brain mask as the source.
+> We now have a skull missing the structural T1 brain that is resized to match the dimensions of the EPI image.
 > 
-> What kind of interpolation should we use for masks?
-> 
-> ~~~
-> resamp_bm = nimg.??(??)
-> 
-> #Plot the image
-> ??
-> 
-> print(resamp_bm.shape)
-> ~~~
-> {: .language-python}
-> 
-> Once we've resampled both our T1 and our brain mask. We now want to remove the brain from the T1 image so that we can replace it with the funtional image instead. Remember to do this we need to:
-> 
-> 1. Invert the T1 mask
-> 2. Apply the inverted mask to the brain
-> 
-> ~~~
-> inverted_bm_t1 = nimg.math_img(??,a=resamp_bm)
-> nplot.plot_anat(inverted_bm_t1)
-> ~~~
-> {: .language-python}
-> 
-> Now apply the mask using basic image arithmetic:
-> 
-> ~~~
-> resamp_t1_nobrain = nimg.??(??)
-> nplot.plot_anat(resamp_t1_nobrain)
-> ~~~
-> {: .language-python}
-> 
-> We now have a skull missing the structural T1 brain. The final steps is to stick in the brain from the functional image into the now brainless head. First we need to remove the surrounding signal from the functional image.
+> The final steps are to:
+> 1. Pull the first volume from the functional image
+> 2. Place the functional image head into the hollow skull that we've created
 > 
 > Since a functional image is 4-Dimensional, we'll need to pull the first volume to work with. This is because the structural image is 3-dimensional and operations will fail if we try to mix 3D and 4D data.
 > 
 > ~~~
 > #Let's visualize the first volume of the functional image:
-> first_vol = ex_func.slicer[??,??,??,??]
+> first_vol = ex_func.slicer[??, ??, ??, ??]
 > nplot.plot_epi(first_vol)
 > ~~~
 > {: .language-python}
 > 
+> 
+> ![Episode 04 Exercise fMRI](../fig/exercise_fmri.png){:class="img-responsive"}
+> 
 > As shown in the figure above, the image has some "signal" outside of the brain. In order to place this within the now brainless head we made earlier, we need to mask out the functional MR data as well!
 > 
 > ~~~
-> #Mask first_vol using ex_func_bm
+> #Mask the first volume using ex_func_bm
 > masked_func = nimg.math_img('??', a=??, b=??)
 > nplot.plot_epi(masked_func)
 > ~~~
 > {: .language-python}
+> 
+> ![Episode 04 Exercise Masked fMRI](../fig/exercise_masked_fmri.png){:class="img-responsive"}
 > 
 > The final step is to stick this data into the head of the T1 data. Since the hole in the T1 data is represented as $0$'s. We can add the two images together to place the functional data into the void:
 > 
@@ -334,23 +378,26 @@ Now that we've explored the idea of resampling let's do a cumulative exercise br
 > ~~~
 > {: .language-python}
 > 
+> ![Episode 04 Exercise Complete](../fig/exercise_complete.png){:class="img-responsive"}
+> 
 > > ## Solution
 > > 
 > > ~~~
+> > # Invert the mask
+> > invert_mask = nimg.math_img('1-a', a=ex_t1_bm)
+> > nplot.plot_anat(invert_mask)
+> > 
+> > # Apply the mask onto the T1 image
+> > hollow_skull = nimg.math_img("a*b", a=ex_t1, b=invert_mask)
+> > nplot.plot_anat(hollow_skull)
+> > 
 > > #Resample the T1 to the size of the functional image!
-> > resamp_t1 = nimg.resample_to_img(source_img=ex_t1, target_img=ex_func, interpolation='continuous')
-> > nplot.plot_anat(resamp_t1)
-> > print(resamp_t1.shape)
-> > 
-> > resamp_bm = nimg.resample_to_img(source_img=ex_t1_bm, target_img=ex_func,interpolation='nearest')
-> > nplot.plot_anat(resamp_bm)
-> > print(resamp_bm.shape)
-> > 
-> > inverted_bm_t1 = nimg.math_img('1-a',a=resamp_bm)
-> > nplot.plot_anat(inverted_bm_t1)
-> > 
-> > resamp_t1_nobrain = nimg.math_img('a*b',a=resamp_t1,b=inverted_bm_t1)
-> > nplot.plot_anat(resamp_t1_nobrain)
+> > resamp_skull = nimg.resample_to_img(source_img=hollow_skull,
+> >                                  target_img=ex_func,
+> >                                  interpolation='continuous')
+> > nplot.plot_anat(resamp_skull)
+> > print(resamp_skull.shape)
+> > print(ex_func.shape)
 > > 
 > > #Let's visualize the first volume of the functional image:
 > > first_vol = ex_func.slicer[:,:,:,0]
@@ -360,12 +407,23 @@ Now that we've explored the idea of resampling let's do a cumulative exercise br
 > > nplot.plot_epi(masked_func)
 > > 
 > > #Now overlay the functional image on top of the anatomical
-> > combined_img = nimg.math_img('a+b',a=resamp_t1_nobrain,b=masked_func)
+> > combined_img = nimg.math_img('a+b',
+> >                              a=resamp_skull, 
+> >                              b=masked_func)
 > > nplot.plot_anat(combined_img)
-> > 
 > > ~~~
 > > {: .language-python}
 > {: .solution}
 {: .challenge}
+
+This doesn't actually achieve anything useful in practice. However it has hopefully served to get you more comfortable with the idea of resampling and performing manipulations on MRI data!
+
+In this section we explored functional MR imaging. Specifically we covered:
+    
+1. How the data in a fMRI scan is organized - with the additional dimension of timepoints
+2. How we can integrate functional MR images to our structural image using resampling
+3. How we can just as easily manipulate functional images using <code>nilearn</code>
+
+Now that we've covered all the basics, it's time to start working on data processing using the tools that we've picked up. 
 
 {% include links.md %}
