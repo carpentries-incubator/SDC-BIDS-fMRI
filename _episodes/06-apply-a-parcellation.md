@@ -37,11 +37,11 @@ For this tutorial we'll be using a set of parcellation from [Yeo et al. 2011](li
 First we'll load in our packages as usual:
 
 ~~~
-import numpy as np
-import nibabel as nib
-from nilearn import datasets #provides nilearn example datasets as well as brain parcellation atlases
+from nilearn import datasets
+from nilearn import image as nimg
 from nilearn import plotting as nplot
-import matplotlib.pyplot as plt
+
+%matplotlib inline
 ~~~
 {: .language-python}
 
@@ -88,6 +88,8 @@ nplot.plot_roi(atlas_yeo_2011['thick_17'], cut_coords=cut_coords, colorbar=color
 ![Yeo Thick 7](../fig/thick_7.png){:class="img-responsive"}
 ![Yeo Thick 17](../fig/thick_17.png){:class="img-responsive"}
 
+You'll notice that the colour bar on the right shows the number of labels in each atlas and which colour corresponds to which network
+
 The 7 and 17 network parcellations correspond to the two most stable clustering solutions from the algorithm used by the authors. The thin/thick designation refer to how strict the voxel inclusion is (thick might include white matter/CSF, thin might exclude some regions of grey matter due to partial voluming effects).
 
 For simplicity we'll use the thick_7 variation which includes the following networks:
@@ -101,6 +103,11 @@ For simplicity we'll use the thick_7 variation which includes the following netw
 7. Default
 
 The parcel areas labelled with 0 are background voxels not associated with a particular network.
+
+~~~
+atlas_yeo = atlas_yeo_2011['thick_7']
+~~~
+{: .language-python}
 
 ### Spatial Separation of Network
 A key feature of the Yeo2011 networks is that they are *spatially distributed*, meaning that the locations of two voxels in the same network need not be part of the same region. However, there could be some cases in which you might want to examine voxels belonging to a network within a particular region. To do this, we can separate parcels belonging to the same network based on spatial continuity. If there is a gap between two sets of voxels belonging to the same parcel group, we can assign new labels to separate them out. Nilearn has a feature to handle this:
@@ -129,59 +136,105 @@ region_labels.to_filename('../resources/rois/yeo_2011/Yeo_JNeurophysiol11_MNI152
 {: .language-python}
 
 > ## Resampling Exercise
+> 
 > Our goal is to match the parcellation atlas dimensions to our functional file so that we can use it to extract the mean time series of each parcel region. Using `Nilearn`'s resampling capabilities match the dimensions of the atlas file to the functional file
 > First let's pick our functional file. Atlases are typically defined in standard space so we will use the MNI152NLin2009cAsym version of the functional file:
+> 
 > ~~~
 > func_file = '../data/ds000030/derivatives/fmriprep/sub-10788/func/sub-10788_task-rest_bold_space-MNI152NLin2009cAsym_preproc.nii.gz'
 > func_img = nib.load(func_file)
 > ~~~
 > {: .language-python}
+> 
+> First examine the size of both files, if they match we are done:
+> ~~~
+> print('Size of functional image:', func_img.shape)
+> print('Size of atlas image:', ??)
+> ~~~
+> {: .language-python}
+> 
+> Looks like they don't match. To resolve this, we can use <code>nimg.resample_to_img</code> to resize the *atlas image* to  match that of the *functional image*. Think about what kind of interpolation we'd like to use. Recall that the atlas contains integer values (i.e 0, 1, 2, 3,...), we *do not want any in-between values!*
+> 
+> ~~~
+> resampled_yeo = nimg.resample_to_img(??, ??, interpolation = '??')
+> ~~~
+> {: .language-python}
+> 
+> 
 > > ## Solution
-> > First examine the size of both files, if they match we are done:
+> > 
 > > ~~~
-> > print('Size of functional file:', func_img.shape)
-> > print('Size of atlas file:', region_labels.shape)
-./_episodes/01-neuroimaging-fundamentals.md:86:> > ~~~
-> > {: .language-python}
-> >
-> > Turns out that they aren't the same! We can match the file sizes simply using `img.resample_to_img`:
-> > ~~~
-> > resampled_atlas = image.resample_to_img(region_labels, func_img, interpolation = 'nearest')
-> > nplot.plot_roi(resampled_yeo, func_img.slicer[:,:,:,54])
+> > # Print dimensions of functional image and atlas image
+> > 
+> > print("Size of functional image:", func_img.shape)
+> > print("Size of atlas image:", region_labels.shape)
+> > 
+> > resampled_yeo = nimg.resample_to_img(region_labels, func_img, interpolation = 'nearest')
 > > ~~~
 > > {: .language-python}
-> > ![Episode 06 Exercise Resampled Yeo Labels](../fig/resampled_yeo.png){:class="img-responsive"}
-> > Recall, that we use `interpolation = 'nearest' ` because parcel regions are integers. Nearest interpolation preserves the values in the original image. Something like `continuous` or `linear` will pick in between values; a parcel value of 2.2215 is not meaningful in this context.
 > {: .solution}
 {: .challenge}
+
+Let's see what the resampled atlas looks like overlayed on a slice of our NifTI file
+
+~~~
+# Note that we're pulling a random timepoint from the fMRI data
+nplot.plot_roi(resampled_yeo, func_img.slicer[:, :, :, 54])
+~~~
+{: .language-python}
+
+![Episode 06 Exercise Resampled Yeo Labels](../fig/resampled_yeo.png){:class="img-responsive"}
+
 
 ## Visualizing ROIs
 
 For the next section, we'll be performing an analysis using the Yeo parcellation on our functional data. Specifically, we'll be using two ROIs: 44 and 46.
 
 > ## Exercise
-> Visualize ROI 44 and 46
-> **HINT**: Try using `math.img` to select ROIs using a conditional statement
+Visualize ROIs 44 and 46 in the Yeo atlas. We'll be looking at these 2 ROIs in more detail during our analysis
+> 
+> ~~~
+> roi = 44
+> 
+> # Make a mask for ROI 44
+> roi_mask_44 = nimg.math_img('a == ??', a=resampled_yeo)  
+> 
+> # Visualize ROI
+> nplot.plot_roi(??)
+> ~~~
+> {: .language-python}
+>
+> ![Episode 06 Exercise Yeo ROI 44](../fig/roi_44.png){:class="img-responsive"}
+> 
+> ~~~
+> roi = 46
+> 
+> # Make a mask for ROI 44
+> roi_mask_46 = nimg.math_img(??)  
+> 
+> # Visualize ROI
+> ??
+> ~~~
+> {: .language-python}
+>
+> ![Episode 06 Exercise Yeo ROI 46](../fig/roi_46.png){:class="img-responsive"}
+>
 > > ## Solution
+> > 
 > > ~~~
-> > from nilearn import image
-> >
-> > roi = 44
-> > roi_mask = image.math_img('a == {}'.format(roi), a=resampled_yeo)
-> > masked_resamp_yeo = image.math_img('a*b',a=resampled_yeo,b=roi_mask)
+> > # Make a mask for ROI 44
+> > roi_mask = nimg.math_img('a == 44', a=resampled_yeo)  
+> > 
+> > # Visualize ROI
+> > nplot.plot_roi(masked_resamp_yeo)
+> > 
+> > # Make a mask for ROI 44
+> > roi_mask = nimg.math_img('a == 46', a=resampled_yeo)  
+> > 
+> > # Visualize ROI
 > > nplot.plot_roi(masked_resamp_yeo)
 > > ~~~
 > > {: .language-python}
-> >
-> > ![Episode 06 Exercise Yeo ROI 44](../fig/roi_44.png){:class="img-responsive"}
-> > ~~~
-> > roi  =  46
-> > roi_mask  = image.math_img('a == {}'.format(roi), a=resampled_yeo)
-> > masked_resamp_yeo = image.math_img('a*b',a=resampled_yeo,b=roi_mask)
-> > nplot.plot_roi(masked_resamp_yeo)
-> > ~~~
-> > {: .language-python}
-> > ![Episode 06 Exercise Yeo ROI 46](../fig/roi_46.png){:class="img-responsive"}
 > {: .solution}
 {: .challenge}
 
