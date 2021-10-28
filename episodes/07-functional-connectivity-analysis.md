@@ -438,6 +438,8 @@ sns.heatmap(ctrl_correlation_matrices[0], cmap='RdBu_r')
 ~~~
 {: .language-python}
 
+![Connectivity Matrix Heatmap](../fig/heatmap.png){:class="img-responsive"}
+
 We can now pull our ROI 44 and 46 by indexing our list of correlation matrices as if it were a 3D array (kind of like an MR volume). Take a look at the shape:
 
 ~~~
