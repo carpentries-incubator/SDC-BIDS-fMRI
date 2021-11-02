@@ -63,8 +63,9 @@ This slide presents a brief motivation behind the need for confound/nuisance reg
 
 ### Frequent Issues
 
-- None as of now, this will be updated with additional piloting of the workshop
-
+- **Python Kernel Dies in Binder**: This is a result of the limited memory available (2GB) available in each Binder instance. This can be prevented by **shutting down a notebook** once it is done with. *Simply closing a notebook does not shut it down and will continue to take up memory!*. 
+  - Another solution is to request [additional resources](https://github.com/jupyterhub/mybinder.org-deploy/issues/new?labels=impact&template=request_resources.md) from the Binder maintainers 
+  - The request form above can also be done to extend the timeout duration so that the connection isn't lost during a break
 
 
 {% include links.md %}
