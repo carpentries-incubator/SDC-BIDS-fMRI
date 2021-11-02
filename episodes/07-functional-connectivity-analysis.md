@@ -1,6 +1,6 @@
 ---
 title: "Functional Connectivity Analysis"
-teaching: 30
+teaching: 45
 exercises: 15
 questions:
 - "How can we estimate brain functional connectivity patterns from resting state data?"
@@ -89,7 +89,7 @@ Now we'll import a package from <code>nilearn</code>, called <code>input_data</c
 We first create an object using the parcellation file <code>yeo_7</code> and our cleaning settings which are the following:
 
 Settings to use:
-- Confounders: X, Y, Z, RotX, RotY, RotZ, aCompCor01, aCompCor02, Global Signal
+- Confounds: trans_x, trans_y, trans_z, rot_x, rot_y, rot_z, white_matter, csf, global_signal
 - Temporal Derivatives: Yes
 - high_pass = 0.009
 - low_pass = 0.08
@@ -219,22 +219,76 @@ Number of labels 43
 ~~~
 {: .output}
 
-This means that our ROIs of interest (44 and 46) cannot be accessed using the 44th and 46th columns directly! Instead we'll have to figure out which of the 43 columns correspond to ROI 44 and ROI 46. This can be done as follows:
+This means that our ROIs of interest (44 and 46) *cannot be accessed using the 44th and 46th columns directly*!
+
+There are many strategies to deal with this weirdness. What we're going to do is to create a new array that fills in the regions that were removed with <code>0</code> values. It might seem a bit weird now, but it'll simplify things when we start working with multiple subjects!
+
+First we'll identify all ROIs from the original atlas. We're going to use the <code>numpy</code> package which will provide us with functions to work with our image arrays:
 
 ~~~
-ROI_44 = masker.labels_.index(44)
-ROI_46 = masker.labels_.index(46)
+import numpy as np
 
-print(ROI_44)
-print(ROI_46)
+# Get the label numbers from the atlas
+atlas_labels = np.unique(yeo_7.get_fdata().astype(int))
+
+# Get number of labels that we have
+NUM_LABELS = len(atlas_labels)
+print(NUM_LABELS)
 ~~~
 {: .language-python}
 
-This means that the:
-- 38th column is ROI 44
-- 40th column is ROI 46
+~~~
+50
+~~~
+{: .output}
 
-We stored them in the <code>ROI_44</code> and <code>ROI_46</code> variables so we can use these later!
+Now we're going to create an array that contains:
+- A number of rows matching the number of timepoints
+- A number of columns matching the total number of regions
+
+~~~
+# Remember fMRI images are of size (x,y,z,t)
+# where t is the number of timepoints
+num_timepoints = func_img.shape[3]
+
+# Create an array of zeros that has the correct size
+final_signal = np.zeros((num_timepoints, NUM_LABELS))
+
+# Get regions that are kept
+regions_kept = np.array(masker.labels_)
+
+# Fill columns matching labels with signal values
+final_signal[:, regions_kept] = cleaned_and_averaged_time_series
+
+print(final_signal.shape)
+~~~
+{: .language-python}
+
+It's a bit of work, but now we have an array where:
+
+1. The column number matches the ROI label number
+2. Any column that is lost during the <code>masker.fit_transform</code> is filled with <code>0</code> values!
+
+
+To get the columns corresponding to the regions that we've kept, we can simply use the <code>regions_kept</code> variable to select columns corresponding to the regions that weren't removed:
+
+~~~
+valid_regions_signal = final_signal[:, regions_kept]
+print(valid_regions_signal.shape)
+~~~
+{: .language-python}
+
+This is identical to the original output of <code>masker.fit_transform</code>
+
+~~~
+np.array_equal(
+    valid_regions_signal,
+    cleaned_and_averaged_time_series
+)
+~~~
+{: .language-python}
+
+This might seem unnecessary for now, but as you'll see in a bit, it'll come in handy when we deal with multiple subjects!d
 
 
 ### Calculating Connectivity
@@ -267,17 +321,44 @@ full_correlation_matrix.shape
 ~~~
 {: .language-python}
 
-> Note that we're using a list <code>[cleaned_and_averaged_time_series]</code>, this is becasue <code>correlation_measure</code> works on a *list of subjects*. We'll take advantage of this later!
+> Note that we're using a list <code>[final_signal]</code>, this is because <code>correlation_measure</code> works on a *list of subjects*. We'll take advantage of this later!
 {: .callout}
+
 
 The result is a matrix which has:
 
-- A number of rows matching the number of ROIs in our parcellated data
-- A number of columns, that also matches the number of ROIs in our parcellated data
+- A number of rows matching the number of ROIs in our parcellation atlas
+- A number of columns, that also matches the number of ROIs in our parcellation atlas
 
-Suppose we wanted to know the correlation between ROI 44 and ROI 46. To get this value we need look at the row and column indices that correspond to these ROIs!
+You can read this correlation matrix as follows:
 
-Recall that since we lost 3 columns, we had to use the <code>masker.labels_</code> property to figure out which column corresponds to which of the atlas' original ROIs:
+Suppose we wanted to know the correlation between ROI 30 and ROI 40
+
+- Then Row 30, Column 40 gives us this correlation.
+- Row 40, Column 40 can also give us this correlation
+
+
+This is because the correlation of $A \to B = B \to A$
+
+> **NOTE**: Remember we were supposed to lose 7 regions from the <code>masker.fit_transform</code> step. The correlations for these regions will be 0!
+{: .callout}
+
+Let's try pulling the correlation for ROI 44 and 46!
+
+~~~
+full_correlation_matrix[0, 43, 45]
+~~~
+{: .language-python}
+
+Note that it'll be the same if we swap the rows and columns!
+
+~~~
+full_correlation_matrix[0, 45, 43]
+~~~
+{: .language-python}
+
+Now when we're working with multiple subjects we may lose a differing amount of ROIs on the <code>masker.fit_transform</code> step per subject. To deal with this we'll only keep the *set of ROIs that are shared across all subjects*. We'll do this in the next section...
+
 
 ~~~
 full_correlation_matrix[0, ROI_44, ROI_46]
@@ -286,58 +367,86 @@ full_correlation_matrix[0, ROI_44, ROI_46]
 
 > ## Exercise
 > Apply the data extract process shown above to all subjects in our subject list and collect the results. Your job is to fill in the blanks!
+>
 > ~~~
 > # First we're going to create some empty lists to store all our data in!
-> pooled_subjects = []
 > ctrl_subjects = []
 > schz_subjects = []
 > 
-> #Which confound variables should we use?
-> confound_variables = [??]
+> 
+> # We're going to keep track of each of our subjects labels here
+> # pulled from masker.labels_
+> labels_list = []
+> 
+> # Get the number of unique labels in our parcellation
+> # We'll use this to figure out how many columns to make (as we did earlier)
+> atlas_labels = np.unique(yeo_7.get_fdata().astype(int))
+> NUM_LABELS = len(atlas_labels)
+> 
+> # Set the list of confound variables we'll be using
+> confound_variables = ['trans_x','trans_y','trans_z',
+>                                'rot_x','rot_y','rot_z',
+>                                'global_signal',
+>                                'white_matter','csf']
+> 
+> # Number of TRs we should drop
+> TR_DROP=4
+> 
+> # Lets get all the subjects we have
+> subjects = layout.get_subjects()
 > for sub in subjects:
 >     
 >     #Get the functional file for the subject (MNI space)
 >     func_file = layout.get(subject=??,
->                            datatype=??, task=??,
->                            desc='preproc',
->                            extension='nii.gz',
+>                            datatype='??', task='rest',
+>                            desc='??',
+>                            space='??'
+>                            extension="nii.gz",
 >                            return_type='file')[0]
 >     
 >     #Get the confounds file for the subject (MNI space)
->     confound_file=layout.get(subject=?,
->                              datatype=??, task=??,
->                              desc='confounds', 
+>     confound_file=layout.get(subject=??, datatype='??',
+>                              task='rest',
+>                              desc='??',
 >                              extension='tsv',
 >                              return_type='file')[0]
 >     
 >     #Load the functional file in
->     func_img = nimg.load_img(func_file)
+>     func_img = nimg.load_img(??)
 >     
 >     #Drop the first 4 TRs
->     func_img = func_img.slicer[:,:,:,??]
+>     func_img = func_img.slicer[??,??,??,??]
+>     
 >     
 >     #Extract the confound variables using the function
->     confounds = extract_confounds(confound_file,confound_variables)
+>     confounds = extract_confounds(confound_file,
+>                                   confound_variables)
 >     
 >     #Drop the first 4 rows from the confound matrix
->     #Which rows and columns should we keep?
->     confounds = confounds[??,??]
+>     confounds = confounds[??]
+>     
+>     # Make our array of zeros to fill out
+>     # Number of rows should match number of timepoints
+>     # Number of columns should match the total number of regions
+>     fill_array = np.zeros((func_img.shape[??], ??))
 >     
 >     #Apply the parcellation + cleaning to our data
 >     #What function of masker is used to clean and average data?
->     time_series = masker.??(??,??)
+>     time_series = masker.fit_transform(??,??)
 >     
->     #This collects a list of all subjects
->     pooled_subjects.append(time_series)
+>     # Get the regions that were kept for this scan
+>     regions_kept = np.array(masker.labels_)
 >     
+>     # Fill the array, this is what we'll use
+>     # to make sure that all our array are of the same size
+>     fill_array[:, ??] = time_series
 >     
 >     #If the subject ID starts with a "1" then they are control
 >     if sub.startswith('1'):
->         ctrl_subjects.append(time_series)
-> 
+>         ctrl_subjects.append(fill_array)
 >     #If the subject ID starts with a "5" then they are case (case of schizophrenia)
 >     if sub.startswith('5'):
->         schz_subjects.append(time_series)
+>         schz_subjects.append(fill_array)
 > ~~~
 > {: .language-python}
 > > ## Solution
@@ -440,6 +549,21 @@ sns.heatmap(ctrl_correlation_matrices[0], cmap='RdBu_r')
 
 ![Connectivity Matrix Heatmap](../fig/heatmap.png){:class="img-responsive"}
 
+Recall that cleaning and parcellating the data causes some ROIs to get dropped. We dealt with this by filling an array of zeros (<code>fill_array</code>) only for columns where the regions are kept (<code>regions_kept</code>). This means that we'll have some correlation values that are 0!
+
+This is more apparent if we plot the data slightly differently. For demonstrative purposes we've:
+- Taken the absolute value of our correlations so that the 0's are the darkest color
+- Used a different color scheme
+
+~~~
+sns.heatmap(np.abs(ctrl_correlation_matrices[0]), cmap='viridis')
+~~~
+{: .language-python}
+
+![Absolute Matrix Heatmap Zeros Highlighted](../fig/heatmap_show_zeroes.png){:class="img-responsive"}
+
+The dark lines in the correlation matrix correspond to regions that were dropped and therefore have 0 correlation!
+
 We can now pull our ROI 44 and 46 by indexing our list of correlation matrices as if it were a 3D array (kind of like an MR volume). Take a look at the shape:
 
 ~~~
@@ -455,8 +579,8 @@ Now we're going to pull out just the correlation values between ROI 43 and 45 *a
 
 
 ~~~
-ctrl_roi_vec = ctrl_correlation_matrices[:,ROI_44,ROI_46]
-schz_roi_vec = schz_correlation_matrices[:,ROI_44,ROI_46]
+ctrl_roi_vec = ctrl_correlation_matrices[:,43,45]
+schz_roi_vec = schz_correlation_matrices[:,43,45]
 ~~~
 {: .language-python}
 
@@ -491,7 +615,7 @@ For visualization we're going to stack the two tables together...
 df = pd.concat([ctrl_df,scz_df], ignore_index=True)
 
 # Show some random samples from dataframe
-df.sample(n=5)
+df.sample(n=3)
 ~~~
 {: .language-python}
 
