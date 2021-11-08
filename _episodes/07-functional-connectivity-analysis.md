@@ -338,7 +338,7 @@ Suppose we wanted to know the correlation between ROI 30 and ROI 40
 - Row 40, Column 40 can also give us this correlation
 
 
-This is because the correlation of $A \to B = B \to A$
+This is because the correlation of $A --> B = B --> A$
 
 > **NOTE**: Remember we were supposed to lose 7 regions from the <code>masker.fit_transform</code> step. The correlations for these regions will be 0!
 {: .callout}
@@ -357,13 +357,6 @@ full_correlation_matrix[0, 45, 43]
 ~~~
 {: .language-python}
 
-Now when we're working with multiple subjects we may lose a differing amount of ROIs on the <code>masker.fit_transform</code> step per subject. To deal with this we'll only keep the *set of ROIs that are shared across all subjects*. We'll do this in the next section...
-
-
-~~~
-full_correlation_matrix[0, ROI_44, ROI_46]
-~~~
-{: .language-python}
 
 > ## Exercise
 > Apply the data extract process shown above to all subjects in our subject list and collect the results. Your job is to fill in the blanks!
