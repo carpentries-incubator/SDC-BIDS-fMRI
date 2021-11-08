@@ -33,17 +33,22 @@ from bids import BIDSLayout
 {: .language-python}
 
 Notice that we imported two things:
-1. `image as img` - allows us to load NIFTI images using nibabel under the hood
-2. `plotting as plot`- allows us to using Nilearn's plotting library for easy visualization
+1. `image as nimg` - allows us to load NIFTI images using nibabel under the hood
+2. `plotting as nplot`- allows us to using Nilearn's plotting library for easy visualization
 
-First let's grab some data from where we downloaded our **FMRIPREP** outputs:
-
+First let's grab some data from where we downloaded our **FMRIPREP** outputs. Note that we're using the argument <code>return_type='file'</code> so that pyBIDS gives us file paths directly rather than the standard BIDSFile objects
 ~~~
 #Base directory for fmriprep output
 fmriprep_dir = '../data/ds000030/derivatives/fmriprep/'
-layout= BIDSLayout(fmriprep_dir, validate=False)
-T1w_files = layout.get(subject='10788', datatype='anat', suffix='preproc')
-brainmask_files = layout.get(subject='10788', datatype='anat', suffix='brainmask')
+layout= BIDSLayout(fmriprep_dir, config=['bids','derivatives'])
+
+T1w_files = layout.get(subject='10788', datatype='anat',
+					   desc='preproc', extension='.nii.gz',
+					   return_type='file')
+					   
+brainmask_files = layout.get(subject='10788', datatype='anat', suffix="mask",
+                             desc='brain', extension='.nii.gz',
+                             return_type='file')
 ~~~
 {: .language-python}
 
@@ -51,14 +56,13 @@ Here we used pyBIDS (as introduced in earlier sections) to pull a single partici
 
 ~~~
 #Display preprocessed files inside of anatomy folder
-for f in T1w_files:
-    print(f.path)
+T1w_files
 ~~~
 {: .language-python}
 
 ~~~
-/mnt/tigrlab/projects/jjeyachandra/scwg2018_python_neuroimaging/data/ds000030/derivatives/fmriprep/sub-10171/anat/sub-10171_T1w_preproc.nii.gz
-/mnt/tigrlab/projects/jjeyachandra/scwg2018_python_neuroimaging/data/ds000030/derivatives/fmriprep/sub-10171/anat/sub-10171_T1w_space-MNI152NLin2009cAsym_preproc.nii.gz
+['/home/jerry/projects/workshops/SDC-BIDS-fMRI/data/ds000030/derivatives/fmriprep/sub-10788/anat/sub-10788_desc-preproc_T1w.nii.gz',
+ '/home/jerry/projects/workshops/SDC-BIDS-fMRI/data/ds000030/derivatives/fmriprep/sub-10788/anat/sub-10788_space-MNI152NLin2009cAsym_desc-preproc_T1w.nii.gz']
 ~~~
 {: .output}
 
@@ -68,8 +72,8 @@ Now that we have our files set up, let's start performing some basic image opera
 
 In this section we're going to deal with the following files:
 
-1. <code>sub-10171_T1w_preproc.nii.gz</code> - the T1 image in native space
-2. <code>sub-10171_T1w_brainmask.nii.gz</code> - a mask with 1's representing the brain and 0's elsewhere.
+1. <code>sub-10171_desc-preproc_T1w.nii.gz</code> - the T1 image in native space
+2. <code>sub-10171_desc-brain_mask.nii.gz</code> - a mask with 1's representing the brain and 0's elsewhere.
 
 ~~~
 t1 = T1w_files[0].path
@@ -80,7 +84,7 @@ bm_img = nimg.load_img(bm)
 ~~~
 {: .language-python}
 
-Using the <code>plotting</code> module (which we've aliased as <code>plot</code>), we can view our MR image:
+Using the <code>plotting</code> module (which we've aliased as <code>nplot</code>), we can view our MR image:
 
 ~~~
 nplot.plot_anat(t1_img)
@@ -89,12 +93,29 @@ nplot.plot_anat(t1_img)
 
 ![Nilearn antomical plotting](../fig/t1_img.png){:class="img-responsive"}
 
+This gives just a still image of the brain. We can also view the brain more interactively using the `view_img` function. It will require some additional settings however:
+
+~~~
+nplot.view_img(t1_img,
+               bg_img=False, # Disable using a standard image as the background
+               cmap='Greys_r', # Set color scale so white matter appears lighter than grey
+               symmetric_cmap=False, # We don't have negative values
+               threshold="auto", # Clears out the background
+              )
+~~~
+{: .language-python}
+
+Try clicking and dragging the image in each of the views that are generated!
+
+
 Try viewing the mask as well!
 
 ~~~
 nplot.plot_anat(bm_img)
 ~~~
 {: .language-python}
+
+### Arithmetic Operations
 
 Let's start performing some image operations. The simplest operations we can perform is **element-wise**, what this means is that we want to perform some sort of mathematical operation on each **voxel** of the MR image. Since *voxels are represented in a 3D array, this is equivalent to performing an operation on each element (i,j,k) of a 3D array*. Let's try inverting the image, that is, flip the colour scale such that all blacks appear white and vice-versa. To do this, we'll use the method
 
@@ -112,6 +133,17 @@ nplot.plot_anat(invert_img)
 {: .language-python}
 
 ![Nilearn image math example output](../fig/invert_img.png){:class="img-responsive"}
+
+>> Alternatively we don't need to first load in our <code>t1_img</code> using <code>img.load_img</code>. Instead we can feed in a path to <code>img.math_img</code>:
+
+> ~~~
+> invert_img = nimg.math_img('-a', a=t1)
+> nplot.plot_anat(invert_img)
+> ~~~
+> 
+> This will yield the same result!
+{: .callout}
+
 
 ### Applying a Mask
 Let's extend this idea of applying operations to each element of an image to multiple images. Instead of specifying just one image like the following:
@@ -138,10 +170,22 @@ As you can see areas where the mask image had a value of 1 were retained, everyt
 
 > ## Exercise #1
 > Try applying the mask such that the brain is removed, but the rest of the head is intact!
->
+> *Hint:*
+> Remember that a mask is composed of 0's and 1's, where parts of the data labelled 1 are regions to keep, and parts of the data that are 0, are to throw away.
+> You can do this in 2 steps:
+> 
+> 1. Switch the 0's and 1's using an equation (simple addition/substraction) or condition (like x == 0). 
+> 2. Apply the mask
 > > ## Solution
 > > ~~~
-> > inverted_mask_t1 = nimg.math_img('a*(1-b)', a=T1, b=bm)
+> > # Invert the mask
+> > inverted_mask = nimg.math_img('1-x', x=bm)
+> > nplot.plot_anat(inverted_mask)
+> > ~~~
+> > {: .language-python}
+> > ~~~
+> > # Apply the mask
+> > inverted_mask_t1 = nimg.math_img('a*b', a=t1, b=inverted_mask)
 > > nplot.plot_anat(inverted_mask_t1)
 > > ~~~
 > > {: .language-python}
@@ -184,14 +228,14 @@ x_slice = t1_data[10,:,:]
 This will yield the same result as above. Notice that when using the <code>t1_data</code> array we can just specify which slice to grab instead of using <code>:</code>. We can use slicing in order to modify visualizations. For example, when viewing the T1 image, we may want to specify at which slice we'd like to view the image. This can be done by specifying which coordinates to *cut* the image at:
 
 ~~~
-nplot.plot_anat(t1_img,cut_coords=(50,30,70))
+nplot.plot_anat(t1_img,cut_coords=(50,30,20))
 ~~~
 {: .language-python}
 
 The <code>cut_coords</code> option specifies 3 numbers:
 - The first number says cut the X coordinate at slice 50 and display (sagittal view in this case!)
 - The second number says cut the Y coordinate at slice 30 and display (coronal view)
-- The third number says cut the Z coordinate at slice 70 and display (axial view)
+- The third number says cut the Z coordinate at slice 20 and display (axial view)
 
 Remember <code>nplot.plot_anat</code> yields 3 images, therefore <code>cut_coords</code> allows you to display where to take cross-sections of the brain from different perspectives (axial, sagittal, coronal)
 
