@@ -33,7 +33,7 @@ Let's load in some modules as we've done before
 import os
 from nilearn import image as nimg
 from nilearn import plotting as nplot
-import matplotilb.pyplot as plt
+import matplotlib.pyplot as plt
 import numpy as np
 import nibabel as nib
 %matplotlib inline
@@ -98,7 +98,7 @@ Using `pandas` we can read in the confounds.tsv file as a spreadsheet and displa
 
 ~~~
 #Delimiter is \t --> tsv is a tab-separated spreadsheet
-confound_df = pd.read_csv(confound, delimiter='\t')
+confound_df = pd.read_csv(confound_file, delimiter='\t')
 confound_df.head()
 ~~~
 {: .language-python}
@@ -202,7 +202,7 @@ Now we'll implement our **Dummy TR Drop**. Remember this means that we are remov
 
 ~~~
 #First we'll load in our data and check the shape
-raw_func_img = nimg.load_img(func)
+raw_func_img = nimg.load_img(func_file)
 raw_func_img.shape
 ~~~
 {: .language-python}
@@ -293,7 +293,7 @@ t_r = 2
 
 #Clean!
 clean_img = nimg.clean_img(func_img,confounds=confounds_matrix,detrend=True,standardize=True,
-                         low_pass=low_pass,high_pass=high_pass,t_r=t_r, mask_img=mask)
+                         low_pass=low_pass,high_pass=high_pass,t_r=t_r, mask_img=mask_file)
 
 #Let's visualize our result! Doesn't really tell us much, but that's the data we're using for analysis!
 nplot.plot_epi(clean_img.slicer[:,:,:,50])
