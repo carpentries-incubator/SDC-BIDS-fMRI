@@ -300,6 +300,8 @@ clean_img = nimg.clean_img(func_img,confounds=confounds_matrix,detrend=True,stan
 
 #Let's visualize our result! Doesn't really tell us much, but that's the data we're using for analysis!
 nplot.plot_epi(clean_img.slicer[:,:,:,50])
+before_figure = nplot.plot_carpet(clean_img, mask, t_r=t_r)
+after_figure = nplot.plot_carpet(func_img, mask, t_r=t_r)
 ~~~
 {: .language-python}
 
