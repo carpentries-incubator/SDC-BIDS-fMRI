@@ -56,6 +56,8 @@ import pandas as pd
 Let's pick an fMRI file to clean and pull out the confound tsv that FMRIPREP computed for us:
 
 ~~~
+import bids  # assuming pip install pybids was covered earlier
+
 sub = '10788'
 fmriprep_dir = '../data/ds000030/derivatives/fmriprep/'
 layout = bids.BIDSLayout(fmriprep_dir,validate=False,
@@ -98,8 +100,9 @@ Using `pandas` we can read in the confounds.tsv file as a spreadsheet and displa
 
 ~~~
 #Delimiter is \t --> tsv is a tab-separated spreadsheet
-confound_df = pd.read_csv(confound, delimiter='\t')
-confound_df.head()
+confound_df = pd.read_csv(confound_file, delimiter='\t')
+print(f"Read {len(confound_df.columns)} confounder items, each {len(confound_df)} TRs.")
+print(confound_df.head)
 ~~~
 {: .language-python}
 
