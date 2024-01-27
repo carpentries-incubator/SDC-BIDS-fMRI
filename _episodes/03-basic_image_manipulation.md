@@ -76,8 +76,8 @@ In this section we're going to deal with the following files:
 2. <code>sub-10171_desc-brain_mask.nii.gz</code> - a mask with 1's representing the brain and 0's elsewhere.
 
 ~~~
-t1 = T1w_files[0].path
-bm = brainmask_files[0].path
+t1 = T1w_files[0]
+bm = brainmask_files[0]
 
 t1_img = nimg.load_img(t1)
 bm_img = nimg.load_img(bm)
@@ -127,7 +127,7 @@ Where:
 In order to invert the image, we can simply flip the sign which will set the most positive elements (white) to the most negatve elements (black), and the least positives elements (black) to the least negative elements (white). This effectively flips the colour-scale:
 
 ~~~
-invert_img = nimg.math_img('-a', a=T1)
+invert_img = nimg.math_img('-a', a=t1_img)
 nplot.plot_anat(invert_img)
 ~~~
 {: .language-python}
@@ -159,8 +159,8 @@ The key requirement here is that when dealing with multiple images, that the *si
 We can take advantage of this property when masking our data using multiplication. Masking works by multipling a raw image (our `T1`), with some mask image (our `bm`). Whichever voxel (i,j,k) has a value of 0 in the mask multiplies with voxel (i,j,k) in the raw image resulting in a product of 0. Conversely, any voxel (i,j,k) in the mask with a value of 1 multiplies with voxel (i,j,k) in the raw image resulting in the same value. Let's try this out in practice and see what the result is:
 
 ~~~
-masked_t1 = nimg.math_img('a*b', a=T1, b=bm)
-nplot.plot_anat(masked_T1)
+masked_t1 = nimg.math_img('a*b', a=t1, b=bm)
+nplot.plot_anat(masked_t1)
 ~~~
 {: .language-python}
 
