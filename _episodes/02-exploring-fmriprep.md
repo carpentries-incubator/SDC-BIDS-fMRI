@@ -241,7 +241,7 @@ preproc_T1
 ~~~
 {: .output}
 
->> If we didn't configure pyBIDS with <code>config=['bids','derivatives']</code> then the <code>desc</code> keyword would not work!
+> If we didn't configure pyBIDS with <code>config=['bids','derivatives']</code> then the <code>desc</code> keyword would not work!
 {: .callout}
 
 Note that we also pulled in MNI152NLin2009cAsym_preproc.nii.gz data as well. This is data that has been transformed into MNI152NLin2009cAsym template space. We can pull this data out by further specifying our <code>layout.get</code> using the <code>space</code> argument:
