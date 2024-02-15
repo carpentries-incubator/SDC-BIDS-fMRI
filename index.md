@@ -5,9 +5,6 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 ---
 FIXME: Add information about fMRI analysis in Neuroimaging
 
-<!-- this is an html comment -->
-
-{% comment %} This is a comment in Liquid {% endcomment %}
 
 > ## Prerequisites
 >
