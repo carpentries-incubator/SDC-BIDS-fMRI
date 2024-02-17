@@ -121,7 +121,6 @@ Specifically:
 
 This data is single-session, so a session folder is missing here - but with multiple sessions you will see <code>anat</code> and <code>ses-[insert\_session\_here]</code> folders where each session folder contain a <code>func</code> folder.
 
-
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 Hopefully you're now convinced that the outputs of fMRIPREP roughly follows BIDS organization principles. The filenames themselves give you a full description of what each file is (check the [slides](https://docs.google.com/presentation/d/1er6dQcERL-Yeb5-7A29tJnmqgHNaLpTLXM3e-SmpjDg/edit?usp=sharing) to get an idea of what each file means!
@@ -239,7 +238,6 @@ preproc_T1
 
 If we didn't configure pyBIDS with <code>config=['bids','derivatives']</code> then the <code>desc</code> keyword would not work!
 
-
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 Note that we also pulled in MNI152NLin2009cAsym\_preproc.nii.gz data as well. This is data that has been transformed into MNI152NLin2009cAsym template space. We can pull this data out by further specifying our <code>layout.get</code> using the <code>space</code> argument:
@@ -302,8 +300,6 @@ t1w_func_data
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 Now that we have a handle on how fMRIPREP preprocessed data is organized and how we can pull this data. Let's start working with the actual data itself!
-
-
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
