@@ -1,16 +1,18 @@
 ---
-title: "Course Overview and Introduction"
+title: Course Overview and Introduction
 teaching: 25
 exercises: 0
-questions:
-- "What steps do I need to take before beginning to work with fMRI data?"
-- "Learn about fMRIPrep derivatives"
-keypoints:
-- "fMRI data is dirty and needs to be cleaned, aligned, and transformed before being able to use"
-- "There are standards in place which will allow you to effortlessly pull the data that you need for analysis"
 ---
 
+:::::::::::::::::::::::::::::::::::::::: questions
+
+- What steps do I need to take before beginning to work with fMRI data?
+- Learn about fMRIPrep derivatives
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
 This document is based on the slides here [Google Slides](https://docs.google.com/presentation/d/1er6dQcERL-Yeb5-7A29tJnmqgHNaLpTLXM3e-SmpjDg/edit#slide=id.g484812a0c7_6_1)
+
 ## Functional Neuroimaging in Python
 
 Welcome to the **Functional Neuroimaging Analysis in Python** workshop! In this workshpo we'll get you up to speed with the current tools and techniques used in the analysis of functional MRI (fMRI) data. The primary goals of this workshop are:
@@ -58,62 +60,69 @@ First we'll want to deal with our structural data; this is called the **T1 image
 1. Brain extraction - we want to analyze brains, not skulls
 2. Normalization - since brains are different across people, we need a method to make them look more alike so we can perform group analysis. This is achieved using a non-linear warp which *squishes and pulls* the brain to look like a *template image*
 
-![T1 Normalization](../fig/animated_t1_mni.gif){:class="img-responsive"}
+![](fig/animated_t1_mni.gif){alt='T1 Normalization' class="img-responsive"}
 
 ### Visual Guide to Pre-processing fMRI data
 
 With fMRI data things are a bit more complicated since you have to deal with:
 
 1. Motion across time
-2. Distortion artifacts due to magnetic field inhomogeneities 
+2. Distortion artifacts due to magnetic field inhomogeneities
 
 The following steps are required (at minimum!):
 
 1. Brain extraction - again we're only interested in the brain
 2. Motion correction - we need to align the fMRI data *across time*
 3. Susceptibility Distortion Correction (SDC) - we need to correct for magnetic field inhomogeneities
-4. Alignment to the T1 image - aligning to the T1 image allows us to perform the *squishy/pully" normalization to make everyone's brain more alike
+4. Alignment to the T1 image - aligning to the T1 image allows us to perform the \*squishy/pully" normalization to make everyone's brain more alike
 5. Confound regression - not only does motion *misalign brains* it also corrupts the signal with *motion signal artifacts*, this also needs to be cleaned!
 
-
-![fMRI Preprocessing Steps](../fig/animated_fmri_preproc.gif){:class="img-responsive"}
+![](fig/animated_fmri_preproc.gif){alt='fMRI Preprocessing Steps' class="img-responsive"}
 
 So **how does one begin to even accomplish this**? Traditionally, neuroimagers used a plethora of tools like, but not limited to: **FSL**, **AFNI**, **FREESURFER**, **ANTS**, **SPM**. Each with their own quirks and file format requirements.
 
 Unfortunately this is difficult to navigate, and each tool develops new techniques to better peform each of these pre-processing steps. Luckily, if your data is in a **BIDS Format**, there exists a tool, [**fMRIPrep**](https://fmriprep.org), which does this all for you while using the best methods across *most of these tools*!. An image below from their website depicts the processing steps they use:
 
-
-![fMRIPrep's Workflow](https://github.com/oesteban/fmriprep/raw/38a63e9504ab67812b63813c5fe9af882109408e/docs/_static/fmriprep-workflow-all.png){:class="img-responsive"}
-
+![](https://github.com/oesteban/fmriprep/raw/38a63e9504ab67812b63813c5fe9af882109408e/docs/_static/fmriprep-workflow-all.png){alt="fMRIPrep's Workflow" class="img-responsive"}
 
 Ultimately, fMRIPrep is an end-to-end pipeline - meaning that you feed it your raw organized data and it'll produce a bunch of outputs that you can use for analysis! What follows below are explanations of what those outputs are:
 
 #### fMRIPrep anatomical outputs
 
-![fMRIPrep Anatomical Outputs](../fig/fmriprep_anat_out.png){:class="img-static"}
+![](fig/fmriprep_anat_out.png){alt='fMRIPrep Anatomical Outputs' class="img-static"}
 
 ##### Native Space
-1. **sub-xxxxx_T1w_brainmask.nii** - a binary mask which can be used to pull out just the brain
-2. **sub-xxxxx_T1w_preproc.nii** - the fully cleaned T1 image which *has not been normalized*
+
+1. **sub-xxxxx\_T1w\_brainmask.nii** - a binary mask which can be used to pull out just the brain
+2. **sub-xxxxx\_T1w\_preproc.nii** - the fully cleaned T1 image which *has not been normalized*
 
 ##### MNI (Normalized) Space
-1. **sub-xxxxx_T1w_space-MNI152NLin2009cAsym_brainmask.nii.gz** - also a brain mask, but warped to fit a template brain (the template is MNI152NLin2009cAsym)
-2. **sub-xxxxx_T1w_space-MNI152NLin2009cAsym_class-(CSF/GM/WM)_probtissue.nii.gz** - probability values for each of the tissue types. We won't get into too much detail with this one
-3. **sub-xxxxx_T1w_space-MNI152NLin2009cAsym_preproc..nii** - the cleaned up T1 image that has been squished and warped into the MNI152NLin2009cAsym template space
+
+1. **sub-xxxxx\_T1w\_space-MNI152NLin2009cAsym\_brainmask.nii.gz** - also a brain mask, but warped to fit a template brain (the template is MNI152NLin2009cAsym)
+2. **sub-xxxxx\_T1w\_space-MNI152NLin2009cAsym\_class-(CSF/GM/WM)\_probtissue.nii.gz** - probability values for each of the tissue types. We won't get into too much detail with this one
+3. **sub-xxxxx\_T1w\_space-MNI152NLin2009cAsym\_preproc..nii** - the cleaned up T1 image that has been squished and warped into the MNI152NLin2009cAsym template space
 
 #### fMRIPrep functional outputs
 
+![](fig/fmriprep_func_out.png){alt='fMRIPrep Functional Outputs' class="img-static"}
 
-![fMRIPrep Functional Outputs](../fig/fmriprep_func_out.png){:class="img-static"}
-
-As above we have both **Native** and **Normalized** versions of the fMRI brain, we have a mask of each one as well as the preprocessed fMRI brain. 
+As above we have both **Native** and **Normalized** versions of the fMRI brain, we have a mask of each one as well as the preprocessed fMRI brain.
 
 **Note**: These have *not* been cleaned of motion artifacts. They have only been *aligned*, *distortion corrected*, and *skull-stripped*.
 
-fMRIPrep also outputs a **sub-xxxxx_task-..._confounds.tsv** tab-delimited spreadsheet which contains a set of **nuisance regressors** that you can use to clean the *signal itself of motion artifacts*. We'll explore this in a later section.
+fMRIPrep also outputs a **sub-xxxxx\_task-...\_confounds.tsv** tab-delimited spreadsheet which contains a set of **nuisance regressors** that you can use to clean the *signal itself of motion artifacts*. We'll explore this in a later section.
 
 ## End
 
 In the next section we'll start exploring the outputs generated by fMRIPrep to get a better handle of how to use them to manipulate images, clean motion signals, and perform analysis!
 
-{% include links.md %}
+
+
+:::::::::::::::::::::::::::::::::::::::: keypoints
+
+- fMRI data is dirty and needs to be cleaned, aligned, and transformed before being able to use
+- There are standards in place which will allow you to effortlessly pull the data that you need for analysis
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
