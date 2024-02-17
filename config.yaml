@@ -27,7 +27,7 @@ life_cycle: 'alpha'
 license: 'CC-BY 4.0'
 
 # Link to the source repository for this lesson
-source: 'https://github.com/fishtree-attempt/SDC-BIDS-fMRI/'
+source: 'https://github.com/carpentries-incubator/SDC-BIDS-fMRI'
 
 # Default branch of your lesson
 branch: 'main'
@@ -82,7 +82,6 @@ profiles:
 # sandpaper and varnish versions) should live
 
 
-url: https://preview.carpentries.org/SDC-BIDS-fMRI
+url: 'https://carpentries-incubator.github.io/SDC-BIDS-fMRI'
 analytics: carpentries
 lang: en
-workbench-beta: yes
