@@ -1,0 +1,54 @@
+name: Run-Notebooks
+
+# Workflow Details
+# Set up notebook 
+
+on:
+  push:
+    branches: main
+    paths: '*.ipynb'
+  pull_request:
+    branches: main
+    paths: '*.ipynb'
+
+jobs:
+  test-notebooks:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    name: Checkout repo and download data
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9', '3.10', '3.11']
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache pip install
+        uses: actions/cache@v4
+        id: cache
+        with:
+          path: ${{ env.pythonLocation }}
+          key: ${{ env.pythonLocation }}-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ env.pythonLocation }}-
+
+      - name: Install python environment
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install nbval pytest
+
+       
+      - name: Download data
+        run: |
+          ./code/setup_test
+
+      - name: Test notebooks
+        run: |
+          pytest --nbval-lax -v code/*solutions*.ipynb
