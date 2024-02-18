@@ -31,7 +31,13 @@
     <loc>https://carpentries-incubator.github.io/SDC-BIDS-fMRI/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/SDC-BIDS-fMRI/aio.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/SDC-BIDS-fMRI/discuss.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/SDC-BIDS-fMRI/images.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/SDC-BIDS-fMRI/index.html</loc>
@@ -67,16 +73,34 @@
     <loc>https://carpentries-incubator.github.io/SDC-BIDS-fMRI/instructor/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/SDC-BIDS-fMRI/instructor/aio.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/SDC-BIDS-fMRI/instructor/discuss.html</loc>
   </url>
   <url>
+    <loc>https://carpentries-incubator.github.io/SDC-BIDS-fMRI/instructor/images.html</loc>
+  </url>
+  <url>
     <loc>https://carpentries-incubator.github.io/SDC-BIDS-fMRI/instructor/index.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/SDC-BIDS-fMRI/instructor/instructor-notes.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/SDC-BIDS-fMRI/instructor/key-points.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/SDC-BIDS-fMRI/instructor/profiles.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/SDC-BIDS-fMRI/instructor/reference.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/SDC-BIDS-fMRI/instructor-notes.html</loc>
+  </url>
+  <url>
+    <loc>https://carpentries-incubator.github.io/SDC-BIDS-fMRI/key-points.html</loc>
   </url>
   <url>
     <loc>https://carpentries-incubator.github.io/SDC-BIDS-fMRI/profiles.html</loc>
