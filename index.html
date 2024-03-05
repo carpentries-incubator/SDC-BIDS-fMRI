@@ -307,151 +307,132 @@ that will be used in the workshop…</p>
 “Other”.</p>
 <figure><img src="./fig/terminal.png" class="img-static figure mx-auto d-block" alt="JupyterHub Launch Terminal"></figure><p>Clicking on this will launch a console. From here, copy and paste the
 following lines</p>
-<pre class="{bash}"><code># Move into the code directory
-cd code
+<p>```{bash} # Move into the code directory cd code</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section level1">
+<h1 id="run-the-setup_workshop-script">Run the setup_workshop script<a class="anchor" aria-label="anchor" href="#run-the-setup_workshop-script"></a></h1>
+<p>./setup_workshop</p>
+<pre><code>
+Hit enter once pasted and you should see the following
 
-# Run the setup_workshop script
-./setup_workshop</code></pre>
-<p>Hit enter once pasted and you should see the following</p>
-<figure><img src="./fig/console_filled.png" class="img-static figure mx-auto d-block" alt="Console Filled"></figure><p>This will begin downloading the data required for the workshop onto
-your Binder instance so that it is usable for the workshop. Once started
-<em>do not close the tab by pressing the “x” button.</em> Instead, you
-may now open and begin working through the workshop notebooks.</p>
-</div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="getting-workshop-material-locally">Getting workshop material locally<a class="anchor" aria-label="anchor" href="#getting-workshop-material-locally"></a></h2>
-<div class="section level3">
-<h3 id="method-1-downloading-directly-from-the-repository">Method 1: Downloading directly from the repository<a class="anchor" aria-label="anchor" href="#method-1-downloading-directly-from-the-repository"></a></h3>
-<p>On the GitHub repo (this page), click the green button that says
-“Clone or download”, then click <strong>Download ZIP</strong>. Once
-downloaded, extract the ZIP file.</p>
-</div>
-<div class="section level3">
-<h3 id="method-2-using-git">Method 2: Using Git<a class="anchor" aria-label="anchor" href="#method-2-using-git"></a></h3>
-<p>Using this method requires a (very) useful piece of software called
-<code>git</code>. The process of installing git depends heavily on
-whether you’re using MacOS, Windows or Linux. Follow the instructions in
-the link below to set up <code>git</code> on your PC:</p>
-<p><a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git" class="external-link">Installing
-Git</a></p>
-<p>Once you’ve installed <code>git</code>, open up your terminal and do
-the following:</p>
-<pre><code>git clone https://github.com/carpentries-incubator/SDC-BIDS-fMRI.git</code></pre>
-<p>This will download the repository directly into your current
-directory.</p>
-</div>
-<div class="section level3">
-<h3 id="setting-up-python-environment">Setting up Python environment<a class="anchor" aria-label="anchor" href="#setting-up-python-environment"></a></h3>
-<p>We use python version 3.6.0, but any newer version should also work
-(Python 2 versions haven’t been tested). There are many methods to
-setting up a python environment but we’d recommend using some sort of
-virtual environment as to not break your system python install. Two
-methods (of many) are listed below:</p>
-</div>
-<div class="section level3">
-<h3 id="method-1-setting-up-conda-environment-easiest-windows-linux-macos">Method 1: Setting up conda environment (easiest) [Windows, Linux,
-MacOS]<a class="anchor" aria-label="anchor" href="#method-1-setting-up-conda-environment-easiest-windows-linux-macos"></a></h3>
-<p>For easy set-up we recommend <a href="https://www.anaconda.com/download/" class="external-link">Anaconda</a> to manage python
-packages for scientific computing. Once installed, setting up the python
-environment can be done quite easily:</p>
-<div class="section level4">
-<h4 id="windows">Windows<a class="anchor" aria-label="anchor" href="#windows"></a></h4>
-<ol style="list-style-type: decimal"><li>Install Anaconda Python version 3.7</li>
-<li>Open <strong>Anaconda Navigator</strong>
-</li>
-<li>Click on <strong>Environments</strong> on the left pane</li>
-<li>Click <strong>Create</strong> then type in
-<code>sdc-bids-fmri</code>
-</li>
-<li>In the <code>sdc-bids-fmri</code> entry click the play button then
-click <strong>Open Terminal</strong>
-</li>
-<li>In terminal type:</li>
-</ol><pre><code>conda install -y numpy pandas scipy scikit-learn matplotlib jupyter ipykernel nb_conda
-conda install -y -c conda-forge awscli
-pip install nilearn nibabel</code></pre>
-<ol start="7" style="list-style-type: decimal"><li>Close the terminal, click on the play button again and open
-<strong>Jupyter Notebook</strong>
-</li>
-<li>Navigate to <code>sdc-bids-fmri</code> folder you downloaded
-earlier.</li>
-<li>Done!</li>
-</ol></div>
-<div class="section level4">
-<h4 id="linux-and-macos">
-<a href="Linux">Linux</a> and MacOS<a class="anchor" aria-label="anchor" href="#linux-and-macos"></a></h4>
-<p>After installing Anaconda, open terminal and type:</p>
-<pre><code>cd sdc-bids-fmri
-conda create -p ./sdc-fmri
-source activate $(pwd)/sdc-fmri
-conda install numpy pandas scipy scikit-learn matplotlib jupyter ipykernel nb_conda
-conda install -c conda-forge awscli
-pip install nilearn nibabel
+![](./fig/console_filled.png){alt='Console Filled' class="img-static"}
+
+This will begin downloading the data required for the workshop onto your Binder instance so that it is usable for the workshop. Once started *do not close the tab by pressing the "x" button.* Instead, you may now open and begin working through the workshop notebooks.
+
+## Getting workshop material locally
+
+### Method 1: Downloading directly from the repository
+
+On the GitHub repo (this page), click the green button that says "Clone or download", then click **Download ZIP**. Once downloaded, extract the ZIP file.
+
+### Method 2: Using Git
+
+Using this method requires a (very) useful piece of software called &lt;code&gt;git&lt;/code&gt;. The process of installing git depends heavily on whether you're using MacOS, Windows or Linux. Follow the instructions in the link below to set up &lt;code&gt;git&lt;/code&gt; on your PC:
+
+[Installing Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+
+Once you've installed &lt;code&gt;git&lt;/code&gt;, open up your terminal and do the following:
 </code></pre>
-<div class="section level5">
-<h5 id="method-2-using-pyenv-linux-macos">Method 2: Using pyenv [Linux, MacOS]<a class="anchor" aria-label="anchor" href="#method-2-using-pyenv-linux-macos"></a></h5>
-<p>An alternative method uses <a href="https://github.com/pyenv/pyenv" class="external-link">pyenv</a> with <a href="https://github.com/pyenv/pyenv-virtualenv" class="external-link">pyenv virtualenv</a>.
-This is a favourite because it seamlessly integrates multiple python
-versions and environments into your system while maintaining use of pip
-(instead of conda).</p>
-<pre><code>cd sdc-bids-fmri
-pyenv virtualenv 3.6.0 sdc-fmri
-echo sdc-fmri &gt; .python-version
-pip install --requirement requirements.txt</code></pre>
+<p>git clone <a href="https://github.com/carpentries-incubator/SDC-BIDS-fMRI.git" class="external-link uri">https://github.com/carpentries-incubator/SDC-BIDS-fMRI.git</a></p>
+<pre><code>
+This will download the repository directly into your current directory.
+
+### Setting up Python environment
+
+We use python version 3.6.0, but any newer version should also work (Python 2 versions haven't been tested). There are many methods to setting up a python environment but we'd recommend using some sort of virtual environment as to not break your system python install. Two methods (of many) are listed below:
+
+### Method 1: Setting up conda environment (easiest) [Windows, Linux, MacOS]
+
+For easy set-up we recommend [Anaconda](https://www.anaconda.com/download/) to manage python packages for scientific computing. Once installed, setting up the python environment can be done quite easily:
+
+#### Windows
+
+1. Install Anaconda Python version 3.7
+2. Open **Anaconda Navigator**
+3. Click on **Environments** on the left pane
+4. Click **Create** then type in &lt;code&gt;sdc-bids-fmri&lt;/code&gt;
+5. In the &lt;code&gt;sdc-bids-fmri&lt;/code&gt; entry click the play button then click **Open Terminal**
+6. In terminal type:
+</code></pre>
+<p>conda install -y numpy pandas scipy scikit-learn matplotlib jupyter
+ipykernel nb_conda conda install -y -c conda-forge awscli pip install
+nilearn nibabel</p>
+<pre><code>
+7. Close the terminal, click on the play button again and open **Jupyter Notebook**
+8. Navigate to &lt;code&gt;sdc-bids-fmri&lt;/code&gt; folder you downloaded earlier.
+9. Done!
+
+#### [Linux](Linux) and MacOS
+
+After installing Anaconda, open terminal and type:
+</code></pre>
+<p>cd sdc-bids-fmri conda create -p ./sdc-fmri source activate
+$(pwd)/sdc-fmri conda install numpy pandas scipy scikit-learn matplotlib
+jupyter ipykernel nb_conda conda install -c conda-forge awscli pip
+install nilearn nibabel</p>
+<pre><code>
+##### Method 2: Using pyenv [Linux, MacOS]
+
+An alternative method uses [pyenv](https://github.com/pyenv/pyenv) with [pyenv virtualenv](https://github.com/pyenv/pyenv-virtualenv). This is a favourite because it seamlessly integrates multiple python versions and environments into your system while maintaining use of pip (instead of conda).
+</code></pre>
+<p>cd sdc-bids-fmri pyenv virtualenv 3.6.0 sdc-fmri echo sdc-fmri &gt;
+.python-version pip install –requirement requirements.txt</p>
+<pre><code>
+## Acquiring the data
+
+This tutorial uses data derived from the **UCLA Consortium for Neuropsychiatric Phenomics LA5c Study [1]**.
+
+To download (**warning: large download size!**) the subset of the data used for the tutorial:
+</code></pre>
+<p>cd sdc-bids-fmri</p>
 </div>
+<div class="section level1">
+<h1 id="download-t1w-scans">download T1w scans<a class="anchor" aria-label="anchor" href="#download-t1w-scans"></a></h1>
+<p>cat download_list |<br>
+xargs -I ‘{}’ aws s3 sync –no-sign-request<br>
+s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/{}/anat<br>
+./data/ds000030/{}/anat</p>
 </div>
+<div class="section level1">
+<h1 id="download-resting-state-fmri-scans">download resting state fMRI scans<a class="anchor" aria-label="anchor" href="#download-resting-state-fmri-scans"></a></h1>
+<p>cat download_list |<br>
+xargs -I ‘{}’ aws s3 sync –no-sign-request<br>
+s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/{}/func<br>
+./data/ds000030/{}/func<br>
+–exclude ’*’<br>
+–include ‘<em>task-rest_bold</em>’</p>
 </div>
+<div class="section level1">
+<h1 id="download-fmriprep-preprocessed-anat-data">download fmriprep preprocessed anat data<a class="anchor" aria-label="anchor" href="#download-fmriprep-preprocessed-anat-data"></a></h1>
+<p>cat download_list |<br>
+xargs -I ‘{}’ aws s3 sync –no-sign-request<br>
+s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/derivatives/fmriprep/{}/anat<br>
+./data/ds000030/derivatives/fmriprep/{}/anat</p>
 </div>
-<div class="section level2">
-<h2 id="acquiring-the-data">Acquiring the data<a class="anchor" aria-label="anchor" href="#acquiring-the-data"></a></h2>
-<p>This tutorial uses data derived from the <strong>UCLA Consortium for
-Neuropsychiatric Phenomics LA5c Study [1]</strong>.</p>
-<p>To download (<strong>warning: large download size!</strong>) the
-subset of the data used for the tutorial:</p>
-<pre><code>cd sdc-bids-fmri
-
-# download T1w scans
-cat download_list | \
-  xargs -I '{}' aws s3 sync --no-sign-request \
-  s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/{}/anat \
-  ./data/ds000030/{}/anat
-
-# download resting state fMRI scans
-cat download_list | \
-  xargs -I '{}' aws s3 sync --no-sign-request \
-  s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/{}/func \
-  ./data/ds000030/{}/func \
-  --exclude '*' \
-  --include '*task-rest_bold*'
-
-# download fmriprep preprocessed anat data
-cat download_list | \
-  xargs -I '{}' aws s3 sync --no-sign-request \
-  s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/derivatives/fmriprep/{}/anat \
-  ./data/ds000030/derivatives/fmriprep/{}/anat
-
-# download fmriprep preprocessed func data
-cat download_list | \
-  xargs -I '{}' aws s3 sync --no-sign-request \
-  s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/derivatives/fmriprep/{}/func \
-  ./data/ds000030/derivatives/fmriprep/{}/func \
-  --exclude '*' \
-  --include '*task-rest_bold*'</code></pre>
-<p>Finally open up the jupyter notebook to explore the tutorials:</p>
-<pre><code>cd sdc-bids-fmri
-
-#Include below line if using anaconda environment
-source activate $(pwd)/sdc-fmri
-
-jupyter notebook</code></pre>
+<div class="section level1">
+<h1 id="download-fmriprep-preprocessed-func-data">download fmriprep preprocessed func data<a class="anchor" aria-label="anchor" href="#download-fmriprep-preprocessed-func-data"></a></h1>
+<p>cat download_list |<br>
+xargs -I ‘{}’ aws s3 sync –no-sign-request<br>
+s3://openneuro/ds000030/ds000030_R1.0.5/uncompressed/derivatives/fmriprep/{}/func<br>
+./data/ds000030/derivatives/fmriprep/{}/func<br>
+–exclude ’*’<br>
+–include ‘<em>task-rest_bold</em>’</p>
+<pre><code>
+Finally open up the jupyter notebook to explore the tutorials:
+</code></pre>
+<p>cd sdc-bids-fmri</p>
+<p>#Include below line if using anaconda environment source activate
+$(pwd)/sdc-fmri</p>
+<p>jupyter notebook ```</p>
 <p><strong>Reference</strong></p>
 <p>[1] Gorgolewski KJ, Durnez J and Poldrack RA. Preprocessed Consortium
 for Neuropsychiatric Phenomics dataset [version 2; referees: 2
 approved]. F1000Research 2017, 6:1262 (<a href="https://doi.org/10.12688/f1000research.11964.2" class="external-link">https://doi.org/10.12688/f1000research.11964.2</a>)</p>
 </div>
-</div>
+
 
       </section></main><nav class="bottom-pagination mx-md-4" aria-label="Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link float-end" href="01-intro-and-preprocessing.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
@@ -502,8 +483,8 @@ approved]. F1000Research 2017, 6:1262 (<a href="https://doi.org/10.12688/f1000re
   "url": "https://carpentries-incubator.github.io/SDC-BIDS-fMRI/index.html",
   "identifier": "https://carpentries-incubator.github.io/SDC-BIDS-fMRI/index.html",
   "dateCreated": "2024-02-18",
-  "dateModified": "2024-02-27",
-  "datePublished": "2024-02-27"
+  "dateModified": "2024-03-05",
+  "datePublished": "2024-03-05"
 }
 
   </script><script>

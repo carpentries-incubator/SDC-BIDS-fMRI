@@ -331,14 +331,14 @@ will allow us to use Nilearn:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nilearn <span class="im">import</span> image <span class="im">as</span> nimg</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nilearn <span class="im">import</span> plotting <span class="im">as</span> nplot</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bids <span class="im">import</span> BIDSLayout</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#for inline visualization in jupyter notebook</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline </span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="im">from</span> nilearn <span class="im">import</span> image <span class="im">as</span> nimg</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="im">from</span> nilearn <span class="im">import</span> plotting <span class="im">as</span> nplot</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="im">from</span> bids <span class="im">import</span> BIDSLayout</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co">#for inline visualization in jupyter notebook</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="op">%</span>matplotlib inline </span></code></pre>
 </div>
 <p>Notice that we imported two things:</p>
 <ol style="list-style-type: decimal"><li>
@@ -354,17 +354,17 @@ directly rather than the standard BIDSFile objects</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Base directory for fmriprep output</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>fmriprep_dir <span class="op">=</span> <span class="st">'../data/ds000030/derivatives/fmriprep/'</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>layout<span class="op">=</span> BIDSLayout(fmriprep_dir, config<span class="op">=</span>[<span class="st">'bids'</span>,<span class="st">'derivatives'</span>])</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>T1w_files <span class="op">=</span> layout.get(subject<span class="op">=</span><span class="st">'10788'</span>, datatype<span class="op">=</span><span class="st">'anat'</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>					   desc<span class="op">=</span><span class="st">'preproc'</span>, extension<span class="op">=</span><span class="st">'.nii.gz'</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>					   return_type<span class="op">=</span><span class="st">'file'</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>					   </span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>brainmask_files <span class="op">=</span> layout.get(subject<span class="op">=</span><span class="st">'10788'</span>, datatype<span class="op">=</span><span class="st">'anat'</span>, suffix<span class="op">=</span><span class="st">"mask"</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                             desc<span class="op">=</span><span class="st">'brain'</span>, extension<span class="op">=</span><span class="st">'.nii.gz'</span>,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                             return_type<span class="op">=</span><span class="st">'file'</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co">#Base directory for fmriprep output</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>fmriprep_dir <span class="op">=</span> <span class="st">'../data/ds000030/derivatives/fmriprep/'</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>layout<span class="op">=</span> BIDSLayout(fmriprep_dir, config<span class="op">=</span>[<span class="st">'bids'</span>,<span class="st">'derivatives'</span>])</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>T1w_files <span class="op">=</span> layout.get(subject<span class="op">=</span><span class="st">'10788'</span>, datatype<span class="op">=</span><span class="st">'anat'</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>					   desc<span class="op">=</span><span class="st">'preproc'</span>, extension<span class="op">=</span><span class="st">'.nii.gz'</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>					   return_type<span class="op">=</span><span class="st">'file'</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>					   </span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>brainmask_files <span class="op">=</span> layout.get(subject<span class="op">=</span><span class="st">'10788'</span>, datatype<span class="op">=</span><span class="st">'anat'</span>, suffix<span class="op">=</span><span class="st">"mask"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>                             desc<span class="op">=</span><span class="st">'brain'</span>, extension<span class="op">=</span><span class="st">'.nii.gz'</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>                             return_type<span class="op">=</span><span class="st">'file'</span>)</span></code></pre>
 </div>
 <p>Here we used pyBIDS (as introduced in earlier sections) to pull a
 single participant. Specifically, we pulled all preprocessed
@@ -373,8 +373,8 @@ respective masks. Let’s quickly view these files for review:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Display preprocessed files inside of anatomy folder</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>T1w_files</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co">#Display preprocessed files inside of anatomy folder</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>T1w_files</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -396,18 +396,18 @@ representing the brain and 0’s elsewhere.</li>
 </ol><div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>t1 <span class="op">=</span> T1w_files[<span class="dv">0</span>]</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>bm <span class="op">=</span> brainmask_files[<span class="dv">0</span>]</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>t1_img <span class="op">=</span> nimg.load_img(t1)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>bm_img <span class="op">=</span> nimg.load_img(bm)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>t1 <span class="op">=</span> T1w_files[<span class="dv">0</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>bm <span class="op">=</span> brainmask_files[<span class="dv">0</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>t1_img <span class="op">=</span> nimg.load_img(t1)</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>bm_img <span class="op">=</span> nimg.load_img(bm)</span></code></pre>
 </div>
 <p>Using the <code>plotting</code> module (which we’ve aliased as
 <code>nplot</code>), we can view our MR image:</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>nplot.plot_anat(t1_img)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>nplot.plot_anat(t1_img)</span></code></pre>
 </div>
 <figure><img src="fig/t1_img.png" class="img-responsive figure mx-auto d-block" alt="Nilearn antomical plotting"></figure><p>This gives just a still image of the brain. We can also view the
 brain more interactively using the <code>view_img</code> function. It
@@ -415,12 +415,12 @@ will require some additional settings however:</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>nplot.view_img(t1_img,</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>               bg_img<span class="op">=</span><span class="va">False</span>, <span class="co"># Disable using a standard image as the background</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>               cmap<span class="op">=</span><span class="st">'Greys_r'</span>, <span class="co"># Set color scale so white matter appears lighter than grey</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>               symmetric_cmap<span class="op">=</span><span class="va">False</span>, <span class="co"># We don't have negative values</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>               threshold<span class="op">=</span><span class="st">"auto"</span>, <span class="co"># Clears out the background</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>              )</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>nplot.view_img(t1_img,</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>               bg_img<span class="op">=</span><span class="va">False</span>, <span class="co"># Disable using a standard image as the background</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>               cmap<span class="op">=</span><span class="st">'Greys_r'</span>, <span class="co"># Set color scale so white matter appears lighter than grey</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>               symmetric_cmap<span class="op">=</span><span class="va">False</span>, <span class="co"># We don't have negative values</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>               threshold<span class="op">=</span><span class="st">"auto"</span>, <span class="co"># Clears out the background</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>              )</span></code></pre>
 </div>
 <p>Try clicking and dragging the image in each of the views that are
 generated!</p>
@@ -428,7 +428,7 @@ generated!</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>nplot.plot_anat(bm_img)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>nplot.plot_anat(bm_img)</span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="arithmetic-operations">Arithmetic Operations<a class="anchor" aria-label="anchor" href="#arithmetic-operations"></a></h4>
@@ -456,8 +456,8 @@ elements (white). This effectively flips the colour-scale:</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>invert_img <span class="op">=</span> nimg.math_img(<span class="st">'-a'</span>, a<span class="op">=</span>t1_img)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>nplot.plot_anat(invert_img)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>invert_img <span class="op">=</span> nimg.math_img(<span class="st">'-a'</span>, a<span class="op">=</span>t1_img)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>nplot.plot_anat(invert_img)</span></code></pre>
 </div>
 <figure><img src="fig/invert_img.png" class="img-responsive figure mx-auto d-block" alt="Nilearn image math example output"></figure><blockquote>
 <blockquote>
@@ -466,13 +466,12 @@ using <code>img.load_img</code>. Instead we can feed in a path to
 <code>img.math_img</code>:</p>
 </blockquote>
 </blockquote>
-<div id="callout1" class="callout callout">
+<div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <pre><code><span><span class="va">invert_img</span> <span class="op">=</span> <span class="fu">nimg.math_img</span><span class="op">(</span><span class="st">'-a'</span>, a<span class="op">=</span><span class="va">t1</span><span class="op">)</span></span>
 <span><span class="fu">nplot.plot_anat</span><span class="op">(</span><span class="va">invert_img</span><span class="op">)</span></span></code></pre>
@@ -508,8 +507,8 @@ practice and see what the result is:</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>masked_t1 <span class="op">=</span> nimg.math_img(<span class="st">'a*b'</span>, a<span class="op">=</span>t1, b<span class="op">=</span>bm)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>nplot.plot_anat(masked_t1)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>masked_t1 <span class="op">=</span> nimg.math_img(<span class="st">'a*b'</span>, a<span class="op">=</span>t1, b<span class="op">=</span>bm)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>nplot.plot_anat(masked_t1)</span></code></pre>
 </div>
 <figure><img src="fig/masked_t1.png" class="img-responsive figure mx-auto d-block" alt="Nilearn image masking output"></figure><p>As you can see areas where the mask image had a value of 1 were
 retained, everything else was set to 0</p>
@@ -537,21 +536,21 @@ addition/substraction) or condition (like x == 0).</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Invert the mask</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>inverted_mask <span class="op">=</span> nimg.math_img(<span class="st">'1-x'</span>, x<span class="op">=</span>bm)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>nplot.plot_anat(inverted_mask)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># Invert the mask</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>inverted_mask <span class="op">=</span> nimg.math_img(<span class="st">'1-x'</span>, x<span class="op">=</span>bm)</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>nplot.plot_anat(inverted_mask)</span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the mask</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>inverted_mask_t1 <span class="op">=</span> nimg.math_img(<span class="st">'a*b'</span>, a<span class="op">=</span>t1, b<span class="op">=</span>inverted_mask)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>nplot.plot_anat(inverted_mask_t1)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Apply the mask</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>inverted_mask_t1 <span class="op">=</span> nimg.math_img(<span class="st">'a*b'</span>, a<span class="op">=</span>t1, b<span class="op">=</span>inverted_mask)</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>nplot.plot_anat(inverted_mask_t1)</span></code></pre>
 </div>
 <figure><img src="fig/inverted_mask_t1.png" class="img-responsive figure mx-auto d-block" alt="Episode 03 Exercise 1 inverted mask"></figure></div>
 </div>
@@ -576,13 +575,12 @@ subset of a 3D volume. Slicing can be useful for cases in which you’d
 want to loop through each MR slice and perform a computation;
 importantly in functional imaging data slicing is useful for pulling out
 timepoints as we’ll see later!</p>
-<div id="callout2" class="callout callout">
+<div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout2"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>Sourced from: <a href="https://en.wikipedia.org/wiki/Neuroimaging#/media/File:Parasagittal_MRI_of_human_head_in_patient_with_benign_familial_macrocephaly_prior_to_brain_injury_(ANIMATED).gif" class="external-link">https://en.wikipedia.org/wiki/Neuroimaging#/media/File:Parasagittal_MRI_of_human_head_in_patient_with_benign_familial_macrocephaly_prior_to_brain_injury_(ANIMATED).gif</a></p>
 </div>
@@ -595,7 +593,7 @@ slice along the x axis as follows:</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x_slice <span class="op">=</span> t1_img.slicer[<span class="dv">10</span>:<span class="dv">11</span>,:,:]</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>x_slice <span class="op">=</span> t1_img.slicer[<span class="dv">10</span>:<span class="dv">11</span>,:,:]</span></code></pre>
 </div>
 <p>The statement <span class="math inline">\(10:11\)</span> is
 intentional and is required by <code>.slicer</code>. Alternatively we
@@ -603,8 +601,8 @@ can slice along the x-axis using the data matrix itself:</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>t1_data <span class="op">=</span> t1_img.get_data()</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>x_slice <span class="op">=</span> t1_data[<span class="dv">10</span>,:,:]</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>t1_data <span class="op">=</span> t1_img.get_data()</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>x_slice <span class="op">=</span> t1_data[<span class="dv">10</span>,:,:]</span></code></pre>
 </div>
 <p>This will yield the same result as above. Notice that when using the
 <code>t1_data</code> array we can just specify which slice to grab
@@ -615,7 +613,7 @@ specifying which coordinates to <em>cut</em> the image at:</p>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>nplot.plot_anat(t1_img,cut_coords<span class="op">=</span>(<span class="dv">50</span>,<span class="dv">30</span>,<span class="dv">20</span>))</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>nplot.plot_anat(t1_img,cut_coords<span class="op">=</span>(<span class="dv">50</span>,<span class="dv">30</span>,<span class="dv">20</span>))</span></code></pre>
 </div>
 <p>The <code>cut_coords</code> option specifies 3 numbers:</p>
 <ul><li>The first number says cut the X coordinate at slice 50 and display
@@ -713,7 +711,7 @@ to understanding Nilearn</li>
   "identifier": "https://carpentries-incubator.github.io/SDC-BIDS-fMRI/03-basic_image_manipulation.html",
   "dateCreated": "2024-02-18",
   "dateModified": "2024-02-17",
-  "datePublished": "2024-02-27"
+  "datePublished": "2024-03-05"
 }
 
   </script><script>

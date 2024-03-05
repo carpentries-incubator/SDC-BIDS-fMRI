@@ -345,13 +345,13 @@ data using nilearn’s high-level functionality.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nilearn <span class="im">import</span> image <span class="im">as</span> nimg</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nilearn <span class="im">import</span> plotting <span class="im">as</span> nplot</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nibabel <span class="im">as</span> nib</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="im">from</span> nilearn <span class="im">import</span> image <span class="im">as</span> nimg</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="im">from</span> nilearn <span class="im">import</span> plotting <span class="im">as</span> nplot</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="im">import</span> nibabel <span class="im">as</span> nib</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="setting-up-our-motion-estimates">Setting up our Motion Estimates<a class="anchor" aria-label="anchor" href="#setting-up-our-motion-estimates"></a></h3>
@@ -364,60 +364,60 @@ language-python package called <code>pandas</code>.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre>
 </div>
 <p>Let’s pick an fMRI file to clean and pull out the confound tsv that
 FMRIPREP computed for us:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> bids  <span class="co"># assuming pip install pybids was covered earlier</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sub <span class="op">=</span> <span class="st">'10788'</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>fmriprep_dir <span class="op">=</span> <span class="st">'../data/ds000030/derivatives/fmriprep/'</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>layout <span class="op">=</span> bids.BIDSLayout(fmriprep_dir,validate<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                        config<span class="op">=</span>[<span class="st">'bids'</span>,<span class="st">'derivatives'</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="im">import</span> bids  <span class="co"># assuming pip install pybids was covered earlier</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>sub <span class="op">=</span> <span class="st">'10788'</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>fmriprep_dir <span class="op">=</span> <span class="st">'../data/ds000030/derivatives/fmriprep/'</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>layout <span class="op">=</span> bids.BIDSLayout(fmriprep_dir,validate<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>                        config<span class="op">=</span>[<span class="st">'bids'</span>,<span class="st">'derivatives'</span>])</span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>func_files <span class="op">=</span> layout.get(subject<span class="op">=</span>sub,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                        datatype<span class="op">=</span><span class="st">'func'</span>, task<span class="op">=</span><span class="st">'rest'</span>,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                        desc<span class="op">=</span><span class="st">'preproc'</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                        space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                        extension<span class="op">=</span><span class="st">'nii.gz'</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                       return_type<span class="op">=</span><span class="st">'file'</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>mask_files <span class="op">=</span> layout.get(subject<span class="op">=</span>sub,</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                        datatype<span class="op">=</span><span class="st">'func'</span>, task<span class="op">=</span><span class="st">'rest'</span>,</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                        desc<span class="op">=</span><span class="st">'brain'</span>,</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>                        suffix<span class="op">=</span><span class="st">'mask'</span>,</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                        space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>,</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                        extension<span class="op">=</span><span class="st">"nii.gz"</span>,</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>                       return_type<span class="op">=</span><span class="st">'file'</span>)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>confound_files <span class="op">=</span> layout.get(subject<span class="op">=</span>sub,</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                            datatype<span class="op">=</span><span class="st">'func'</span>, task<span class="op">=</span><span class="st">'rest'</span>,</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>                            desc<span class="op">=</span><span class="st">'confounds'</span>,</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>                           extension<span class="op">=</span><span class="st">"tsv"</span>,</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>                           return_type<span class="op">=</span><span class="st">'file'</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>func_files <span class="op">=</span> layout.get(subject<span class="op">=</span>sub,</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>                        datatype<span class="op">=</span><span class="st">'func'</span>, task<span class="op">=</span><span class="st">'rest'</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>                        desc<span class="op">=</span><span class="st">'preproc'</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>                        space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>                        extension<span class="op">=</span><span class="st">'nii.gz'</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>                       return_type<span class="op">=</span><span class="st">'file'</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>mask_files <span class="op">=</span> layout.get(subject<span class="op">=</span>sub,</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>                        datatype<span class="op">=</span><span class="st">'func'</span>, task<span class="op">=</span><span class="st">'rest'</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>                        desc<span class="op">=</span><span class="st">'brain'</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>                        suffix<span class="op">=</span><span class="st">'mask'</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>                        space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>                        extension<span class="op">=</span><span class="st">"nii.gz"</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>                       return_type<span class="op">=</span><span class="st">'file'</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>confound_files <span class="op">=</span> layout.get(subject<span class="op">=</span>sub,</span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>                            datatype<span class="op">=</span><span class="st">'func'</span>, task<span class="op">=</span><span class="st">'rest'</span>,</span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>                            desc<span class="op">=</span><span class="st">'confounds'</span>,</span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>                           extension<span class="op">=</span><span class="st">"tsv"</span>,</span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>                           return_type<span class="op">=</span><span class="st">'file'</span>)</span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>func_file <span class="op">=</span> func_files[<span class="dv">0</span>]</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mask_file <span class="op">=</span> mask_files[<span class="dv">0</span>]</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>confound_file <span class="op">=</span> confound_files[<span class="dv">0</span>]</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>func_file <span class="op">=</span> func_files[<span class="dv">0</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>mask_file <span class="op">=</span> mask_files[<span class="dv">0</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>confound_file <span class="op">=</span> confound_files[<span class="dv">0</span>]</span></code></pre>
 </div>
 <p>Using <code>pandas</code> we can read in the confounds.tsv file as a
 spreadsheet and display some rows:</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Delimiter is \t --&gt; tsv is a tab-separated spreadsheet</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>confound_df <span class="op">=</span> pd.read_csv(confound_file, delimiter<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Read </span><span class="sc">{</span><span class="bu">len</span>(confound_df.columns)<span class="sc">}</span><span class="ss"> confounder items, each </span><span class="sc">{</span><span class="bu">len</span>(confound_df)<span class="sc">}</span><span class="ss"> TRs."</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(confound_df.head)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co">#Delimiter is \t --&gt; tsv is a tab-separated spreadsheet</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>confound_df <span class="op">=</span> pd.read_csv(confound_file, delimiter<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Read </span><span class="sc">{</span><span class="bu">len</span>(confound_df.columns)<span class="sc">}</span><span class="ss"> confounder items, each </span><span class="sc">{</span><span class="bu">len</span>(confound_df)<span class="sc">}</span><span class="ss"> TRs."</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="bu">print</span>(confound_df.head)</span></code></pre>
 </div>
 <p>Each column in this DataFrame <code>confound_df</code> represents a
 specific confound variable that is either estimated directly from head
@@ -426,13 +426,12 @@ may capture noise (non grey-matter signal for example). Each row
 represents values from a TR/sample. So the number of rows in your
 <code>confound_df</code> should match the number of TRs you have in the
 functional MR data.</p>
-<div id="picking-your-confounds" class="callout callout">
+<div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="picking-your-confounds" class="callout-inner">
-<h3 class="callout-title">Picking your Confounds<a class="anchor" aria-label="anchor" href="#picking-your-confounds"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="picking-your-confounds">Picking your Confounds<a class="anchor" aria-label="anchor" href="#picking-your-confounds"></a></h3>
 <div class="callout-content">
 <p>The choice of which confounds to use in functional imaging analysis
 is a source of large debate. We recommend that you check out these
@@ -500,11 +499,11 @@ out the associated columns</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select confounds</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>confound_vars <span class="op">=</span> [<span class="st">'trans_x'</span>,<span class="st">'trans_y'</span>,<span class="st">'trans_z'</span>,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'rot_x'</span>,<span class="st">'rot_y'</span>,<span class="st">'rot_z'</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'global_signal'</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                 <span class="st">'csf'</span>, <span class="st">'white_matter'</span>]</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Select confounds</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>confound_vars <span class="op">=</span> [<span class="st">'trans_x'</span>,<span class="st">'trans_y'</span>,<span class="st">'trans_z'</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>                 <span class="st">'rot_x'</span>,<span class="st">'rot_y'</span>,<span class="st">'rot_z'</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>                 <span class="st">'global_signal'</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>                 <span class="st">'csf'</span>, <span class="st">'white_matter'</span>]</span></code></pre>
 </div>
 <p>Next we need to get derivatives for each of these columns. Luckily
 fMRIPrep provides this for us. Derivative columns are denoted as the
@@ -515,34 +514,33 @@ the derivatives for our <code>confound_vars</code>:</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get derivative column names</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>derivative_columns <span class="op">=</span> [<span class="st">'</span><span class="sc">{}</span><span class="st">_derivative1'</span>.<span class="bu">format</span>(c) <span class="cf">for</span> c</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                     <span class="kw">in</span> confound_vars]</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(derivative_columns)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># Get derivative column names</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>derivative_columns <span class="op">=</span> [<span class="st">'</span><span class="sc">{}</span><span class="st">_derivative1'</span>.<span class="bu">format</span>(c) <span class="cf">for</span> c</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>                     <span class="kw">in</span> confound_vars]</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="bu">print</span>(derivative_columns)</span></code></pre>
 </div>
 <p>Now we’ll join these two lists together:</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>final_confounds <span class="op">=</span> confound_vars <span class="op">+</span> derivative_columns</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(final_confounds)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>final_confounds <span class="op">=</span> confound_vars <span class="op">+</span> derivative_columns</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="bu">print</span>(final_confounds)</span></code></pre>
 </div>
 <p>Finally we’ll use this list to pick columns from our confounds
 table</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>confound_df <span class="op">=</span> confound_df[final_confounds]</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>confound_df.head()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>confound_df <span class="op">=</span> confound_df[final_confounds]</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>confound_df.head()</span></code></pre>
 </div>
-<div id="what-the-nan" class="callout callout">
+<div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div id="what-the-nan" class="callout-inner">
-<h3 class="callout-title">What the NaN???<a class="anchor" aria-label="anchor" href="#what-the-nan"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title" id="what-the-nan">What the NaN???<a class="anchor" aria-label="anchor" href="#what-the-nan"></a></h3>
 <div class="callout-content">
 <p>As you might have noticed, we have NaN’s in our confound dataframe.
 This happens because there is no prior value to the first index to take
@@ -561,9 +559,9 @@ timepoints!):</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#First we'll load in our data and check the shape</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>raw_func_img <span class="op">=</span> nimg.load_img(func_file)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>raw_func_img.shape</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co">#First we'll load in our data and check the shape</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>raw_func_img <span class="op">=</span> nimg.load_img(func_file)</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>raw_func_img.shape</span></code></pre>
 </div>
 <p>Recall that the fourth dimension represents frames/TRs(timepoints).
 We want to drop the first four timepoints entirely, to do so we use
@@ -572,8 +570,8 @@ timepoints to match the functional scan</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>func_img <span class="op">=</span> raw_func_img.slicer[:,:,:,<span class="dv">4</span>:]</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>func_img.shape</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>func_img <span class="op">=</span> raw_func_img.slicer[:,:,:,<span class="dv">4</span>:]</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>func_img.shape</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -583,10 +581,10 @@ timepoints to match the functional scan</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Drop confound dummy TRs</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>drop_confound_df <span class="op">=</span> confound_df.loc[<span class="dv">4</span>:]</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(drop_confound_df.shape) <span class="co">#number of rows should match that of the functional image</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>drop_confound_df.head()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co">#Drop confound dummy TRs</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>drop_confound_df <span class="op">=</span> confound_df.loc[<span class="dv">4</span>:]</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="bu">print</span>(drop_confound_df.shape) <span class="co">#number of rows should match that of the functional image</span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>drop_confound_df.head()</span></code></pre>
 </div>
 </div>
 </div>
@@ -613,10 +611,10 @@ columns matching the number of confound variables (9x2=18)</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>confounds_matrix <span class="op">=</span> drop_confound_df.values</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Confirm matrix size is correct</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>confounds_matrix.shape</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>confounds_matrix <span class="op">=</span> drop_confound_df.values</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="co">#Confirm matrix size is correct</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>confounds_matrix.shape</span></code></pre>
 </div>
 <p>Let’s clean our image!</p>
 </div>
@@ -663,19 +661,19 @@ replicating (mostly) Yeo 2011’s analysis:</p>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Set some constants</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>high_pass<span class="op">=</span> <span class="fl">0.009</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>low_pass <span class="op">=</span> <span class="fl">0.08</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>t_r <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Clean!</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>clean_img <span class="op">=</span> nimg.clean_img(func_img,confounds<span class="op">=</span>confounds_matrix,detrend<span class="op">=</span><span class="va">True</span>,standardize<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                         low_pass<span class="op">=</span>low_pass,high_pass<span class="op">=</span>high_pass,t_r<span class="op">=</span>t_r, mask_img<span class="op">=</span>mask_file)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Let's visualize our result! Doesn't really tell us much, but that's the data we're using for analysis!</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>nplot.plot_epi(clean_img.slicer[:,:,:,<span class="dv">50</span>])</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>before_figure <span class="op">=</span> nplot.plot_carpet(clean_img, mask, t_r<span class="op">=</span>t_r)</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>after_figure <span class="op">=</span> nplot.plot_carpet(func_img, mask, t_r<span class="op">=</span>t_r)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co">#Set some constants</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>high_pass<span class="op">=</span> <span class="fl">0.009</span></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>low_pass <span class="op">=</span> <span class="fl">0.08</span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>t_r <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="co">#Clean!</span></span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>clean_img <span class="op">=</span> nimg.clean_img(func_img,confounds<span class="op">=</span>confounds_matrix,detrend<span class="op">=</span><span class="va">True</span>,standardize<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>                         low_pass<span class="op">=</span>low_pass,high_pass<span class="op">=</span>high_pass,t_r<span class="op">=</span>t_r, mask_img<span class="op">=</span>mask_file)</span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="co">#Let's visualize our result! Doesn't really tell us much, but that's the data we're using for analysis!</span></span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a>nplot.plot_epi(clean_img.slicer[:,:,:,<span class="dv">50</span>])</span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a>before_figure <span class="op">=</span> nplot.plot_carpet(clean_img, mask, t_r<span class="op">=</span>t_r)</span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a>after_figure <span class="op">=</span> nplot.plot_carpet(func_img, mask, t_r<span class="op">=</span>t_r)</span></code></pre>
 </div>
 <div class="section level4">
 <h4 id="done">Done!<a class="anchor" aria-label="anchor" href="#done"></a></h4>
@@ -775,7 +773,7 @@ can only attempt to estimate it</li>
   "identifier": "https://carpentries-incubator.github.io/SDC-BIDS-fMRI/05-data-cleaning-with-nilearn.html",
   "dateCreated": "2024-02-18",
   "dateModified": "2024-02-17",
-  "datePublished": "2024-02-27"
+  "datePublished": "2024-03-05"
 }
 
   </script><script>

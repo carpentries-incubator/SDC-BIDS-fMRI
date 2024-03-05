@@ -347,13 +347,13 @@ PyBIDS!</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt <span class="co">#to enable plotting within notebook</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nilearn <span class="im">import</span> image <span class="im">as</span> nimg</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nilearn <span class="im">import</span> plotting <span class="im">as</span> nplot</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bids.layout <span class="im">import</span> BIDSLayout</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt <span class="co">#to enable plotting within notebook</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="im">from</span> nilearn <span class="im">import</span> image <span class="im">as</span> nimg</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="im">from</span> nilearn <span class="im">import</span> plotting <span class="im">as</span> nplot</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="im">from</span> bids.layout <span class="im">import</span> BIDSLayout</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span></code></pre>
 </div>
 <p>These are the usual imports. Let’s now pull some structural
 <em>and</em> functional data using pyBIDS.</p>
@@ -364,41 +364,41 @@ functional imaging analysis!</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fmriprep_dir <span class="op">=</span> <span class="st">'../data/ds000030/derivatives/fmriprep/'</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>layout<span class="op">=</span>BIDSLayout(fmriprep_dir, validate<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                  config<span class="op">=</span>[<span class="st">'bids'</span>,<span class="st">'derivatives'</span>])</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>T1w_files <span class="op">=</span> layout.get(subject<span class="op">=</span><span class="st">'10788'</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                       datatype<span class="op">=</span><span class="st">'anat'</span>, desc<span class="op">=</span><span class="st">'preproc'</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                       space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                       extension<span class="op">=</span><span class="st">"nii.gz"</span>,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                      return_type<span class="op">=</span><span class="st">'file'</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>brainmask_files <span class="op">=</span> layout.get(subject<span class="op">=</span><span class="st">'10788'</span>,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                             datatype<span class="op">=</span><span class="st">'anat'</span>, suffix<span class="op">=</span><span class="st">'mask'</span>,</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                             desc<span class="op">=</span><span class="st">'brain'</span>,</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                             space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>,</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                             extension<span class="op">=</span><span class="st">"nii.gz"</span>,</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                            return_type<span class="op">=</span><span class="st">'file'</span>)</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>func_files <span class="op">=</span> layout.get(subject<span class="op">=</span><span class="st">'10788'</span>,</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                        datatype<span class="op">=</span><span class="st">'func'</span>, desc<span class="op">=</span><span class="st">'preproc'</span>,</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                       space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>,</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                       extension<span class="op">=</span><span class="st">"nii.gz"</span>,</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                       return_type<span class="op">=</span><span class="st">'file'</span>)</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>func_mask_files <span class="op">=</span> layout.get(subject<span class="op">=</span><span class="st">'10788'</span>,</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                             datatype<span class="op">=</span><span class="st">'func'</span>, suffix<span class="op">=</span><span class="st">'mask'</span>,</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                             desc<span class="op">=</span><span class="st">'brain'</span>,</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>                             space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>,</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>                             extension<span class="op">=</span><span class="st">"nii.gz"</span>,</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>                            return_type<span class="op">=</span><span class="st">'file'</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>fmriprep_dir <span class="op">=</span> <span class="st">'../data/ds000030/derivatives/fmriprep/'</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>layout<span class="op">=</span>BIDSLayout(fmriprep_dir, validate<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>                  config<span class="op">=</span>[<span class="st">'bids'</span>,<span class="st">'derivatives'</span>])</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>T1w_files <span class="op">=</span> layout.get(subject<span class="op">=</span><span class="st">'10788'</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>                       datatype<span class="op">=</span><span class="st">'anat'</span>, desc<span class="op">=</span><span class="st">'preproc'</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>                       space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>                       extension<span class="op">=</span><span class="st">"nii.gz"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>                      return_type<span class="op">=</span><span class="st">'file'</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>brainmask_files <span class="op">=</span> layout.get(subject<span class="op">=</span><span class="st">'10788'</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>                             datatype<span class="op">=</span><span class="st">'anat'</span>, suffix<span class="op">=</span><span class="st">'mask'</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>                             desc<span class="op">=</span><span class="st">'brain'</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>                             space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>                             extension<span class="op">=</span><span class="st">"nii.gz"</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>                            return_type<span class="op">=</span><span class="st">'file'</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>func_files <span class="op">=</span> layout.get(subject<span class="op">=</span><span class="st">'10788'</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>                        datatype<span class="op">=</span><span class="st">'func'</span>, desc<span class="op">=</span><span class="st">'preproc'</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>                       space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>,</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>                       extension<span class="op">=</span><span class="st">"nii.gz"</span>,</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>                       return_type<span class="op">=</span><span class="st">'file'</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>func_mask_files <span class="op">=</span> layout.get(subject<span class="op">=</span><span class="st">'10788'</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>                             datatype<span class="op">=</span><span class="st">'func'</span>, suffix<span class="op">=</span><span class="st">'mask'</span>,</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>                             desc<span class="op">=</span><span class="st">'brain'</span>,</span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>                             space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>,</span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>                             extension<span class="op">=</span><span class="st">"nii.gz"</span>,</span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>                            return_type<span class="op">=</span><span class="st">'file'</span>)</span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>func_mni <span class="op">=</span> func_files[<span class="dv">0</span>]</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>func_mni_img <span class="op">=</span> nimg.load_img(func_mni)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>func_mni <span class="op">=</span> func_files[<span class="dv">0</span>]</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>func_mni_img <span class="op">=</span> nimg.load_img(func_mni)</span></code></pre>
 </div>
 </section><section id="fmri-dimensions"><h2 class="section-heading">fMRI Dimensions<a class="anchor" aria-label="anchor" href="#fmri-dimensions"></a>
 </h2>
@@ -409,7 +409,7 @@ shape of our data matrix to confirm this intuition:</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>func_mni_img.shape</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>func_mni_img.shape</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -444,14 +444,14 @@ view of the brain, try scrolling around!</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Pull the 5th TR</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>func_vol5 <span class="op">=</span> func_mni_img.slicer[:,:,:,<span class="dv">4</span>]</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>nplot.view_img(func_vol5)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co">#Pull the 5th TR</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>func_vol5 <span class="op">=</span> func_mni_img.slicer[:,:,:,<span class="dv">4</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>nplot.view_img(func_vol5)</span></code></pre>
 </div>
 </div>
 </div>
@@ -463,8 +463,8 @@ colors that make more sense for functional images…</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Pull the 5th TR</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>nplot.plot_epi(func_vol5)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co">#Pull the 5th TR</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>nplot.plot_epi(func_vol5)</span></code></pre>
 </div>
 <figure><img src="../fig/fmri_data.png" class="img-responsive figure mx-auto d-block" alt="Visual of fMRI EPI Data"></figure></section><section id="what-fmri-actually-represents"><h2 class="section-heading">What fMRI actually represents<a class="anchor" aria-label="anchor" href="#what-fmri-actually-represents"></a>
 </h2>
@@ -480,9 +480,9 @@ voxel and examine its time-series using
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Pick one voxel at coordinate (60,45,88)</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>single_vox <span class="op">=</span> func_mni_img.slicer[<span class="dv">59</span>:<span class="dv">60</span>,<span class="dv">45</span>:<span class="dv">46</span>,<span class="dv">30</span>:<span class="dv">31</span>,:].get_data()</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>single_vox.shape</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co">#Pick one voxel at coordinate (60,45,88)</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>single_vox <span class="op">=</span> func_mni_img.slicer[<span class="dv">59</span>:<span class="dv">60</span>,<span class="dv">45</span>:<span class="dv">46</span>,<span class="dv">30</span>:<span class="dv">31</span>,:].get_data()</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>single_vox.shape</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -500,8 +500,8 @@ don’t need (x,y,z) anymore:</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>single_vox <span class="op">=</span> single_vox.flatten()</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>single_vox.shape</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>single_vox <span class="op">=</span> single_vox.flatten()</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>single_vox.shape</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -519,20 +519,20 @@ like is what is most important:</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make an array counting from 0 --&gt; 152, this will be our x-axis</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>x_axis <span class="op">=</span> np.arange(<span class="dv">0</span>, single_vox.shape[<span class="dv">0</span>])</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot our x and y data, the 'k' just specifies the line color to be black</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>plt.plot( x_axis, single_vox, <span class="st">'k'</span>)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Label our axes</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Timepoint'</span>)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Signal Value'</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Make an array counting from 0 --&gt; 152, this will be our x-axis</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>x_axis <span class="op">=</span> np.arange(<span class="dv">0</span>, single_vox.shape[<span class="dv">0</span>])</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co"># Plot our x and y data, the 'k' just specifies the line color to be black</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>plt.plot( x_axis, single_vox, <span class="st">'k'</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="co"># Label our axes</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>plt.xlabel(<span class="st">'Timepoint'</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>plt.ylabel(<span class="st">'Signal Value'</span>)</span></code></pre>
 </div>
 <figure><img src="../fig/timeseries.png" class="img-responsive figure mx-auto d-block" alt="Example fMRI Timeseries"></figure><p>As you can see from the image above, fMRI data really is just a
 signal per voxel over time!</p>
@@ -549,13 +549,12 @@ the voxels!</p>
 <p>Think of this like trying to overlay a 10x10 JPEG and a 20x20 JPEG on
 top of each other. To get perfect overlay we need to resize (or more
 accurately <em>resample</em>) our JPEGs to match!</p>
-<div id="callout1" class="callout callout">
+<div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>Resampling is a method of interpolating in between data-points. When
 we stretch an image we need to figure out what goes in the spaces that
@@ -571,18 +570,18 @@ to that of the functional image</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Files we'll be using (Notice that we're using _space-MNI...</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># which means they are normalized brains)</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>T1_mni <span class="op">=</span> T1w_files[<span class="dv">0</span>]</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>T1_mni_img <span class="op">=</span> nimg.load_img(T1_mni)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># Files we'll be using (Notice that we're using _space-MNI...</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="co"># which means they are normalized brains)</span></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>T1_mni <span class="op">=</span> T1w_files[<span class="dv">0</span>]</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>T1_mni_img <span class="op">=</span> nimg.load_img(T1_mni)</span></code></pre>
 </div>
 <p>Let’s take a quick look at the sizes of both our functional and
 structural files:</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(T1_mni_img.shape)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(func_mni_img.shape)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="bu">print</span>(T1_mni_img.shape)</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="bu">print</span>(func_mni_img.shape)</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -614,13 +613,12 @@ to</em>
 </li>
 <li>
 <code>interpolation</code> = the method of interpolation</li>
-</ul><div id="callout2" class="callout callout">
+</ul><div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout2"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>A note on <strong>interpolation</strong> nilearn supports 3 types of
 interpolation, the one you’ll use depends on the type of data you’re
@@ -646,12 +644,12 @@ vote.</li>
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Try playing around with methods of interpolation</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#options: 'linear','continuous','nearest'</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>resamp_t1 <span class="op">=</span> nimg.resample_to_img(source_img<span class="op">=</span>T1_mni_img,target_img<span class="op">=</span>func_mni_img,interpolation<span class="op">=</span><span class="st">'continuous'</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(resamp_t1.shape)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(func_mni_img.shape)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>nplot.plot_anat(resamp_t1)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co">#Try playing around with methods of interpolation</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="co">#options: 'linear','continuous','nearest'</span></span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>resamp_t1 <span class="op">=</span> nimg.resample_to_img(source_img<span class="op">=</span>T1_mni_img,target_img<span class="op">=</span>func_mni_img,interpolation<span class="op">=</span><span class="st">'continuous'</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a><span class="bu">print</span>(resamp_t1.shape)</span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a><span class="bu">print</span>(func_mni_img.shape)</span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a>nplot.plot_anat(resamp_t1)</span></code></pre>
 </div>
 <figure><img src="../fig/downsample_t1.png" class="img-responsive figure mx-auto d-block" alt="Downsampled T1"></figure><p>Now that we’ve explored the idea of resampling let’s do a cumulative
 exercise bringing together ideas from resampling and basic image
@@ -676,11 +674,11 @@ resting state brain</li>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#T1 image</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ex_t1 <span class="op">=</span> nimg.load_img(T1w_files[<span class="dv">0</span>])</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#mask file</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>ex_t1_bm <span class="op">=</span> nimg.load_img(brainmask_files[<span class="dv">0</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co">#T1 image</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>ex_t1 <span class="op">=</span> nimg.load_img(T1w_files[<span class="dv">0</span>])</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="co">#mask file</span></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>ex_t1_bm <span class="op">=</span> nimg.load_img(brainmask_files[<span class="dv">0</span>])</span></code></pre>
 </div>
 </div>
 <div class="section level4">
@@ -688,11 +686,11 @@ resting state brain</li>
 <div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#This is the pre-processed resting state data that hasn't been standardized</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>ex_func <span class="op">=</span> nimg.load_img(func_files[<span class="dv">0</span>])</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#This is the associated mask for the resting state image.</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>ex_func_bm <span class="op">=</span> nimg.load_img(func_mask_files[<span class="dv">0</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co">#This is the pre-processed resting state data that hasn't been standardized</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>ex_func <span class="op">=</span> nimg.load_img(func_files[<span class="dv">0</span>])</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="co">#This is the associated mask for the resting state image.</span></span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>ex_func_bm <span class="op">=</span> nimg.load_img(func_mask_files[<span class="dv">0</span>])</span></code></pre>
 </div>
 <p>The first step is to remove the brain from the T1 image so that we’re
 left with a hollow skull. This can be broken down into 2 steps:</p>
@@ -701,18 +699,18 @@ left with a hollow skull. This can be broken down into 2 steps:</p>
 </ol><div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Invert the T1 mask</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>invert_mask <span class="op">=</span> nimg.math_img(<span class="st">'??'</span>, a<span class="op">=</span>??)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>nplot.plot_anat(??)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="co"># Invert the T1 mask</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>invert_mask <span class="op">=</span> nimg.math_img(<span class="st">'??'</span>, a<span class="op">=</span>??)</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>nplot.plot_anat(??)</span></code></pre>
 </div>
 <figure><img src="../fig/exercise_inverted_mask.png" class="img-responsive figure mx-auto d-block" alt="Episode 04 Exercise Inverted Mask"></figure><ol start="2" style="list-style-type: decimal"><li>Apply the mask onto the T1 image, this will effectively remove the
 brain</li>
 </ol><div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the mask onto the T1 image</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>hollow_skull <span class="op">=</span> nimg.math_img(<span class="st">"??"</span>, a<span class="op">=</span>??, b<span class="op">=</span>??)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>nplot.plot_anat(??)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># Apply the mask onto the T1 image</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>hollow_skull <span class="op">=</span> nimg.math_img(<span class="st">"??"</span>, a<span class="op">=</span>??, b<span class="op">=</span>??)</span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>nplot.plot_anat(??)</span></code></pre>
 </div>
 <figure><img src="../fig/exercise_hollow_skull.png" class="img-responsive figure mx-auto d-block" alt="Episode 04 Exercise Hollow Skull"></figure><p>Our brain is now missing!</p>
 <p>Next we need to <em>resize</em> the hollow skull image to the
@@ -732,13 +730,13 @@ values</li>
 </ul><div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Resample the T1 to the size of the functional image!</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>resamp_skull <span class="op">=</span> nimg.resample_to_img(source_img<span class="op">=</span>??,</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                                 target_img<span class="op">=</span>??,</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                                 interpolation<span class="op">=</span><span class="st">'??'</span>)</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>nplot.plot_anat(resamp_skull)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(resamp_skull.shape)</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ex_func.shape)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="co">#Resample the T1 to the size of the functional image!</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>resamp_skull <span class="op">=</span> nimg.resample_to_img(source_img<span class="op">=</span>??,</span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>                                 target_img<span class="op">=</span>??,</span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>                                 interpolation<span class="op">=</span><span class="st">'??'</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>nplot.plot_anat(resamp_skull)</span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a><span class="bu">print</span>(resamp_skull.shape)</span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a><span class="bu">print</span>(ex_func.shape)</span></code></pre>
 </div>
 <figure><img src="../fig/exercise_resampled_hollow_skull.png" class="img-responsive figure mx-auto d-block" alt="Episode 04 Exercise Resampled Hollow Skull"></figure><p>We now have a skull missing the structural T1 brain that is resized
 to match the dimensions of the EPI image.</p>
@@ -753,9 +751,9 @@ data.</p>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Let's visualize the first volume of the functional image:</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>first_vol <span class="op">=</span> ex_func.slicer[??, ??, ??, ??]</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>nplot.plot_epi(first_vol)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co">#Let's visualize the first volume of the functional image:</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>first_vol <span class="op">=</span> ex_func.slicer[??, ??, ??, ??]</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>nplot.plot_epi(first_vol)</span></code></pre>
 </div>
 <figure><img src="../fig/exercise_fmri.png" class="img-responsive figure mx-auto d-block" alt="Episode 04 Exercise fMRI"></figure><p>As shown in the figure above, the image has some “signal” outside of
 the brain. In order to place this within the now brainless head we made
@@ -763,9 +761,9 @@ earlier, we need to mask out the functional MR data as well!</p>
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mask the first volume using ex_func_bm</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>masked_func <span class="op">=</span> nimg.math_img(<span class="st">'??'</span>, a<span class="op">=</span>??, b<span class="op">=</span>??)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>nplot.plot_epi(masked_func)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="co">#Mask the first volume using ex_func_bm</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>masked_func <span class="op">=</span> nimg.math_img(<span class="st">'??'</span>, a<span class="op">=</span>??, b<span class="op">=</span>??)</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>nplot.plot_epi(masked_func)</span></code></pre>
 </div>
 <figure><img src="../fig/exercise_masked_fmri.png" class="img-responsive figure mx-auto d-block" alt="Episode 04 Exercise Masked fMRI"></figure><p>The final step is to stick this data into the head of the T1 data.
 Since the hole in the T1 data is represented as <span class="math inline">\(0\)</span>’s. We can add the two images together
@@ -773,9 +771,9 @@ to place the functional data into the void:</p>
 <div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Now overlay the functional image on top of the anatomical</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>combined_img <span class="op">=</span> nimg.math_img(??)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>nplot.plot_anat(combined_img)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="co">#Now overlay the functional image on top of the anatomical</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>combined_img <span class="op">=</span> nimg.math_img(??)</span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>nplot.plot_anat(combined_img)</span></code></pre>
 </div>
 <figure><img src="../fig/exercise_complete.png" class="img-responsive figure mx-auto d-block" alt="Episode 04 Exercise Complete"></figure></div>
 </div>
@@ -787,39 +785,39 @@ to place the functional data into the void:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2">Show me the solution</h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Invert the mask</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>invert_mask <span class="op">=</span> nimg.math_img(<span class="st">'1-a'</span>, a<span class="op">=</span>ex_t1_bm)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>nplot.plot_anat(invert_mask)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the mask onto the T1 image</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>hollow_skull <span class="op">=</span> nimg.math_img(<span class="st">"a*b"</span>, a<span class="op">=</span>ex_t1, b<span class="op">=</span>invert_mask)</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>nplot.plot_anat(hollow_skull)</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Resample the T1 to the size of the functional image!</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>resamp_skull <span class="op">=</span> nimg.resample_to_img(source_img<span class="op">=</span>hollow_skull,</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>                                 target_img<span class="op">=</span>ex_func,</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>                                 interpolation<span class="op">=</span><span class="st">'continuous'</span>)</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>nplot.plot_anat(resamp_skull)</span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(resamp_skull.shape)</span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ex_func.shape)</span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Let's visualize the first volume of the functional image:</span></span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>first_vol <span class="op">=</span> ex_func.slicer[:,:,:,<span class="dv">0</span>]</span>
-<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>nplot.plot_epi(first_vol)</span>
-<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>masked_func <span class="op">=</span> nimg.math_img(<span class="st">'a*b'</span>, a<span class="op">=</span>first_vol, b<span class="op">=</span>ex_func_bm)</span>
-<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>nplot.plot_epi(masked_func)</span>
-<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a><span class="co">#Now overlay the functional image on top of the anatomical</span></span>
-<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>combined_img <span class="op">=</span> nimg.math_img(<span class="st">'a+b'</span>,</span>
-<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>                             a<span class="op">=</span>resamp_skull, </span>
-<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>                             b<span class="op">=</span>masked_func)</span>
-<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>nplot.plot_anat(combined_img)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="co"># Invert the mask</span></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>invert_mask <span class="op">=</span> nimg.math_img(<span class="st">'1-a'</span>, a<span class="op">=</span>ex_t1_bm)</span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>nplot.plot_anat(invert_mask)</span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a><span class="co"># Apply the mask onto the T1 image</span></span>
+<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a>hollow_skull <span class="op">=</span> nimg.math_img(<span class="st">"a*b"</span>, a<span class="op">=</span>ex_t1, b<span class="op">=</span>invert_mask)</span>
+<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a>nplot.plot_anat(hollow_skull)</span>
+<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a><span class="co">#Resample the T1 to the size of the functional image!</span></span>
+<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a>resamp_skull <span class="op">=</span> nimg.resample_to_img(source_img<span class="op">=</span>hollow_skull,</span>
+<span id="cb26-11"><a href="#cb26-11" tabindex="-1"></a>                                 target_img<span class="op">=</span>ex_func,</span>
+<span id="cb26-12"><a href="#cb26-12" tabindex="-1"></a>                                 interpolation<span class="op">=</span><span class="st">'continuous'</span>)</span>
+<span id="cb26-13"><a href="#cb26-13" tabindex="-1"></a>nplot.plot_anat(resamp_skull)</span>
+<span id="cb26-14"><a href="#cb26-14" tabindex="-1"></a><span class="bu">print</span>(resamp_skull.shape)</span>
+<span id="cb26-15"><a href="#cb26-15" tabindex="-1"></a><span class="bu">print</span>(ex_func.shape)</span>
+<span id="cb26-16"><a href="#cb26-16" tabindex="-1"></a></span>
+<span id="cb26-17"><a href="#cb26-17" tabindex="-1"></a><span class="co">#Let's visualize the first volume of the functional image:</span></span>
+<span id="cb26-18"><a href="#cb26-18" tabindex="-1"></a>first_vol <span class="op">=</span> ex_func.slicer[:,:,:,<span class="dv">0</span>]</span>
+<span id="cb26-19"><a href="#cb26-19" tabindex="-1"></a>nplot.plot_epi(first_vol)</span>
+<span id="cb26-20"><a href="#cb26-20" tabindex="-1"></a></span>
+<span id="cb26-21"><a href="#cb26-21" tabindex="-1"></a>masked_func <span class="op">=</span> nimg.math_img(<span class="st">'a*b'</span>, a<span class="op">=</span>first_vol, b<span class="op">=</span>ex_func_bm)</span>
+<span id="cb26-22"><a href="#cb26-22" tabindex="-1"></a>nplot.plot_epi(masked_func)</span>
+<span id="cb26-23"><a href="#cb26-23" tabindex="-1"></a></span>
+<span id="cb26-24"><a href="#cb26-24" tabindex="-1"></a><span class="co">#Now overlay the functional image on top of the anatomical</span></span>
+<span id="cb26-25"><a href="#cb26-25" tabindex="-1"></a>combined_img <span class="op">=</span> nimg.math_img(<span class="st">'a+b'</span>,</span>
+<span id="cb26-26"><a href="#cb26-26" tabindex="-1"></a>                             a<span class="op">=</span>resamp_skull, </span>
+<span id="cb26-27"><a href="#cb26-27" tabindex="-1"></a>                             b<span class="op">=</span>masked_func)</span>
+<span id="cb26-28"><a href="#cb26-28" tabindex="-1"></a>nplot.plot_anat(combined_img)</span></code></pre>
 </div>
 </div>
 </div>
@@ -913,7 +911,7 @@ to combine data requires resampling your data</li>
   "identifier": "https://carpentries-incubator.github.io/SDC-BIDS-fMRI/instructor/04-integrating_functional_data.html",
   "dateCreated": "2024-02-18",
   "dateModified": "2024-02-17",
-  "datePublished": "2024-02-27"
+  "datePublished": "2024-03-05"
 }
 
   </script><script>

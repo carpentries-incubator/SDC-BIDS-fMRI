@@ -334,7 +334,7 @@ pyBIDS.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tree</span> <span class="at">-L</span> 1 <span class="st">'../data/ds000030/derivatives/fmriprep'</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">tree</span> <span class="at">-L</span> 1 <span class="st">'../data/ds000030/derivatives/fmriprep'</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -367,7 +367,7 @@ per-subject. Let’s take a quick look at a single subject folder:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tree</span> <span class="st">'../data/ds000030/derivatives/fmriprep/sub-10788'</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">tree</span> <span class="st">'../data/ds000030/derivatives/fmriprep/sub-10788'</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -426,13 +426,12 @@ folder under the subject folder</li>
 data. All tasks are dumped into the same folder and like the BIDS
 convention are indicated by the use of their filenames
 (<code>task-[task_here]</code>)</li>
-</ul><div id="callout1" class="callout callout">
+</ul><div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>This data is single-session, so a session folder is missing here -
 but with multiple sessions you will see <code>anat</code> and
@@ -450,7 +449,7 @@ to get an idea of what each file means!</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> bids</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="im">import</span> bids</span></code></pre>
 </div>
 <p>We can make a <code>bids.BIDSLayout</code> object as usual by just
 feeding in the fmriprep directory! However, there is one caveat… note
@@ -460,7 +459,7 @@ part of the original BIDS specification. I.e:</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sub-10788_desc-preproc_T1w.nii.gz</span></span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">sub-10788_desc-preproc_T1w.nii.gz</span></span></code></pre>
 </div>
 <p>In fact, BIDS allows for <em>extensions</em> which enable you to add
 additional fields to the standard BIDS convention (such as
@@ -470,7 +469,7 @@ the BIDS specification quite easily:</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>layout <span class="op">=</span> bids.BIDSLayout(<span class="st">'../data/ds000030/derivatives/fmriprep/'</span>, config<span class="op">=</span>[<span class="st">'bids'</span>,<span class="st">'derivatives'</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>layout <span class="op">=</span> bids.BIDSLayout(<span class="st">'../data/ds000030/derivatives/fmriprep/'</span>, config<span class="op">=</span>[<span class="st">'bids'</span>,<span class="st">'derivatives'</span>])</span></code></pre>
 </div>
 <p>Now that we have a layout object, we can pretend like we’re working
 with a BIDS dataset! Let’s try some common commands that you would’ve
@@ -481,7 +480,7 @@ dataset:</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>layout.get_subjects()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>layout.get_subjects()</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -511,7 +510,7 @@ dataset:</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>layout.get_tasks()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>layout.get_tasks()</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -526,7 +525,7 @@ data.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tree</span> <span class="st">'../data/ds000030/derivatives/fmriprep/sub-10788/anat'</span>^</span></code></pre>
+<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="ex">tree</span> <span class="st">'../data/ds000030/derivatives/fmriprep/sub-10788/anat'</span>^</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -561,8 +560,8 @@ a pyBIDS call to pull these types of files specifically:</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>preproc_T1 <span class="op">=</span> layout.get(datatype<span class="op">=</span><span class="st">'anat'</span>, desc<span class="op">=</span><span class="st">'preproc'</span>, extension<span class="op">=</span><span class="st">".nii.gz"</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>preproc_T1</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>preproc_T1 <span class="op">=</span> layout.get(datatype<span class="op">=</span><span class="st">'anat'</span>, desc<span class="op">=</span><span class="st">'preproc'</span>, extension<span class="op">=</span><span class="st">".nii.gz"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>preproc_T1</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -572,13 +571,12 @@ a pyBIDS call to pull these types of files specifically:</p>
  &lt;BIDSImageFile filename='/home/jerry/projects/workshops/SDC-BIDS-fMRI/data/ds000030/derivatives/fmriprep/sub-10788/anat/sub-10788_desc-preproc_T1w.nii.gz'&gt;,
  &lt;BIDSImageFile filename='/home/jerry/projects/workshops/SDC-BIDS-fMRI/data/ds000030/derivatives/fmriprep/sub-10788/anat/sub-10788_space-MNI152NLin2009cAsym_desc-preproc_T1w.nii.gz'&gt;,</code></pre>
 </div>
-<div id="callout2" class="callout callout">
+<div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout2"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>If we didn’t configure pyBIDS with
 <code>config=[‘bids’,‘derivatives’]</code> then the <code>desc</code>
@@ -593,8 +591,8 @@ template space. We can pull this data out by further specifying our
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mni_preproc_T1 <span class="op">=</span> layout.get(datatype<span class="op">=</span><span class="st">'anat'</span>,desc<span class="op">=</span><span class="st">'preproc'</span>,extension<span class="op">=</span><span class="st">'.nii.gz'</span>,space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>mni_preproc_T1</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>mni_preproc_T1 <span class="op">=</span> layout.get(datatype<span class="op">=</span><span class="st">'anat'</span>,desc<span class="op">=</span><span class="st">'preproc'</span>,extension<span class="op">=</span><span class="st">'.nii.gz'</span>,space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>mni_preproc_T1</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -610,8 +608,8 @@ we’ll use a bit of python magic to pull the data that we want:</p>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>native_preproc_T1 <span class="op">=</span> [f <span class="cf">for</span> f <span class="kw">in</span> preproc_T1 <span class="cf">if</span> f <span class="kw">not</span> <span class="kw">in</span> mni_preproc_T1]</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>native_preproc_T1</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>native_preproc_T1 <span class="op">=</span> [f <span class="cf">for</span> f <span class="kw">in</span> preproc_T1 <span class="cf">if</span> f <span class="kw">not</span> <span class="kw">in</span> mni_preproc_T1]</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>native_preproc_T1</span></code></pre>
 </div>
 <p>Similarily fMRI data can be pulled by specifying
 <code>datatype=‘func’</code> and using the <code>desc</code> argument as
@@ -638,27 +636,27 @@ unlike the T1w data which required you to do some filtering)</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p><em>All the functional data</em></p>
 <div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>func_data <span class="op">=</span> layout.get(datatype<span class="op">=</span><span class="st">'func'</span>, desc<span class="op">=</span><span class="st">'preproc'</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>func_data <span class="op">=</span> layout.get(datatype<span class="op">=</span><span class="st">'func'</span>, desc<span class="op">=</span><span class="st">'preproc'</span>)</span></code></pre>
 </div>
 <p><em>MNI152NLin2009cAsym Functional Data</em></p>
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mni_func_data <span class="op">=</span> layout.get(datatype<span class="op">=</span><span class="st">'func'</span>, desc<span class="op">=</span><span class="st">'preproc'</span>, space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>mni_func_data</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>mni_func_data <span class="op">=</span> layout.get(datatype<span class="op">=</span><span class="st">'func'</span>, desc<span class="op">=</span><span class="st">'preproc'</span>, space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>mni_func_data</span></code></pre>
 </div>
 <p><em>Native/T1w space functional data</em></p>
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>t1w_func_data <span class="op">=</span> layout.get(datatype<span class="op">=</span><span class="st">'func'</span>, desc<span class="op">=</span><span class="st">'preproc'</span>, space<span class="op">=</span><span class="st">'T1w'</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>t1w_func_data </span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>t1w_func_data <span class="op">=</span> layout.get(datatype<span class="op">=</span><span class="st">'func'</span>, desc<span class="op">=</span><span class="st">'preproc'</span>, space<span class="op">=</span><span class="st">'T1w'</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>t1w_func_data </span></code></pre>
 </div>
 </div>
 </div>
@@ -741,7 +739,7 @@ BIDS data</li>
   "identifier": "https://carpentries-incubator.github.io/SDC-BIDS-fMRI/02-exploring-fmriprep.html",
   "dateCreated": "2024-02-18",
   "dateModified": "2024-02-17",
-  "datePublished": "2024-02-27"
+  "datePublished": "2024-03-05"
 }
 
   </script><script>

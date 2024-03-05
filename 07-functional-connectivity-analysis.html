@@ -341,55 +341,55 @@ time. Let’s walk through how this is done</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nilearn <span class="im">import</span> image <span class="im">as</span> nimg</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nilearn <span class="im">import</span> plotting <span class="im">as</span> nplot</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bids <span class="im">import</span> BIDSLayout</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">from</span> nilearn <span class="im">import</span> image <span class="im">as</span> nimg</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="im">from</span> nilearn <span class="im">import</span> plotting <span class="im">as</span> nplot</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="im">from</span> bids <span class="im">import</span> BIDSLayout</span></code></pre>
 </div>
 <p>Let’s grab the data that we want to perform our connectivity analysis
 on using PyBIDS:</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Use PyBIDS to parse BIDS data structure</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>layout <span class="op">=</span> BIDSLayout(fmriprep_dir,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                   config<span class="op">=</span>[<span class="st">'bids'</span>,<span class="st">'derivatives'</span>])</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co">#Use PyBIDS to parse BIDS data structure</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>layout <span class="op">=</span> BIDSLayout(fmriprep_dir,</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>                   config<span class="op">=</span>[<span class="st">'bids'</span>,<span class="st">'derivatives'</span>])</span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get resting state data (preprocessed, mask, and confounds file)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>func_files <span class="op">=</span> layout.get(subject<span class="op">=</span>sub,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                        datatype<span class="op">=</span><span class="st">'func'</span>, task<span class="op">=</span><span class="st">'rest'</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                        desc<span class="op">=</span><span class="st">'preproc'</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                        space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                        extension<span class="op">=</span><span class="st">'nii.gz'</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                        return_type<span class="op">=</span><span class="st">'file'</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>mask_files <span class="op">=</span> layout.get(subject<span class="op">=</span>sub,</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                        datatype<span class="op">=</span><span class="st">'func'</span>, task<span class="op">=</span><span class="st">'rest'</span>,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                        desc<span class="op">=</span><span class="st">'brain'</span>,</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                        suffix<span class="op">=</span><span class="st">"mask"</span>,</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                        space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>,</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                        extension<span class="op">=</span><span class="st">'nii.gz'</span>,</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>                        return_type<span class="op">=</span><span class="st">'file'</span>)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>confound_files <span class="op">=</span> layout.get(subject<span class="op">=</span>sub,</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>                            datatype<span class="op">=</span><span class="st">'func'</span>,</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>                            task<span class="op">=</span><span class="st">'rest'</span>,</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>                            desc<span class="op">=</span><span class="st">'confounds'</span>,</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>                            extension<span class="op">=</span><span class="st">'tsv'</span>,</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>                            return_type<span class="op">=</span><span class="st">'file'</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co">#Get resting state data (preprocessed, mask, and confounds file)</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>func_files <span class="op">=</span> layout.get(subject<span class="op">=</span>sub,</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>                        datatype<span class="op">=</span><span class="st">'func'</span>, task<span class="op">=</span><span class="st">'rest'</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>                        desc<span class="op">=</span><span class="st">'preproc'</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>                        space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>                        extension<span class="op">=</span><span class="st">'nii.gz'</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>                        return_type<span class="op">=</span><span class="st">'file'</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>mask_files <span class="op">=</span> layout.get(subject<span class="op">=</span>sub,</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>                        datatype<span class="op">=</span><span class="st">'func'</span>, task<span class="op">=</span><span class="st">'rest'</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>                        desc<span class="op">=</span><span class="st">'brain'</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>                        suffix<span class="op">=</span><span class="st">"mask"</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>                        space<span class="op">=</span><span class="st">'MNI152NLin2009cAsym'</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>                        extension<span class="op">=</span><span class="st">'nii.gz'</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>                        return_type<span class="op">=</span><span class="st">'file'</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a>confound_files <span class="op">=</span> layout.get(subject<span class="op">=</span>sub,</span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>                            datatype<span class="op">=</span><span class="st">'func'</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a>                            task<span class="op">=</span><span class="st">'rest'</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a>                            desc<span class="op">=</span><span class="st">'confounds'</span>,</span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>                            extension<span class="op">=</span><span class="st">'tsv'</span>,</span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a>                            return_type<span class="op">=</span><span class="st">'file'</span>)</span></code></pre>
 </div>
 <p>Now that we have a list of subjects to peform our analysis on, let’s
 load up our parcellation template file</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Load separated parcellation</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>parcel_file <span class="op">=</span> <span class="st">'../resources/rois/yeo_2011/Yeo_JNeurophysiol11_MNI152/relabeled_yeo_atlas.nii.gz'</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>yeo_7 <span class="op">=</span> nimg.load_img(parcel_file)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co">#Load separated parcellation</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>parcel_file <span class="op">=</span> <span class="st">'../resources/rois/yeo_2011/Yeo_JNeurophysiol11_MNI152/relabeled_yeo_atlas.nii.gz'</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>yeo_7 <span class="op">=</span> nimg.load_img(parcel_file)</span></code></pre>
 </div>
 <p>Now we’ll import a package from <code>nilearn</code>, called
 <code>input_data</code> which allows us to pull data using the
@@ -408,17 +408,17 @@ white_matter, csf, global_signal</li>
 </ul><div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nilearn <span class="im">import</span> input_data</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>masker <span class="op">=</span> input_data.NiftiLabelsMasker(labels_img<span class="op">=</span>yeo_7,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                                      standardize<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                                      memory<span class="op">=</span><span class="st">'nilearn_cache'</span>,</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                                      verbose<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                                      detrend<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                                     low_pass <span class="op">=</span> <span class="fl">0.08</span>,</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                                     high_pass <span class="op">=</span> <span class="fl">0.009</span>,</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                                     t_r<span class="op">=</span><span class="dv">2</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="im">from</span> nilearn <span class="im">import</span> input_data</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>masker <span class="op">=</span> input_data.NiftiLabelsMasker(labels_img<span class="op">=</span>yeo_7,</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>                                      standardize<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>                                      memory<span class="op">=</span><span class="st">'nilearn_cache'</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>                                      verbose<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>                                      detrend<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>                                     low_pass <span class="op">=</span> <span class="fl">0.08</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>                                     high_pass <span class="op">=</span> <span class="fl">0.009</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>                                     t_r<span class="op">=</span><span class="dv">2</span>)</span></code></pre>
 </div>
 <p>The object <code>masker</code> is now able to be used on <em>any
 functional image of the same size</em>. The
@@ -428,10 +428,10 @@ example let’s apply this to our first subject:</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pull the first subject's data</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>func_file <span class="op">=</span> func_files[<span class="dv">0</span>]</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>mask_file <span class="op">=</span> mask_files[<span class="dv">0</span>]</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>confound_file <span class="op">=</span> confound_files[<span class="dv">0</span>]</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Pull the first subject's data</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>func_file <span class="op">=</span> func_files[<span class="dv">0</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>mask_file <span class="op">=</span> mask_files[<span class="dv">0</span>]</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>confound_file <span class="op">=</span> confound_files[<span class="dv">0</span>]</span></code></pre>
 </div>
 <p>Before we go ahead and start using the <code>masker</code> that we’ve
 created, we have to do some preparatory steps. The following should be
@@ -447,32 +447,32 @@ supply the base regressors!</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Refer to part_06 for code + explanation</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_confounds(confound_tsv,confounds,dt<span class="op">=</span><span class="va">True</span>):</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Arguments:</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">        confound_tsv                    Full path to confounds.tsv</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">        confounds                       A list of confounder variables to extract</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">        dt                              Compute temporal derivatives [default = True]</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">        </span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Outputs:</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">        confound_mat                    </span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> dt:    </span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        dt_names <span class="op">=</span> [<span class="st">'</span><span class="sc">{}</span><span class="st">_derivative1'</span>.<span class="bu">format</span>(c) <span class="cf">for</span> c <span class="kw">in</span> confounds]</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        confounds <span class="op">=</span> confounds <span class="op">+</span> dt_names</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Load in data using Pandas then extract relevant columns</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    confound_df <span class="op">=</span> pd.read_csv(confound_tsv,delimiter<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>) </span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    confound_df <span class="op">=</span> confound_df[confounds]</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Convert into a matrix of values (timepoints)x(variable)</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    confound_mat <span class="op">=</span> confound_df.values </span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Return confound matrix</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> confound_mat</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co">#Refer to part_06 for code + explanation</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="kw">def</span> extract_confounds(confound_tsv,confounds,dt<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">    Arguments:</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">        confound_tsv                    Full path to confounds.tsv</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">        confounds                       A list of confounder variables to extract</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">        dt                              Compute temporal derivatives [default = True]</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">        </span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">    Outputs:</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">        confound_mat                    </span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>    </span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>    <span class="cf">if</span> dt:    </span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>        dt_names <span class="op">=</span> [<span class="st">'</span><span class="sc">{}</span><span class="st">_derivative1'</span>.<span class="bu">format</span>(c) <span class="cf">for</span> c <span class="kw">in</span> confounds]</span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>        confounds <span class="op">=</span> confounds <span class="op">+</span> dt_names</span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>    </span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>    <span class="co">#Load in data using Pandas then extract relevant columns</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>    confound_df <span class="op">=</span> pd.read_csv(confound_tsv,delimiter<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>) </span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a>    confound_df <span class="op">=</span> confound_df[confounds]</span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a>    </span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a> </span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a>    <span class="co">#Convert into a matrix of values (timepoints)x(variable)</span></span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a>    confound_mat <span class="op">=</span> confound_df.values </span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a>    </span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a>    <span class="co">#Return confound matrix</span></span>
+<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a>    <span class="cf">return</span> confound_mat</span></code></pre>
 </div>
 <p>Finally we’ll set up our image file for confound regression (as we
 did in Episode 6). To do this we’ll drop 4 TRs from <em>both our
@@ -481,21 +481,21 @@ functional image and our confounds file</em>. Note that our
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Load functional image</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>tr_drop <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>func_img <span class="op">=</span> nimg.load_img(func_file)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Remove the first 4 TRs</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>func_img <span class="op">=</span> func_img.slicer[:,:,:,tr_drop:]</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Use the above function to pull out a confound matrix</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>confounds <span class="op">=</span> extract_confounds(confound_file,</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                              [<span class="st">'trans_x'</span>,<span class="st">'trans_y'</span>,<span class="st">'trans_z'</span>,</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                               <span class="st">'rot_x'</span>,<span class="st">'rot_y'</span>,<span class="st">'rot_z'</span>,</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                               <span class="st">'global_signal'</span>,</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                               <span class="st">'white_matter'</span>,<span class="st">'csf'</span>])</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Drop the first 4 rows of the confounds matrix</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>confounds <span class="op">=</span> confounds[tr_drop:,:] </span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co">#Load functional image</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>tr_drop <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>func_img <span class="op">=</span> nimg.load_img(func_file)</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#Remove the first 4 TRs</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>func_img <span class="op">=</span> func_img.slicer[:,:,:,tr_drop:]</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#Use the above function to pull out a confound matrix</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>confounds <span class="op">=</span> extract_confounds(confound_file,</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>                              [<span class="st">'trans_x'</span>,<span class="st">'trans_y'</span>,<span class="st">'trans_z'</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>                               <span class="st">'rot_x'</span>,<span class="st">'rot_y'</span>,<span class="st">'rot_z'</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>                               <span class="st">'global_signal'</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>                               <span class="st">'white_matter'</span>,<span class="st">'csf'</span>])</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="co">#Drop the first 4 rows of the confounds matrix</span></span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>confounds <span class="op">=</span> confounds[tr_drop:,:] </span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="using-the-masker">Using the masker<a class="anchor" aria-label="anchor" href="#using-the-masker"></a></h3>
@@ -507,9 +507,9 @@ our:</p>
 </ol><div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Apply cleaning, parcellation and extraction to functional data</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cleaned_and_averaged_time_series <span class="op">=</span> masker.fit_transform(func_img,confounds)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>cleaned_and_averaged_time_series.shape</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co">#Apply cleaning, parcellation and extraction to functional data</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>cleaned_and_averaged_time_series <span class="op">=</span> masker.fit_transform(func_img,confounds)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>cleaned_and_averaged_time_series.shape</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -533,8 +533,8 @@ which ROIs are kept after computing a parcellation you can look at the
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(masker.labels_)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of labels"</span>, <span class="bu">len</span>(masker.labels_))</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="bu">print</span>(masker.labels_)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of labels"</span>, <span class="bu">len</span>(masker.labels_))</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -554,14 +554,14 @@ to work with our image arrays:</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the label numbers from the atlas</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>atlas_labels <span class="op">=</span> np.unique(yeo_7.get_fdata().astype(<span class="bu">int</span>))</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Get number of labels that we have</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>NUM_LABELS <span class="op">=</span> <span class="bu">len</span>(atlas_labels)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(NUM_LABELS)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co"># Get the label numbers from the atlas</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>atlas_labels <span class="op">=</span> np.unique(yeo_7.get_fdata().astype(<span class="bu">int</span>))</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co"># Get number of labels that we have</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>NUM_LABELS <span class="op">=</span> <span class="bu">len</span>(atlas_labels)</span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="bu">print</span>(NUM_LABELS)</span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -574,20 +574,20 @@ to work with our image arrays:</p>
 </ul><div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remember fMRI images are of size (x,y,z,t)</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># where t is the number of timepoints</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>num_timepoints <span class="op">=</span> func_img.shape[<span class="dv">3</span>]</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an array of zeros that has the correct size</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>final_signal <span class="op">=</span> np.zeros((num_timepoints, NUM_LABELS))</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Get regions that are kept</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>regions_kept <span class="op">=</span> np.array(masker.labels_)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Fill columns matching labels with signal values</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>final_signal[:, regions_kept] <span class="op">=</span> cleaned_and_averaged_time_series</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(final_signal.shape)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># Remember fMRI images are of size (x,y,z,t)</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="co"># where t is the number of timepoints</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>num_timepoints <span class="op">=</span> func_img.shape[<span class="dv">3</span>]</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co"># Create an array of zeros that has the correct size</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>final_signal <span class="op">=</span> np.zeros((num_timepoints, NUM_LABELS))</span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co"># Get regions that are kept</span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a>regions_kept <span class="op">=</span> np.array(masker.labels_)</span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co"># Fill columns matching labels with signal values</span></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a>final_signal[:, regions_kept] <span class="op">=</span> cleaned_and_averaged_time_series</span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="bu">print</span>(final_signal.shape)</span></code></pre>
 </div>
 <p>It’s a bit of work, but now we have an array where:</p>
 <ol style="list-style-type: decimal"><li>The column number matches the ROI label number</li>
@@ -599,18 +599,18 @@ corresponding to the regions that weren’t removed:</p>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>valid_regions_signal <span class="op">=</span> final_signal[:, regions_kept]</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(valid_regions_signal.shape)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>valid_regions_signal <span class="op">=</span> final_signal[:, regions_kept]</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="bu">print</span>(valid_regions_signal.shape)</span></code></pre>
 </div>
 <p>This is identical to the original output of
 <code>masker.fit_transform</code></p>
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>np.array_equal(</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    valid_regions_signal,</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    cleaned_and_averaged_time_series</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>np.array_equal(</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>    valid_regions_signal,</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>    cleaned_and_averaged_time_series</span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>)</span></code></pre>
 </div>
 <p>This might seem unnecessary for now, but as you’ll see in a bit,
 it’ll come in handy when we deal with multiple subjects!d</p>
@@ -627,22 +627,21 @@ This tool will perform the full set of pairwise correlations for us</p>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nilearn.connectome <span class="im">import</span> ConnectivityMeasure</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="im">from</span> nilearn.connectome <span class="im">import</span> ConnectivityMeasure</span></code></pre>
 </div>
 <p>Like the masker, we need to make an object that will calculate
 connectivity for us.</p>
 <div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>correlation_measure <span class="op">=</span> ConnectivityMeasure(kind<span class="op">=</span><span class="st">'correlation'</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>correlation_measure <span class="op">=</span> ConnectivityMeasure(kind<span class="op">=</span><span class="st">'correlation'</span>)</span></code></pre>
 </div>
-<div id="callout1" class="callout callout">
+<div id="callout1" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>Try using <code>SHIFT-TAB</code> to see what options you can put into
 the <code>kind</code> argument of <code>ConnectivityMeasure</code></p>
@@ -654,16 +653,15 @@ to calculate the full correlation matrix for our parcellated data!</p>
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>full_correlation_matrix <span class="op">=</span> correlation_measure.fit_transform([cleaned_and_averaged_time_series])</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>full_correlation_matrix.shape</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>full_correlation_matrix <span class="op">=</span> correlation_measure.fit_transform([cleaned_and_averaged_time_series])</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>full_correlation_matrix.shape</span></code></pre>
 </div>
-<div id="callout2" class="callout callout">
+<div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout2"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>Note that we’re using a list <code>[final_signal]</code>, this is
 because <code>correlation_measure</code> works on a <em>list of
@@ -683,13 +681,12 @@ parcellation atlas</li>
 <li>Row 40, Column 40 can also give us this correlation</li>
 </ul><p>This is because the correlation of <span class="math inline">\(A
 --&gt; B = B --&gt; A\)</span></p>
-<div id="callout3" class="callout callout">
+<div id="callout3" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
-<div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout3"></a>
-</h3>
+<div class="section level3 callout-title callout-inner">
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p><strong>NOTE</strong>: Remember we were supposed to lose 7 regions
 from the <code>masker.fit_transform</code> step. The correlations for
@@ -701,13 +698,13 @@ these regions will be 0!</p>
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>full_correlation_matrix[<span class="dv">0</span>, <span class="dv">43</span>, <span class="dv">45</span>]</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>full_correlation_matrix[<span class="dv">0</span>, <span class="dv">43</span>, <span class="dv">45</span>]</span></code></pre>
 </div>
 <p>Note that it’ll be the same if we swap the rows and columns!</p>
 <div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>full_correlation_matrix[<span class="dv">0</span>, <span class="dv">45</span>, <span class="dv">43</span>]</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>full_correlation_matrix[<span class="dv">0</span>, <span class="dv">45</span>, <span class="dv">43</span>]</span></code></pre>
 </div>
 <div id="exercise" class="callout challenge">
 <div class="callout-square">
@@ -723,84 +720,84 @@ blanks!</p>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First we're going to create some empty lists to store all our data in!</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>ctrl_subjects <span class="op">=</span> []</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>schz_subjects <span class="op">=</span> []</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># We're going to keep track of each of our subjects labels here</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># pulled from masker.labels_</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>labels_list <span class="op">=</span> []</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the number of unique labels in our parcellation</span></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># We'll use this to figure out how many columns to make (as we did earlier)</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>atlas_labels <span class="op">=</span> np.unique(yeo_7.get_fdata().astype(<span class="bu">int</span>))</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>NUM_LABELS <span class="op">=</span> <span class="bu">len</span>(atlas_labels)</span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the list of confound variables we'll be using</span></span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>confound_variables <span class="op">=</span> [<span class="st">'trans_x'</span>,<span class="st">'trans_y'</span>,<span class="st">'trans_z'</span>,</span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>                               <span class="st">'rot_x'</span>,<span class="st">'rot_y'</span>,<span class="st">'rot_z'</span>,</span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>                               <span class="st">'global_signal'</span>,</span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>                               <span class="st">'white_matter'</span>,<span class="st">'csf'</span>]</span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of TRs we should drop</span></span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>TR_DROP<span class="op">=</span><span class="dv">4</span></span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Lets get all the subjects we have</span></span>
-<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>subjects <span class="op">=</span> layout.get_subjects()</span>
-<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> sub <span class="kw">in</span> subjects:</span>
-<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Get the functional file for the subject (MNI space)</span></span>
-<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>    func_file <span class="op">=</span> layout.get(subject<span class="op">=</span>??,</span>
-<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>                           datatype<span class="op">=</span><span class="st">'??'</span>, task<span class="op">=</span><span class="st">'rest'</span>,</span>
-<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>                           desc<span class="op">=</span><span class="st">'??'</span>,</span>
-<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a>                           space<span class="op">=</span><span class="st">'??'</span></span>
-<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a>                           extension<span class="op">=</span><span class="st">"nii.gz"</span>,</span>
-<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a>                           return_type<span class="op">=</span><span class="st">'file'</span>)[<span class="dv">0</span>]</span>
-<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Get the confounds file for the subject (MNI space)</span></span>
-<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a>    confound_file<span class="op">=</span>layout.get(subject<span class="op">=</span>??, datatype<span class="op">=</span><span class="st">'??'</span>,</span>
-<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a>                             task<span class="op">=</span><span class="st">'rest'</span>,</span>
-<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a>                             desc<span class="op">=</span><span class="st">'??'</span>,</span>
-<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a>                             extension<span class="op">=</span><span class="st">'tsv'</span>,</span>
-<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a>                             return_type<span class="op">=</span><span class="st">'file'</span>)[<span class="dv">0</span>]</span>
-<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Load the functional file in</span></span>
-<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a>    func_img <span class="op">=</span> nimg.load_img(??)</span>
-<span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Drop the first 4 TRs</span></span>
-<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a>    func_img <span class="op">=</span> func_img.slicer[??,??,??,??]</span>
-<span id="cb23-48"><a href="#cb23-48" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb23-49"><a href="#cb23-49" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb23-50"><a href="#cb23-50" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Extract the confound variables using the function</span></span>
-<span id="cb23-51"><a href="#cb23-51" aria-hidden="true" tabindex="-1"></a>    confounds <span class="op">=</span> extract_confounds(confound_file,</span>
-<span id="cb23-52"><a href="#cb23-52" aria-hidden="true" tabindex="-1"></a>                                  confound_variables)</span>
-<span id="cb23-53"><a href="#cb23-53" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb23-54"><a href="#cb23-54" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Drop the first 4 rows from the confound matrix</span></span>
-<span id="cb23-55"><a href="#cb23-55" aria-hidden="true" tabindex="-1"></a>    confounds <span class="op">=</span> confounds[??]</span>
-<span id="cb23-56"><a href="#cb23-56" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb23-57"><a href="#cb23-57" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Make our array of zeros to fill out</span></span>
-<span id="cb23-58"><a href="#cb23-58" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Number of rows should match number of timepoints</span></span>
-<span id="cb23-59"><a href="#cb23-59" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Number of columns should match the total number of regions</span></span>
-<span id="cb23-60"><a href="#cb23-60" aria-hidden="true" tabindex="-1"></a>    fill_array <span class="op">=</span> np.zeros((func_img.shape[??], ??))</span>
-<span id="cb23-61"><a href="#cb23-61" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb23-62"><a href="#cb23-62" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Apply the parcellation + cleaning to our data</span></span>
-<span id="cb23-63"><a href="#cb23-63" aria-hidden="true" tabindex="-1"></a>    <span class="co">#What function of masker is used to clean and average data?</span></span>
-<span id="cb23-64"><a href="#cb23-64" aria-hidden="true" tabindex="-1"></a>    time_series <span class="op">=</span> masker.fit_transform(??,??)</span>
-<span id="cb23-65"><a href="#cb23-65" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb23-66"><a href="#cb23-66" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get the regions that were kept for this scan</span></span>
-<span id="cb23-67"><a href="#cb23-67" aria-hidden="true" tabindex="-1"></a>    regions_kept <span class="op">=</span> np.array(masker.labels_)</span>
-<span id="cb23-68"><a href="#cb23-68" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb23-69"><a href="#cb23-69" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fill the array, this is what we'll use</span></span>
-<span id="cb23-70"><a href="#cb23-70" aria-hidden="true" tabindex="-1"></a>    <span class="co"># to make sure that all our array are of the same size</span></span>
-<span id="cb23-71"><a href="#cb23-71" aria-hidden="true" tabindex="-1"></a>    fill_array[:, ??] <span class="op">=</span> time_series</span>
-<span id="cb23-72"><a href="#cb23-72" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb23-73"><a href="#cb23-73" aria-hidden="true" tabindex="-1"></a>    <span class="co">#If the subject ID starts with a "1" then they are control</span></span>
-<span id="cb23-74"><a href="#cb23-74" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> sub.startswith(<span class="st">'1'</span>):</span>
-<span id="cb23-75"><a href="#cb23-75" aria-hidden="true" tabindex="-1"></a>        ctrl_subjects.append(fill_array)</span>
-<span id="cb23-76"><a href="#cb23-76" aria-hidden="true" tabindex="-1"></a>    <span class="co">#If the subject ID starts with a "5" then they are case (case of schizophrenia)</span></span>
-<span id="cb23-77"><a href="#cb23-77" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> sub.startswith(<span class="st">'5'</span>):</span>
-<span id="cb23-78"><a href="#cb23-78" aria-hidden="true" tabindex="-1"></a>        schz_subjects.append(fill_array)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co"># First we're going to create some empty lists to store all our data in!</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>ctrl_subjects <span class="op">=</span> []</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>schz_subjects <span class="op">=</span> []</span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a><span class="co"># We're going to keep track of each of our subjects labels here</span></span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a><span class="co"># pulled from masker.labels_</span></span>
+<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a>labels_list <span class="op">=</span> []</span>
+<span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" tabindex="-1"></a><span class="co"># Get the number of unique labels in our parcellation</span></span>
+<span id="cb23-11"><a href="#cb23-11" tabindex="-1"></a><span class="co"># We'll use this to figure out how many columns to make (as we did earlier)</span></span>
+<span id="cb23-12"><a href="#cb23-12" tabindex="-1"></a>atlas_labels <span class="op">=</span> np.unique(yeo_7.get_fdata().astype(<span class="bu">int</span>))</span>
+<span id="cb23-13"><a href="#cb23-13" tabindex="-1"></a>NUM_LABELS <span class="op">=</span> <span class="bu">len</span>(atlas_labels)</span>
+<span id="cb23-14"><a href="#cb23-14" tabindex="-1"></a></span>
+<span id="cb23-15"><a href="#cb23-15" tabindex="-1"></a><span class="co"># Set the list of confound variables we'll be using</span></span>
+<span id="cb23-16"><a href="#cb23-16" tabindex="-1"></a>confound_variables <span class="op">=</span> [<span class="st">'trans_x'</span>,<span class="st">'trans_y'</span>,<span class="st">'trans_z'</span>,</span>
+<span id="cb23-17"><a href="#cb23-17" tabindex="-1"></a>                               <span class="st">'rot_x'</span>,<span class="st">'rot_y'</span>,<span class="st">'rot_z'</span>,</span>
+<span id="cb23-18"><a href="#cb23-18" tabindex="-1"></a>                               <span class="st">'global_signal'</span>,</span>
+<span id="cb23-19"><a href="#cb23-19" tabindex="-1"></a>                               <span class="st">'white_matter'</span>,<span class="st">'csf'</span>]</span>
+<span id="cb23-20"><a href="#cb23-20" tabindex="-1"></a></span>
+<span id="cb23-21"><a href="#cb23-21" tabindex="-1"></a><span class="co"># Number of TRs we should drop</span></span>
+<span id="cb23-22"><a href="#cb23-22" tabindex="-1"></a>TR_DROP<span class="op">=</span><span class="dv">4</span></span>
+<span id="cb23-23"><a href="#cb23-23" tabindex="-1"></a></span>
+<span id="cb23-24"><a href="#cb23-24" tabindex="-1"></a><span class="co"># Lets get all the subjects we have</span></span>
+<span id="cb23-25"><a href="#cb23-25" tabindex="-1"></a>subjects <span class="op">=</span> layout.get_subjects()</span>
+<span id="cb23-26"><a href="#cb23-26" tabindex="-1"></a><span class="cf">for</span> sub <span class="kw">in</span> subjects:</span>
+<span id="cb23-27"><a href="#cb23-27" tabindex="-1"></a>    </span>
+<span id="cb23-28"><a href="#cb23-28" tabindex="-1"></a>    <span class="co">#Get the functional file for the subject (MNI space)</span></span>
+<span id="cb23-29"><a href="#cb23-29" tabindex="-1"></a>    func_file <span class="op">=</span> layout.get(subject<span class="op">=</span>??,</span>
+<span id="cb23-30"><a href="#cb23-30" tabindex="-1"></a>                           datatype<span class="op">=</span><span class="st">'??'</span>, task<span class="op">=</span><span class="st">'rest'</span>,</span>
+<span id="cb23-31"><a href="#cb23-31" tabindex="-1"></a>                           desc<span class="op">=</span><span class="st">'??'</span>,</span>
+<span id="cb23-32"><a href="#cb23-32" tabindex="-1"></a>                           space<span class="op">=</span><span class="st">'??'</span></span>
+<span id="cb23-33"><a href="#cb23-33" tabindex="-1"></a>                           extension<span class="op">=</span><span class="st">"nii.gz"</span>,</span>
+<span id="cb23-34"><a href="#cb23-34" tabindex="-1"></a>                           return_type<span class="op">=</span><span class="st">'file'</span>)[<span class="dv">0</span>]</span>
+<span id="cb23-35"><a href="#cb23-35" tabindex="-1"></a>    </span>
+<span id="cb23-36"><a href="#cb23-36" tabindex="-1"></a>    <span class="co">#Get the confounds file for the subject (MNI space)</span></span>
+<span id="cb23-37"><a href="#cb23-37" tabindex="-1"></a>    confound_file<span class="op">=</span>layout.get(subject<span class="op">=</span>??, datatype<span class="op">=</span><span class="st">'??'</span>,</span>
+<span id="cb23-38"><a href="#cb23-38" tabindex="-1"></a>                             task<span class="op">=</span><span class="st">'rest'</span>,</span>
+<span id="cb23-39"><a href="#cb23-39" tabindex="-1"></a>                             desc<span class="op">=</span><span class="st">'??'</span>,</span>
+<span id="cb23-40"><a href="#cb23-40" tabindex="-1"></a>                             extension<span class="op">=</span><span class="st">'tsv'</span>,</span>
+<span id="cb23-41"><a href="#cb23-41" tabindex="-1"></a>                             return_type<span class="op">=</span><span class="st">'file'</span>)[<span class="dv">0</span>]</span>
+<span id="cb23-42"><a href="#cb23-42" tabindex="-1"></a>    </span>
+<span id="cb23-43"><a href="#cb23-43" tabindex="-1"></a>    <span class="co">#Load the functional file in</span></span>
+<span id="cb23-44"><a href="#cb23-44" tabindex="-1"></a>    func_img <span class="op">=</span> nimg.load_img(??)</span>
+<span id="cb23-45"><a href="#cb23-45" tabindex="-1"></a>    </span>
+<span id="cb23-46"><a href="#cb23-46" tabindex="-1"></a>    <span class="co">#Drop the first 4 TRs</span></span>
+<span id="cb23-47"><a href="#cb23-47" tabindex="-1"></a>    func_img <span class="op">=</span> func_img.slicer[??,??,??,??]</span>
+<span id="cb23-48"><a href="#cb23-48" tabindex="-1"></a>    </span>
+<span id="cb23-49"><a href="#cb23-49" tabindex="-1"></a>    </span>
+<span id="cb23-50"><a href="#cb23-50" tabindex="-1"></a>    <span class="co">#Extract the confound variables using the function</span></span>
+<span id="cb23-51"><a href="#cb23-51" tabindex="-1"></a>    confounds <span class="op">=</span> extract_confounds(confound_file,</span>
+<span id="cb23-52"><a href="#cb23-52" tabindex="-1"></a>                                  confound_variables)</span>
+<span id="cb23-53"><a href="#cb23-53" tabindex="-1"></a>    </span>
+<span id="cb23-54"><a href="#cb23-54" tabindex="-1"></a>    <span class="co">#Drop the first 4 rows from the confound matrix</span></span>
+<span id="cb23-55"><a href="#cb23-55" tabindex="-1"></a>    confounds <span class="op">=</span> confounds[??]</span>
+<span id="cb23-56"><a href="#cb23-56" tabindex="-1"></a>    </span>
+<span id="cb23-57"><a href="#cb23-57" tabindex="-1"></a>    <span class="co"># Make our array of zeros to fill out</span></span>
+<span id="cb23-58"><a href="#cb23-58" tabindex="-1"></a>    <span class="co"># Number of rows should match number of timepoints</span></span>
+<span id="cb23-59"><a href="#cb23-59" tabindex="-1"></a>    <span class="co"># Number of columns should match the total number of regions</span></span>
+<span id="cb23-60"><a href="#cb23-60" tabindex="-1"></a>    fill_array <span class="op">=</span> np.zeros((func_img.shape[??], ??))</span>
+<span id="cb23-61"><a href="#cb23-61" tabindex="-1"></a>    </span>
+<span id="cb23-62"><a href="#cb23-62" tabindex="-1"></a>    <span class="co">#Apply the parcellation + cleaning to our data</span></span>
+<span id="cb23-63"><a href="#cb23-63" tabindex="-1"></a>    <span class="co">#What function of masker is used to clean and average data?</span></span>
+<span id="cb23-64"><a href="#cb23-64" tabindex="-1"></a>    time_series <span class="op">=</span> masker.fit_transform(??,??)</span>
+<span id="cb23-65"><a href="#cb23-65" tabindex="-1"></a>    </span>
+<span id="cb23-66"><a href="#cb23-66" tabindex="-1"></a>    <span class="co"># Get the regions that were kept for this scan</span></span>
+<span id="cb23-67"><a href="#cb23-67" tabindex="-1"></a>    regions_kept <span class="op">=</span> np.array(masker.labels_)</span>
+<span id="cb23-68"><a href="#cb23-68" tabindex="-1"></a>    </span>
+<span id="cb23-69"><a href="#cb23-69" tabindex="-1"></a>    <span class="co"># Fill the array, this is what we'll use</span></span>
+<span id="cb23-70"><a href="#cb23-70" tabindex="-1"></a>    <span class="co"># to make sure that all our array are of the same size</span></span>
+<span id="cb23-71"><a href="#cb23-71" tabindex="-1"></a>    fill_array[:, ??] <span class="op">=</span> time_series</span>
+<span id="cb23-72"><a href="#cb23-72" tabindex="-1"></a>    </span>
+<span id="cb23-73"><a href="#cb23-73" tabindex="-1"></a>    <span class="co">#If the subject ID starts with a "1" then they are control</span></span>
+<span id="cb23-74"><a href="#cb23-74" tabindex="-1"></a>    <span class="cf">if</span> sub.startswith(<span class="st">'1'</span>):</span>
+<span id="cb23-75"><a href="#cb23-75" tabindex="-1"></a>        ctrl_subjects.append(fill_array)</span>
+<span id="cb23-76"><a href="#cb23-76" tabindex="-1"></a>    <span class="co">#If the subject ID starts with a "5" then they are case (case of schizophrenia)</span></span>
+<span id="cb23-77"><a href="#cb23-77" tabindex="-1"></a>    <span class="cf">if</span> sub.startswith(<span class="st">'5'</span>):</span>
+<span id="cb23-78"><a href="#cb23-78" tabindex="-1"></a>        schz_subjects.append(fill_array)</span></code></pre>
 </div>
 </div>
 </div>
@@ -810,65 +807,65 @@ blanks!</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1">Show me the solution</h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First we're going to create some empty lists to store all our data in!</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>pooled_subjects <span class="op">=</span> []</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>ctrl_subjects <span class="op">=</span> []</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>schz_subjects <span class="op">=</span> []</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Which confound variables should we use?</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>confound_variables <span class="op">=</span> [<span class="st">'trans_x'</span>,<span class="st">'trans_y'</span>,<span class="st">'trans_z'</span>,</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>                               <span class="st">'rot_x'</span>,<span class="st">'rot_y'</span>,<span class="st">'rot_z'</span>,</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>                               <span class="st">'global_signal'</span>,</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>                               <span class="st">'white_matter'</span>,<span class="st">'csf'</span>]</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> sub <span class="kw">in</span> subjects:</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Get the functional file for the subject (MNI space)</span></span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    func_file <span class="op">=</span> layout.get(subject<span class="op">=</span>sub,</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>                           datatype<span class="op">=</span><span class="st">'func'</span>, task<span class="op">=</span><span class="st">'rest'</span>,</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>                           desc<span class="op">=</span><span class="st">'preproc'</span>,</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>                           extension<span class="op">=</span><span class="st">"nii.gz"</span>,</span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>                           return_type<span class="op">=</span><span class="st">'file'</span>)[<span class="dv">0</span>]</span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Get the confounds file for the subject (MNI space)</span></span>
-<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>    confound_file<span class="op">=</span>layout.get(subject<span class="op">=</span>sub, datatype<span class="op">=</span><span class="st">'func'</span>,</span>
-<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>                             task<span class="op">=</span><span class="st">'rest'</span>,</span>
-<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>                             desc<span class="op">=</span><span class="st">'confounds'</span>,</span>
-<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>                             extension<span class="op">=</span><span class="st">'tsv'</span>,</span>
-<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>                             return_type<span class="op">=</span><span class="st">'file'</span>)[<span class="dv">0</span>]</span>
-<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Load the functional file in</span></span>
-<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>    func_img <span class="op">=</span> nimg.load_img(func_file)</span>
-<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Drop the first 4 TRs</span></span>
-<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>    func_img <span class="op">=</span> func_img.slicer[:,:,:,tr_drop:]</span>
-<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Extract the confound variables using the function</span></span>
-<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>    confounds <span class="op">=</span> extract_confounds(confound_file,</span>
-<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>                                  confound_variables)</span>
-<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Drop the first 4 rows from the confound matrix</span></span>
-<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Which rows and columns should we keep?</span></span>
-<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>    confounds <span class="op">=</span> confounds[tr_drop:,:]</span>
-<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Apply the parcellation + cleaning to our data</span></span>
-<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a>    <span class="co">#What function of masker is used to clean and average data?</span></span>
-<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a>    time_series <span class="op">=</span> masker.fit_transform(func_img,confounds)</span>
-<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a>    <span class="co">#This collects a list of all subjects</span></span>
-<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a>    pooled_subjects.append(time_series)</span>
-<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a>    <span class="co">#If the subject ID starts with a "1" then they are control</span></span>
-<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> sub.startswith(<span class="st">'1'</span>):</span>
-<span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a>        ctrl_subjects.append(time_series)</span>
-<span id="cb24-52"><a href="#cb24-52" aria-hidden="true" tabindex="-1"></a>    <span class="co">#If the subject ID starts with a "5" then they are case (case of schizophrenia)</span></span>
-<span id="cb24-53"><a href="#cb24-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> sub.startswith(<span class="st">'5'</span>):</span>
-<span id="cb24-54"><a href="#cb24-54" aria-hidden="true" tabindex="-1"></a>        schz_subjects.append(time_series)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="co"># First we're going to create some empty lists to store all our data in!</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>pooled_subjects <span class="op">=</span> []</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>ctrl_subjects <span class="op">=</span> []</span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>schz_subjects <span class="op">=</span> []</span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a><span class="co">#Which confound variables should we use?</span></span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a>confound_variables <span class="op">=</span> [<span class="st">'trans_x'</span>,<span class="st">'trans_y'</span>,<span class="st">'trans_z'</span>,</span>
+<span id="cb24-8"><a href="#cb24-8" tabindex="-1"></a>                               <span class="st">'rot_x'</span>,<span class="st">'rot_y'</span>,<span class="st">'rot_z'</span>,</span>
+<span id="cb24-9"><a href="#cb24-9" tabindex="-1"></a>                               <span class="st">'global_signal'</span>,</span>
+<span id="cb24-10"><a href="#cb24-10" tabindex="-1"></a>                               <span class="st">'white_matter'</span>,<span class="st">'csf'</span>]</span>
+<span id="cb24-11"><a href="#cb24-11" tabindex="-1"></a><span class="cf">for</span> sub <span class="kw">in</span> subjects:</span>
+<span id="cb24-12"><a href="#cb24-12" tabindex="-1"></a>    </span>
+<span id="cb24-13"><a href="#cb24-13" tabindex="-1"></a>    <span class="co">#Get the functional file for the subject (MNI space)</span></span>
+<span id="cb24-14"><a href="#cb24-14" tabindex="-1"></a>    func_file <span class="op">=</span> layout.get(subject<span class="op">=</span>sub,</span>
+<span id="cb24-15"><a href="#cb24-15" tabindex="-1"></a>                           datatype<span class="op">=</span><span class="st">'func'</span>, task<span class="op">=</span><span class="st">'rest'</span>,</span>
+<span id="cb24-16"><a href="#cb24-16" tabindex="-1"></a>                           desc<span class="op">=</span><span class="st">'preproc'</span>,</span>
+<span id="cb24-17"><a href="#cb24-17" tabindex="-1"></a>                           extension<span class="op">=</span><span class="st">"nii.gz"</span>,</span>
+<span id="cb24-18"><a href="#cb24-18" tabindex="-1"></a>                           return_type<span class="op">=</span><span class="st">'file'</span>)[<span class="dv">0</span>]</span>
+<span id="cb24-19"><a href="#cb24-19" tabindex="-1"></a>    </span>
+<span id="cb24-20"><a href="#cb24-20" tabindex="-1"></a>    <span class="co">#Get the confounds file for the subject (MNI space)</span></span>
+<span id="cb24-21"><a href="#cb24-21" tabindex="-1"></a>    confound_file<span class="op">=</span>layout.get(subject<span class="op">=</span>sub, datatype<span class="op">=</span><span class="st">'func'</span>,</span>
+<span id="cb24-22"><a href="#cb24-22" tabindex="-1"></a>                             task<span class="op">=</span><span class="st">'rest'</span>,</span>
+<span id="cb24-23"><a href="#cb24-23" tabindex="-1"></a>                             desc<span class="op">=</span><span class="st">'confounds'</span>,</span>
+<span id="cb24-24"><a href="#cb24-24" tabindex="-1"></a>                             extension<span class="op">=</span><span class="st">'tsv'</span>,</span>
+<span id="cb24-25"><a href="#cb24-25" tabindex="-1"></a>                             return_type<span class="op">=</span><span class="st">'file'</span>)[<span class="dv">0</span>]</span>
+<span id="cb24-26"><a href="#cb24-26" tabindex="-1"></a>    </span>
+<span id="cb24-27"><a href="#cb24-27" tabindex="-1"></a>    <span class="co">#Load the functional file in</span></span>
+<span id="cb24-28"><a href="#cb24-28" tabindex="-1"></a>    func_img <span class="op">=</span> nimg.load_img(func_file)</span>
+<span id="cb24-29"><a href="#cb24-29" tabindex="-1"></a>    </span>
+<span id="cb24-30"><a href="#cb24-30" tabindex="-1"></a>    <span class="co">#Drop the first 4 TRs</span></span>
+<span id="cb24-31"><a href="#cb24-31" tabindex="-1"></a>    func_img <span class="op">=</span> func_img.slicer[:,:,:,tr_drop:]</span>
+<span id="cb24-32"><a href="#cb24-32" tabindex="-1"></a>    </span>
+<span id="cb24-33"><a href="#cb24-33" tabindex="-1"></a>    </span>
+<span id="cb24-34"><a href="#cb24-34" tabindex="-1"></a>    <span class="co">#Extract the confound variables using the function</span></span>
+<span id="cb24-35"><a href="#cb24-35" tabindex="-1"></a>    confounds <span class="op">=</span> extract_confounds(confound_file,</span>
+<span id="cb24-36"><a href="#cb24-36" tabindex="-1"></a>                                  confound_variables)</span>
+<span id="cb24-37"><a href="#cb24-37" tabindex="-1"></a>    </span>
+<span id="cb24-38"><a href="#cb24-38" tabindex="-1"></a>    <span class="co">#Drop the first 4 rows from the confound matrix</span></span>
+<span id="cb24-39"><a href="#cb24-39" tabindex="-1"></a>    <span class="co">#Which rows and columns should we keep?</span></span>
+<span id="cb24-40"><a href="#cb24-40" tabindex="-1"></a>    confounds <span class="op">=</span> confounds[tr_drop:,:]</span>
+<span id="cb24-41"><a href="#cb24-41" tabindex="-1"></a>    </span>
+<span id="cb24-42"><a href="#cb24-42" tabindex="-1"></a>    <span class="co">#Apply the parcellation + cleaning to our data</span></span>
+<span id="cb24-43"><a href="#cb24-43" tabindex="-1"></a>    <span class="co">#What function of masker is used to clean and average data?</span></span>
+<span id="cb24-44"><a href="#cb24-44" tabindex="-1"></a>    time_series <span class="op">=</span> masker.fit_transform(func_img,confounds)</span>
+<span id="cb24-45"><a href="#cb24-45" tabindex="-1"></a>    </span>
+<span id="cb24-46"><a href="#cb24-46" tabindex="-1"></a>    <span class="co">#This collects a list of all subjects</span></span>
+<span id="cb24-47"><a href="#cb24-47" tabindex="-1"></a>    pooled_subjects.append(time_series)</span>
+<span id="cb24-48"><a href="#cb24-48" tabindex="-1"></a>    </span>
+<span id="cb24-49"><a href="#cb24-49" tabindex="-1"></a>    <span class="co">#If the subject ID starts with a "1" then they are control</span></span>
+<span id="cb24-50"><a href="#cb24-50" tabindex="-1"></a>    <span class="cf">if</span> sub.startswith(<span class="st">'1'</span>):</span>
+<span id="cb24-51"><a href="#cb24-51" tabindex="-1"></a>        ctrl_subjects.append(time_series)</span>
+<span id="cb24-52"><a href="#cb24-52" tabindex="-1"></a>    <span class="co">#If the subject ID starts with a "5" then they are case (case of schizophrenia)</span></span>
+<span id="cb24-53"><a href="#cb24-53" tabindex="-1"></a>    <span class="cf">if</span> sub.startswith(<span class="st">'5'</span>):</span>
+<span id="cb24-54"><a href="#cb24-54" tabindex="-1"></a>        schz_subjects.append(time_series)</span></code></pre>
 </div>
 </div>
 </div>
@@ -888,8 +885,8 @@ a <em>list of subject data</em>!</p>
 <div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ctrl_correlation_matrices <span class="op">=</span> correlation_measure.fit_transform(ctrl_subjects)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>schz_correlation_matrices <span class="op">=</span> correlation_measure.fit_transform(schz_subjects)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>ctrl_correlation_matrices <span class="op">=</span> correlation_measure.fit_transform(ctrl_subjects)</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>schz_correlation_matrices <span class="op">=</span> correlation_measure.fit_transform(schz_subjects)</span></code></pre>
 </div>
 <p>At this point, we have correlation matrices for each subject across
 two populations. The final step is to examine the differences between
@@ -908,15 +905,15 @@ visualizations with not much effort.</p>
 <div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre>
 </div>
 <p>We can view a single subject’s correlation matrix by using
 <code>seaborn</code>’s <code>heatmap</code> function:</p>
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>sns.heatmap(ctrl_correlation_matrices[<span class="dv">0</span>], cmap<span class="op">=</span><span class="st">'RdBu_r'</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>sns.heatmap(ctrl_correlation_matrices[<span class="dv">0</span>], cmap<span class="op">=</span><span class="st">'RdBu_r'</span>)</span></code></pre>
 </div>
 <figure><img src="fig/heatmap.png" class="img-responsive figure mx-auto d-block" alt="Connectivity Matrix Heatmap"></figure><p>Recall that cleaning and parcellating the data causes some ROIs to
 get dropped. We dealt with this by filling an array of zeros
@@ -931,7 +928,7 @@ darkest color</li>
 </ul><div class="codewrapper sourceCode" id="cb28">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>sns.heatmap(np.<span class="bu">abs</span>(ctrl_correlation_matrices[<span class="dv">0</span>]), cmap<span class="op">=</span><span class="st">'viridis'</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>sns.heatmap(np.<span class="bu">abs</span>(ctrl_correlation_matrices[<span class="dv">0</span>]), cmap<span class="op">=</span><span class="st">'viridis'</span>)</span></code></pre>
 </div>
 <figure><img src="fig/heatmap_show_zeroes.png" class="img-responsive figure mx-auto d-block" alt="Absolute Matrix Heatmap Zeros Highlighted"></figure><p>The dark lines in the correlation matrix correspond to regions that
 were dropped and therefore have 0 correlation!</p>
@@ -941,7 +938,7 @@ look at the shape:</p>
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ctrl_correlation_matrices.shape)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="bu">print</span>(ctrl_correlation_matrices.shape)</span></code></pre>
 </div>
 <p>This is of form:</p>
 <p><code>ctrl_correlation_matrices[subject_index, row_index,
@@ -952,8 +949,8 @@ standard array indexing:</p>
 <div class="codewrapper sourceCode" id="cb30">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ctrl_roi_vec <span class="op">=</span> ctrl_correlation_matrices[:,<span class="dv">43</span>,<span class="dv">45</span>]</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>schz_roi_vec <span class="op">=</span> schz_correlation_matrices[:,<span class="dv">43</span>,<span class="dv">45</span>]</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>ctrl_roi_vec <span class="op">=</span> ctrl_correlation_matrices[:,<span class="dv">43</span>,<span class="dv">45</span>]</span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>schz_roi_vec <span class="op">=</span> schz_correlation_matrices[:,<span class="dv">43</span>,<span class="dv">45</span>]</span></code></pre>
 </div>
 <p>Next we’re going to arrange this data into a table. We’ll create two
 tables (called dataframes in the python package we’re using,
@@ -961,16 +958,16 @@ tables (called dataframes in the python package we’re using,
 <div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create control dataframe</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>ctrl_df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>{<span class="st">'dmn_corr'</span>:ctrl_roi_vec, <span class="st">'group'</span>:<span class="st">'control'</span>})</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>ctrl_df.head()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="co">#Create control dataframe</span></span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>ctrl_df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>{<span class="st">'dmn_corr'</span>:ctrl_roi_vec, <span class="st">'group'</span>:<span class="st">'control'</span>})</span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>ctrl_df.head()</span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb32">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the schizophrenia dataframe</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>scz_df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>{<span class="st">'dmn_corr'</span>:schz_roi_vec, <span class="st">'group'</span> : <span class="st">'schizophrenia'</span>})</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>scz_df.head()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="co"># Create the schizophrenia dataframe</span></span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>scz_df <span class="op">=</span> pd.DataFrame(data<span class="op">=</span>{<span class="st">'dmn_corr'</span>:schz_roi_vec, <span class="st">'group'</span> : <span class="st">'schizophrenia'</span>})</span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>scz_df.head()</span></code></pre>
 </div>
 <p>The result is:</p>
 <ul><li><p><code>ctrl_df</code> a table containing the correlation value for
@@ -983,34 +980,34 @@ group label, which is ‘schizophrenia’</p></li>
 <div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Stack the two dataframes together</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.concat([ctrl_df,scz_df], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Show some random samples from dataframe</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>df.sample(n<span class="op">=</span><span class="dv">3</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="co">#Stack the two dataframes together</span></span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>df <span class="op">=</span> pd.concat([ctrl_df,scz_df], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a><span class="co"># Show some random samples from dataframe</span></span>
+<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a>df.sample(n<span class="op">=</span><span class="dv">3</span>)</span></code></pre>
 </div>
 <p>Finally we’re going to visualize the results using the python package
 <code>seaborn</code>!</p>
 <div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Visualize results</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a figure canvas of equal width and height</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>plot <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>,<span class="dv">5</span>))</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>                  </span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a box plot, with the x-axis as group</span></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co">#the y-axis as the correlation value</span></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.boxplot(x<span class="op">=</span><span class="st">'group'</span>,y<span class="op">=</span><span class="st">'dmn_corr'</span>,data<span class="op">=</span>df,palette<span class="op">=</span><span class="st">'Set3'</span>)</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a "swarmplot" as well, you'll see what this is..</span></span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> sns.swarmplot(x<span class="op">=</span><span class="st">'group'</span>,y<span class="op">=</span><span class="st">'dmn_corr'</span>,data<span class="op">=</span>df,color<span class="op">=</span><span class="st">'0.25'</span>)</span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the title and labels of the figure</span></span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'DMN Intra-network Connectivity'</span>)</span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="vs">r'Intra-network connectivity $\mu_\rho$'</span>)</span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="co">#Visualize results</span></span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a><span class="co"># Create a figure canvas of equal width and height</span></span>
+<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a>plot <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>,<span class="dv">5</span>))</span>
+<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a>                  </span>
+<span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a><span class="co"># Create a box plot, with the x-axis as group</span></span>
+<span id="cb34-7"><a href="#cb34-7" tabindex="-1"></a><span class="co">#the y-axis as the correlation value</span></span>
+<span id="cb34-8"><a href="#cb34-8" tabindex="-1"></a>ax <span class="op">=</span> sns.boxplot(x<span class="op">=</span><span class="st">'group'</span>,y<span class="op">=</span><span class="st">'dmn_corr'</span>,data<span class="op">=</span>df,palette<span class="op">=</span><span class="st">'Set3'</span>)</span>
+<span id="cb34-9"><a href="#cb34-9" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="#cb34-10" tabindex="-1"></a><span class="co"># Create a "swarmplot" as well, you'll see what this is..</span></span>
+<span id="cb34-11"><a href="#cb34-11" tabindex="-1"></a>ax <span class="op">=</span> sns.swarmplot(x<span class="op">=</span><span class="st">'group'</span>,y<span class="op">=</span><span class="st">'dmn_corr'</span>,data<span class="op">=</span>df,color<span class="op">=</span><span class="st">'0.25'</span>)</span>
+<span id="cb34-12"><a href="#cb34-12" tabindex="-1"></a></span>
+<span id="cb34-13"><a href="#cb34-13" tabindex="-1"></a><span class="co"># Set the title and labels of the figure</span></span>
+<span id="cb34-14"><a href="#cb34-14" tabindex="-1"></a>ax.set_title(<span class="st">'DMN Intra-network Connectivity'</span>)</span>
+<span id="cb34-15"><a href="#cb34-15" tabindex="-1"></a>ax.set_ylabel(<span class="vs">r'Intra-network connectivity $\mu_\rho$'</span>)</span>
+<span id="cb34-16"><a href="#cb34-16" tabindex="-1"></a></span>
+<span id="cb34-17"><a href="#cb34-17" tabindex="-1"></a>plt.show()</span></code></pre>
 </div>
 <p>Although the results here aren’t significant they seem to indicate
 that there might be three subclasses in our schizophrenia group - of
@@ -1107,7 +1104,7 @@ to understanding Nilearn</li>
   "identifier": "https://carpentries-incubator.github.io/SDC-BIDS-fMRI/07-functional-connectivity-analysis.html",
   "dateCreated": "2024-02-18",
   "dateModified": "2024-02-17",
-  "datePublished": "2024-02-27"
+  "datePublished": "2024-03-05"
 }
 
   </script><script>
