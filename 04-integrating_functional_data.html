@@ -284,10 +284,10 @@
               </div>
             </div>
 
-            <hr class="half-width"><div class="accordion accordion-flush resources" id="accordionFlush12">
+            <hr class="half-width"><div class="accordion accordion-flush lesson-resources" id="accordionFlush12">
               <div class="accordion-item">
                 <h2 class="accordion-header" id="flush-headingTwelve">
-                  <button class="accordion-button collapsed" id="resources" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwelve" aria-expanded="false" aria-controls="flush-collapseTwelve">
+                  <button class="accordion-button collapsed" id="lesson-resources" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwelve" aria-expanded="false" aria-controls="flush-collapseTwelve">
                     RESOURCES
                   </button>
                 </h2>
@@ -307,7 +307,7 @@
                 </div>
               </div>
             </div>
-            <hr class="half-width resources"><a href="aio.html">See all in one page</a>
+            <hr class="half-width lesson-resources"><a href="aio.html">See all in one page</a>
 
 
             <hr class="d-none d-sm-block d-md-none"><div class="d-grid gap-1">
@@ -375,8 +375,7 @@ dimensions</li>
 </div>
 </div>
 </div>
-<section><h2 class="section-heading" id="integrating-functional-data">Integrating Functional Data<a class="anchor" aria-label="anchor" href="#integrating-functional-data"></a>
-<a class="anchor" aria-label="anchor" href="#integrating-functional-data"></a></h2>
+<section><h2 class="section-heading" id="integrating-functional-data">Integrating Functional Data<a class="anchor" aria-label="anchor" href="#integrating-functional-data"></a></h2>
 <hr class="half-width"><p>So far most of our work has been examining anatomical images - the
 reason being is that it provides a nice visual way of exploring the
 effects of data manipulation and visualization is easy. In practice, you
@@ -457,8 +456,7 @@ functional imaging analysis!</p>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>func_mni <span class="op">=</span> func_files[<span class="dv">0</span>]</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>func_mni_img <span class="op">=</span> nimg.load_img(func_mni)</span></code></pre>
 </div>
-</section><section><h2 class="section-heading" id="fmri-dimensions">fMRI Dimensions<a class="anchor" aria-label="anchor" href="#fmri-dimensions"></a>
-<a class="anchor" aria-label="anchor" href="#fmri-dimensions"></a></h2>
+</section><section><h2 class="section-heading" id="fmri-dimensions">fMRI Dimensions<a class="anchor" aria-label="anchor" href="#fmri-dimensions"></a></h2>
 <hr class="half-width"><p>First note that fMRI data contains both spatial dimensions (x,y,z)
 and a temporal dimension (t). This would mean that we require 4
 dimensions in order to represent our data. Let’s take a look at the
@@ -486,8 +484,7 @@ as usual where instead of using 3 dimensions we use 4.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="exercise" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise"></a>
-</h3>
+<h3 class="callout-title">Exercise</h3>
 <div class="callout-content">
 <p>Try pulling out the 5th TR and visualizing it using
 <code>nplot.view_img</code>.</p>
@@ -501,7 +498,7 @@ view of the brain, try scrolling around!</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -523,8 +520,7 @@ colors that make more sense for functional images…</p>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co">#Pull the 5th TR</span></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>nplot.plot_epi(func_vol5)</span></code></pre>
 </div>
-<figure><img src="fig/fmri_data.png" class="img-responsive figure mx-auto d-block" alt="Visual of fMRI EPI Data"></figure></section><section><h2 class="section-heading" id="what-fmri-actually-represents">What fMRI actually represents<a class="anchor" aria-label="anchor" href="#what-fmri-actually-represents"></a>
-<a class="anchor" aria-label="anchor" href="#what-fmri-actually-represents"></a></h2>
+<figure><img src="fig/fmri_data.png" class="img-responsive figure mx-auto d-block" alt="Visual of fMRI EPI Data"></figure></section><section><h2 class="section-heading" id="what-fmri-actually-represents">What fMRI actually represents<a class="anchor" aria-label="anchor" href="#what-fmri-actually-represents"></a></h2>
 <hr class="half-width"><p>We’ve represented fMRI as a snapshot of MR signal over multiple
 timepoints. This is a useful way of understanding the organization of
 fMRI, however it isn’t typically how we think about the data when we
@@ -593,8 +589,7 @@ like is what is most important:</p>
 </div>
 <figure><img src="fig/timeseries.png" class="img-responsive figure mx-auto d-block" alt="Example fMRI Timeseries"></figure><p>As you can see from the image above, fMRI data really is just a
 signal per voxel over time!</p>
-</section><section><h2 class="section-heading" id="resampling">Resampling<a class="anchor" aria-label="anchor" href="#resampling"></a>
-<a class="anchor" aria-label="anchor" href="#resampling"></a></h2>
+</section><section><h2 class="section-heading" id="resampling">Resampling<a class="anchor" aria-label="anchor" href="#resampling"></a></h2>
 <hr class="half-width"><p>Recall from our introductory exploration of neuroimaging data:</p>
 <ul><li>T1 images are typically composed of voxels that are 1x1x1 in
 dimension</li>
@@ -611,8 +606,7 @@ accurately <em>resample</em>) our JPEGs to match!</p>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout1"></a>
-</h3>
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>Resampling is a method of interpolating in between data-points. When
 we stretch an image we need to figure out what goes in the spaces that
@@ -676,8 +670,7 @@ to</em>
 <i class="callout-icon" data-feather="bell"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Callout<a class="anchor" aria-label="anchor" href="#callout2"></a>
-</h3>
+<h3 class="callout-title">Callout</h3>
 <div class="callout-content">
 <p>A note on <strong>interpolation</strong> nilearn supports 3 types of
 interpolation, the one you’ll use depends on the type of data you’re
@@ -718,8 +711,7 @@ operations.</p>
 <i class="callout-icon" data-feather="zap"></i>
 </div>
 <div id="exercise-1" class="callout-inner">
-<h3 class="callout-title">Exercise<a class="anchor" aria-label="anchor" href="#exercise-1"></a>
-</h3>
+<h3 class="callout-title">Exercise</h3>
 <div class="callout-content">
 <p>Using <strong>Native</strong> T1 and <strong>T1w</strong> resting
 state functional do the following:</p>
@@ -844,7 +836,7 @@ to place the functional data into the void:</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -901,8 +893,7 @@ data processing using the tools that we’ve picked up.</p>
 <i class="callout-icon" data-feather="key"></i>
 </div>
 <div class="callout-inner">
-<h3 class="callout-title">Key Points<a class="anchor" aria-label="anchor" href="#keypoints1"></a>
-</h3>
+<h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
 <ul><li>fMRI data is represented by spatial (x,y,z) and temporal (t)
 dimensions, totalling 4 dimensions</li>
@@ -947,7 +938,7 @@ to combine data requires resampling your data</li>
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.5" class="external-link">sandpaper (0.16.5)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.6" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.3" class="external-link">varnish (1.0.3)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/0.16.6" class="external-link">sandpaper (0.16.6)</a>, <a href="https://github.com/carpentries/pegboard/tree/0.7.6" class="external-link">pegboard (0.7.6)</a>, and <a href="https://github.com/carpentries/varnish/tree/1.0.4" class="external-link">varnish (1.0.4)</a></p>
 			</div>
 		</footer></div> <!-- / div.container -->
 	<div id="to-top">
@@ -970,7 +961,7 @@ to combine data requires resampling your data</li>
   "identifier": "https://carpentries-incubator.github.io/SDC-BIDS-fMRI/04-integrating_functional_data.html",
   "dateCreated": "2024-07-02",
   "dateModified": "2024-02-17",
-  "datePublished": "2024-08-20"
+  "datePublished": "2024-08-27"
 }
 
   </script><script>
