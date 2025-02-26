@@ -33,11 +33,11 @@ A brain atlas/parcellation is a voxel-based labelling of your data into "structu
 
 Since the parcellation of a brain is defined (currently) by spatial locations, application of an parcellation to fMRI data only concerns the first 3 dimensions; the last dimension (time) is retained. Thus a parcellation assigns every voxel (x,y,z) to a particular parcel ID (an integer).
 
-Nilearn supports a large selection of different atlases that can be found [here](https://nilearn.github.io/modules/reference.html#module-nilearn.datasets). For information about how to select which parcellation to use for analysis of your data we refer you to Arslan et al. 2018.
+Nilearn supports a [large selection of different atlases](https://nilearn.github.io/modules/reference.html#module-nilearn.datasets). For information about how to select which parcellation to use for analysis of your data we refer you to Arslan et al. 2018.
 
 ### Retrieving the Atlas
 
-For this tutorial we'll be using a set of parcellation from [Yeo et al. 2011](link). This atlas was generated from fMRI data from 1000 healthy control participants.
+For this tutorial we'll be using a set of parcellation from [Yeo et al. 2011](https://doi.org/10.1152/jn.00338.2011). This atlas was generated from fMRI data from 1000 healthy control participants.
 
 First we'll load in our packages as usual:
 
