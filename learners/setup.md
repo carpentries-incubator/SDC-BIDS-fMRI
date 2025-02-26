@@ -88,7 +88,7 @@ pip install nilearn nibabel
 8. Navigate to <code>sdc-bids-fmri</code> folder you downloaded earlier.
 9. Done!
 
-#### [Linux](Linux) and MacOS
+#### Linux and MacOS
 
 After installing Anaconda, open terminal and type:
 

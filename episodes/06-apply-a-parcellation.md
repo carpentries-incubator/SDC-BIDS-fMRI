@@ -37,7 +37,7 @@ Nilearn supports a [large selection of different atlases](https://nilearn.github
 
 ### Retrieving the Atlas
 
-For this tutorial we'll be using a set of parcellation from [Yeo et al. 2011](link). This atlas was generated from fMRI data from 1000 healthy control participants.
+For this tutorial we'll be using a set of parcellation from [Yeo et al. 2011](https://doi.org/10.1152/jn.00338.2011). This atlas was generated from fMRI data from 1000 healthy control participants.
 
 First we'll load in our packages as usual:
 

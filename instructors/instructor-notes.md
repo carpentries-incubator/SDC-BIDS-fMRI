@@ -15,8 +15,8 @@ Intro to fMRI analyses is meant to be taught as part of a broader Neuroimaging c
 In summary the core pre-requisites that we expect learners to have some familiarity with are the following:
 
 - Basic Python programming knowledge
-- [DataLad](datalad.org)
-- [BIDS](bids.neuroimaging.io) and the pyBIDS for querying BIDS datasets
+- [DataLad](https://www.datalad.org/)
+- [BIDS](https://bids.neuroimaging.io/) and the pyBIDS for querying BIDS datasets
 - Introductory knowledge about NIFTI data: header, affine, array data, voxel resolution
 
 ## Lesson Design for Instructors
